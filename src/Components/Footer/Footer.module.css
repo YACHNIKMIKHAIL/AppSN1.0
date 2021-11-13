@@ -1,0 +1,51 @@
+*{
+    text-decoration: none;
+}
+.footer {
+    grid-area: footer;
+    /*width: 596px;*/
+    height: 10vh;
+    align-items: end;
+
+}
+
+.content {
+    background-color: rgba(65, 70, 78, 0.7);
+    height: 8.5vh;
+    margin: 0 5px;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "news posts messages profile settings";
+    align-items: start;
+    justify-items: center;
+    color: rgba(127,221,246,1);
+    font-size: 30px;
+    /*font-weight: bold;*/
+
+}
+.news{
+    grid-area: news;
+}
+.posts{
+    grid-area:posts ;
+}
+.messages{
+    grid-area:messages ;
+}
+.profile{
+    grid-area: profile;
+}
+.settings{
+    grid-area:settings ;
+}
+a{
+    color: rgba(127,221,246,1);
+    width: 100%;
+
+}
+.active{
+    font-size: 35px;
+    color: whitesmoke;
+    font-weight: bold;
+}

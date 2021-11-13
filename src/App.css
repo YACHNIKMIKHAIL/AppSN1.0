@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&family=Poppins:wght@200&family=Shalimar&family=Titillium+Web:wght@200&display=swap');
+
+.AppWrapper{
+  background-image: url("./Components/Images/4c749123363599.5fb545a62cf9c.jpg");
+  width: 600px;
+  height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 1fr 7fr 2fr;
+  grid-template-areas: "header" "content" "footer";
+  font-family: 'Titillium Web', sans-serif;
+}

@@ -1,0 +1,20 @@
+.header {
+    grid-area: header;
+    height: 7vh;
+    align-items: start;
+}
+
+.content {
+    background-color: rgba(65, 70, 78, 0.7);
+    height: 6vh;
+    margin: 5px 5px 0 5px;
+    border-radius: 5px;
+    font-size: 30px;
+
+    color: rgba(226, 232, 237, 1);
+    /*rgba(90,164,196,1);*/
+    display: grid;
+    justify-items: start;
+    align-items: center;
+    padding: 0 10px;
+}
