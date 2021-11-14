@@ -9,19 +9,21 @@ import {StateType} from "./Components/redux/state";
 import {Messages} from "./Components/Messages/Messages";
 import {DialogsMessages} from "./Components/Messages/DialogWith/DialogsMessages/DialogsMessages";
 
-type AppPropsType={
-    state:StateType
+type AppPropsType = {
+    state: StateType
 }
-function App(props:AppPropsType) {
+
+function App(props: AppPropsType) {
     return (
         <BrowserRouter>
             <div className="AppWrapper">
                 <Header/>
                 <Routes>
-                    <Route path='/messages' element={<Messages/>}/>
+                    <Route path='/messages' element={<Messages myFriends={props.state.myFriends}/>}/>
                     <Route path='/profile' element={<Profile myInfo={props.state.MyInfo}/>}/>
                     <Route path='/posts' element={<Posts myPosts={props.state.myPosts}/>}/>
-                    <Route path='/dialogMessages' element={<DialogsMessages/>}/>
+                    <Route path='/dialogMessages' element={<DialogsMessages
+                        messages={props.state.myFriends}/>}/>
                 </Routes>
                 {/*<Content/>*/}
                 <Footer/>

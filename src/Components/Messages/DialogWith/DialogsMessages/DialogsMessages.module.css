@@ -1,3 +1,31 @@
 .content{
-    border: 2px solid whitesmoke;
+    border: 2px solid rgba(65, 70, 78, 0.7);
+    overflow: auto;
+    height: 100%;
+    margin: 5px 5px;
+    border-radius: 5px;
+    background-color: rgba(223, 228, 231, 0.5);
+    grid-area: content;
+    height: 82vh;
+    font-size: 20px;
+    font-weight: bold;
+}
+.myMess {;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 3px solid rgba(65, 70, 78, 0.7);
+    color: black;
+    width: 70%;
+    height:max-content;
+}
+.friendMess{
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(65, 70, 78, 0.7);
+    color: white;
+    width: 70%;
+    height:max-content;
+    margin: 5px 5px 5px auto;
 }
