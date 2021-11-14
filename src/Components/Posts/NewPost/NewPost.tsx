@@ -13,7 +13,7 @@ export const NewPost=(props: NewPostPrposType)=> {
                     {pp.text}
                 </div>
                 <div className={s.likes}>
-                    likes:6
+                    likes:{pp.likecount}
                 </div>
             </div>
         )

@@ -2,7 +2,6 @@
     text-align: center;
     font-weight: bold;
     font-size: 40px;
-    border: 1px red solid;
 }
 
 .likes {
@@ -10,13 +9,13 @@
     font-size: 20px;
     margin: 0 10px;
 }
+
 .post {
-   max-width: 590px;
+    word-wrap: break-word;
+    width: 580px;
     color: whitesmoke;
     font-size: 40px;
-    /*display: grid;*/
     margin: 10px;
-    background-color: rgba(127,221,246,0.2);
+    background-color: rgba(127, 221, 246, 0.2);
     border-radius: 5px;
-    border: 1px red solid;
 }

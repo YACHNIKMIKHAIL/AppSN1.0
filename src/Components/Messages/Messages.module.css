@@ -5,4 +5,5 @@
     background-color: rgba(65, 70, 78, 0.7);
     margin: 5px;
     border-radius: 5px;
+    overflow: auto;
 }

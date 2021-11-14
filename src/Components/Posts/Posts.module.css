@@ -1,5 +1,5 @@
 .content {
-    max-width: 590px;
+    /*max-width: 590px;*/
     grid-area: content;
     height: 82vh;
     align-items: center;
@@ -8,26 +8,46 @@
     border-radius: 5px;
     overflow: auto;
     display: grid;
+    grid-template-columns: 100%;
     grid-template-rows: 3fr 1fr;
     grid-template-areas: "post" "newpost";
     align-items: end;
+    justify-items: center;
 }
 
 
 
 .newPost {
+    border: yellow 2px solid;
+    width: 100%;
+    margin: 10px 10px;
+    display: grid;
+    grid-template-areas: "input button";
+    grid-template-columns: 7fr 3fr;
+    justify-content: space-around;
+    align-items: center;
 }
 
-input {
+.input {
+    grid-area:input ;
     width: 70%;
     height: 160%;
     background-color: rgba(89, 92, 93, 0.6);
-    /*margin: 0 10px;*/
+    margin: 0 10px;
+    border: 2px red solid;
 }
 
-button {
+.button {
+    grid-area:button ;
     height: 180%;
     margin: 0 10px;
     background-color: rgba(89, 92, 93, 0.6);
     color: rgba(127, 221, 246, 1);
+    border: 2px blue solid;
+    justify-items: center;
+    align-items: center;
 }
+button{
+    justify-items: center;
+}
+

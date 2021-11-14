@@ -11,8 +11,10 @@ export const Posts = (props:PostsPropsType) => {
         <div className={s.content}>
            <NewPost myPosts={props.myPosts}/>
             <div className={s.newPost}>
-                <input type="text" placeholder='My new post'/>
-                <button>ADD</button> <button>REMOVE</button>
+                <input type="text" placeholder='My new post' className={s.input}/>
+                <div className={s.button}>
+                <button >ADD</button> <button>REMOVE</button>
+                </div>
             </div>
         </div>
     )
