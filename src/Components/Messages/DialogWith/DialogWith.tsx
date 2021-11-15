@@ -12,12 +12,11 @@ export const DialogWith = (props: DialogWithPropsType) => {
 
     let Friend=props.myFriends.map((ff)=>{
         return (
-            <NavLink to={'/dialogMessages'}>
+            // <NavLink to={'/dialogMessages/'}>
                 <>
                     {/*{isClick && <DialogsMessages/>}*/}
                     <div className={s.content}>
                         {/*onClick={() => setIsClick(true)}>*/}
-
                         <img
                             src={ff.img}
                             className={s.image}
@@ -28,11 +27,14 @@ export const DialogWith = (props: DialogWithPropsType) => {
                         {/*link*/}
                     </div>
                 </>
-            </NavLink>)
+            // </NavLink>
+    )
     })
     return (
-        <div>
+        <div className={s.content1}>
+            <>
             {Friend}
+            </>
         </div>
     )
 }

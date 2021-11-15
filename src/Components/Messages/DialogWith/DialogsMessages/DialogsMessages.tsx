@@ -1,6 +1,6 @@
 import React from "react";
 import s from './DialogsMessages.module.css'
-import {AllMessagesType, MyFriendsType} from "../../../redux/state";
+import { MyFriendsType} from "../../../redux/state";
 
 
 type DialogsMessagesPropsType = {
@@ -14,20 +14,35 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
     let myMess = props.messages.map((ff) => {
         return(
             <div className={s.myMess}>
-                {ff.messages.myMess}
+                {ff.messages.myMess.map((mm,) => {
+                    return (
+                        <div>{mm.title}</div>
+                    )
+                })}
             </div>
         )
     })
     let friendMess = props.messages.map((ff) => {
         return(
         <div className={s.friendMess}>
-            {ff.messages.friendMess}
+            {ff.messages.friendMess.map((friendMess) => {
+                return (
+                    <div>{friendMess.title}</div>
+                )
+            })}
         </div>
         )
     })
 
     return (
         <div className={s.content}>
+                {/*onClick={() => setIsClick(true)}>*/}
+                {/*<img/>*/}
+                {/*<div className={s.name}>*/}
+
+                {/*</div>*/}
+                {/*link*/}
+
             <div>
                 {myMess}
             </div>

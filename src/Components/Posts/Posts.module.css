@@ -11,14 +11,12 @@
     grid-template-columns: 100%;
     grid-template-rows: 3fr 1fr;
     grid-template-areas: "post" "newpost";
-    align-items: end;
     justify-items: center;
 }
 
 
 
 .newPost {
-    border: yellow 2px solid;
     width: 100%;
     margin: 10px 10px;
     display: grid;
@@ -34,7 +32,6 @@
     height: 160%;
     background-color: rgba(89, 92, 93, 0.6);
     margin: 0 10px;
-    border: 2px red solid;
 }
 
 .button {
@@ -43,7 +40,6 @@
     margin: 0 10px;
     background-color: rgba(89, 92, 93, 0.6);
     color: rgba(127, 221, 246, 1);
-    border: 2px blue solid;
     justify-items: center;
     align-items: center;
 }

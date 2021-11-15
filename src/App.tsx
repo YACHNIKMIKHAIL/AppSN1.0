@@ -22,8 +22,8 @@ function App(props: AppPropsType) {
                     <Route path='/messages' element={<Messages myFriends={props.state.myFriends}/>}/>
                     <Route path='/profile' element={<Profile myInfo={props.state.MyInfo}/>}/>
                     <Route path='/posts' element={<Posts myPosts={props.state.myPosts}/>}/>
-                    <Route path='/dialogMessages' element={<DialogsMessages
-                        messages={props.state.myFriends}/>}/>
+                    {/*<Route path='/dialogMessages' element={<DialogsMessages*/}
+                    {/*    messages={props.state.myFriends}/>}/>*/}
                 </Routes>
                 {/*<Content/>*/}
                 <Footer/>

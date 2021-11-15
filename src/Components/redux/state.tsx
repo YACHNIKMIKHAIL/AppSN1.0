@@ -35,11 +35,19 @@ export type MyFriendsType = {
     img: string
     id: number
     name: string
-    messages: AllMessagesType
+    messages: MessagesType
 }
-export  type AllMessagesType = {
-    myMess: Array<string>
-    friendMess: Array<string>
+export  type MyMessType = {
+    id: number
+    title: string
+}
+export  type friendMessType = {
+    id: number
+    title: string
+}
+export type MessagesType = {
+    myMess: Array<MyMessType>
+    friendMess: Array<friendMessType>
 }
 export type StateType = {
     myPosts: Array<MyPostsType>
@@ -150,51 +158,20 @@ export const State: StateType = {
             id: 1, name: 'Kolia',
             messages: {
                 myMess: [
-                    'ot only keeps things tidy, but also lowers disk u',
-                    ' avoid race conditions',
-                    'Fixed NVCleanstall window redraw hung for a few seconds after driver installation',
-                    'To fix a compatibility issue with winget, NVCleanstall will now wait for the installer to complete b',
-                    'efore terminating'
+                    {id: 1, title: ' not working due to missing reference to NvModuleTracker'},
+                    {id: 3, title: 'y not working due to missing reference to NvModuleTracker'},
+                    {id: 6, title: 'Fixed Shadorking due to missing reference to NvModuleTracker'},
+                    {id: 7, title: 'o missing reference to NvModuleTracker'},
+                    {id: 9, title: 'wPlay not working due to missing reference to NvModuleTracker'},
                 ],
                 friendMess: [
-                    'Fixed ShadowPlay not working due to missing reference to NvModuleTracker',
-                    'Added optional driver signing mode thats compatible with EasyAntiCheat',
-                    'Once driver signature rebuild is complete, throw away the generated private key for additional security',
-                    'Added button to create self-contained .exe installer with the slimmed driver package',
-                    'Added option to disable NVContainer, which reduces the number of processes even further',
-                    'but breaks GFE and the NVIDIA Control Panel',
-                    'Added options to set Message-Signaled-Interrupt CPU selection and priority',
-                    'Ensure MSI only gets activated on devices with "nvlddmkm" driver'
+                    {id: 2, title: 'owPlay not working due to missing reference to NvModuleTracker'},
+                    {id: 4, title: ' not working due to missing reference to NvModuleTracker'},
+                    {id: 5, title: 't working due to missing reference to NvModuleTracker'},
+                    {id: 8, title: 'y not working due to missing reference to NvModuleTracker'},
+                    {id: 10, title: 'wPlay not working due to missing reference to NvModuleTracker'}
                 ]
             }
         },
-        {
-            img: img3,
-            id: 2, name: 'Vitalia',
-            messages: {
-                myMess: [
-                    'ot only keeps things tidy, but also lowers disk u',
-                    ' avoid race conditions'
-                ],
-                friendMess: [
-                    'Added option to disable NVContainer, which reduces the number of processes even further',
-                    'but breaks GFE and the NVIDIA Control Panel',
-                    'Added options to set Message-Signaled-Interrupt CPU selection and priority',
-                    'Ensure MSI only gets activated on devices with "nvlddmkm" driver'
-                ]
-            }
-        },
-        {
-            img: img4,
-            id: 3, name: 'Igor',
-            messages: {
-                myMess: [
-                    'ot only keeps things tidy, but also lowers disk u'
-                ],
-                friendMess: [
-                    'Added option to disable NVContainer, which reduces the number of processes even further'
-                ]
-            }
-        }
     ]
 }

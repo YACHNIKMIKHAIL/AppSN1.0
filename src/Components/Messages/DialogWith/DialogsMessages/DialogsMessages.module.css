@@ -1,12 +1,12 @@
 .content{
     border: 2px solid rgba(65, 70, 78, 0.7);
     overflow: auto;
-    height: 100%;
     margin: 5px 5px;
     border-radius: 5px;
     background-color: rgba(223, 228, 231, 0.5);
     grid-area: content;
-    height: 82vh;
+    /*height: 82vh;*/
+    height: 47vh;
     font-size: 20px;
     font-weight: bold;
 }

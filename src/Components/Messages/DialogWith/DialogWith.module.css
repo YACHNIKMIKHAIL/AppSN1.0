@@ -1,6 +1,7 @@
 .content {
-    overflow: auto;
-    height: 15%;
+    /*overflow: auto;*/
+    /*height: 15%;*/
+    height: 40px;
     margin: 5px 5px;
     border-radius: 5px;
     background-color: rgba(223, 228, 231, 0.5);
@@ -9,6 +10,10 @@
     grid-template-columns: 1fr 5fr;
     justify-items: center;
     align-items: center;
+}
+.content1{
+    height: 40%;
+    overflow: auto;
 }
 
 .image {
