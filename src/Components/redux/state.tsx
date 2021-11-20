@@ -2,6 +2,7 @@ import img1 from './../Images/avas/images (1).jpeg'
 import img2 from './../Images/avas/images.jpeg'
 import img3 from './../Images/avas/images (2).jpeg'
 import img4 from './../Images/avas/images (3).jpeg'
+import {rerenderEntireTree} from "../../render";
 
 export type MyPostsType = {
     id: number
@@ -50,34 +51,28 @@ export type MessagesType = {
     friendMess: Array<friendMessType>
 }
 export type StateType = {
+    newPostText:string
     myPosts: Array<MyPostsType>
     MyInfo: MyInfoType
     myFriends: Array<MyFriendsType>
-    // addPost:(postMessage:string)=>void
 }
 
-export const State: StateType = {
+export let state: StateType = {
+    newPostText:'My new POST!',
     myPosts: [
         {
             id: 1,
-            text: "bably heard it a dozen times before, but social media needs to be part of your online strategy. " +
-                "Whether you have a website, personal blog or webshop, social media allows you to reach and connect " +
-                "with your audience. To get new people into contact with you and to stay top of mind with your current " +
-                "customer base or followers. But where to start",
+            text: " But where to start",
             likecount: 76
         },
         {
             id: 2,
-            text: "actory is an American chain of restaurants, localized around the world. If you’re not familiar" +
-                " with it, you may recognize the name from the hit series The Big Bang Theory. They have a large " +
-                "following on Facebook and regularly post about food that’s on their menu. These posts get a lot of ",
+            text: "actory is an American  se posts get a lot of ",
             likecount: 46
         },
         {
             id: 3,
-            text: "und the world. But what this example shows us is that a restaurant can do very well on social" +
-                " media by using nothing more than humor and quality pictures. Which keeps the audience entertained " +
-                "and attracts them to the restaurant by showing what’s on the me",
+            text: "und the world. But whathat’s on the me",
             likecount: 32
         }
 
@@ -186,11 +181,18 @@ export const State: StateType = {
     ],
 
 }
-export let addPost = (postMessage: string) => {
+export let addPost = () => {
     let newPost: MyPostsType = {
         id: 5,
-        text: postMessage,
+        text: state.newPostText,
         likecount: 0
     };
-    State.myPosts.push(newPost)
+    state.myPosts.push(newPost)
+    state.newPostText=''
+    rerenderEntireTree({State:state})
+}
+export let updateNewPost = (newText:string) => {
+
+    state.newPostText=newText
+    rerenderEntireTree({State:state})
 }
