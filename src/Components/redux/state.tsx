@@ -53,6 +53,7 @@ export type StateType = {
     myPosts: Array<MyPostsType>
     MyInfo: MyInfoType
     myFriends: Array<MyFriendsType>
+    // addPost:(postMessage:string)=>void
 }
 
 export const State: StateType = {
@@ -78,59 +79,8 @@ export const State: StateType = {
                 " media by using nothing more than humor and quality pictures. Which keeps the audience entertained " +
                 "and attracts them to the restaurant by showing what’s on the me",
             likecount: 32
-        },
-        {
-            id: 4,
-            text: "und the world. But what this example shows us is that a restaurant can do very well on social " +
-                "media by using nothing more than humor and quality pictures. Which keeps the audience entertained and" +
-                " attracts them to the restaurant by showing what’s on the me",
-            likecount: 46
-        },
-        {
-            id: 5,
-            text: "und the world. But what this example shows us is that a restaurant can do very well on social" +
-                " media by using nothing more than humor and quality pictures. Which keeps the audience entertained and" +
-                " attracts them to the restaurant by showing what’s on the me",
-            likecount: 76
-        },
-        {
-            id: 6,
-            text: "und the world. But what this example shows us is that a restaurant can do very well on social " +
-                "media by using nothing more than humor and quality pictures. Which keeps the audience entertained and " +
-                "attracts them to the restaurant by showing what’s on the me",
-            likecount: 92
-        },
-        {
-            id: 7,
-            text: "ite popular and their mission is to make chocolate 100% slave-free. As they are opinionated, " +
-                "which fits their mission, they often g",
-            likecount: 46
-        },
-        {
-            id: 8,
-            text: "ite popular and their mission is to make chocolate 100% slave-free. As they are opinionated," +
-                " which fits their mission, they often g",
-            likecount: 46
-        },
-        {
-            id: 9, text: ", who also makes these earrings herself. And to celebrate that her account now has 1000 " +
-                "followers she decided to do another giveaway. Mind you, this may be a smaller business, but her " +
-                "Instagram account is only four months old and she already had 500 followers after the first month.",
-            likecount: 46
-        },
-        {
-            id: 10, text: ", who also makes these earrings herself. And to celebrate that her account now has 1000 " +
-                "followers she decided to do another giveaway. Mind you, this may be a smaller business, but her " +
-                "Instagram account is only four months old and she already had 500 followers after the first month.",
-            likecount: 46
-        },
-        {
-            id: 11,
-            text: "g away some of your expertise for free in posts like this one, people will be more inclined to " +
-                "follow you online and remember your brand. It may feel a bit contradictory, but by helping people do " +
-                "some stuff by themselves they will come to you when they need more ",
-            likecount: 46
-        },
+        }
+
     ],
     MyInfo: {
         avatar: img1,
@@ -158,20 +108,89 @@ export const State: StateType = {
             id: 1, name: 'Kolia',
             messages: {
                 myMess: [
-                    {id: 1, title: ' not working due to missing reference to NvModuleTracker'},
-                    {id: 3, title: 'y not working due to missing reference to NvModuleTracker'},
-                    {id: 6, title: 'Fixed Shadorking due to missing reference to NvModuleTracker'},
-                    {id: 7, title: 'o missing reference to NvModuleTracker'},
-                    {id: 9, title: 'wPlay not working due to missing reference to NvModuleTracker'},
+                    {id: 1, title: '1 not working due to missing reference to NvModuleTracker'},
+                    {id: 3, title: '3 not working due to missing reference to NvModuleTracker'},
+                    {id: 6, title: '6 Shadorking due to missing reference to NvModuleTracker'},
+                    {id: 7, title: '7 missing reference to NvModuleTracker'},
+                    {id: 9, title: '9 not working due to missing reference to NvModuleTracker'},
                 ],
                 friendMess: [
-                    {id: 2, title: 'owPlay not working due to missing reference to NvModuleTracker'},
-                    {id: 4, title: ' not working due to missing reference to NvModuleTracker'},
-                    {id: 5, title: 't working due to missing reference to NvModuleTracker'},
-                    {id: 8, title: 'y not working due to missing reference to NvModuleTracker'},
-                    {id: 10, title: 'wPlay not working due to missing reference to NvModuleTracker'}
+                    {id: 2, title: '2 not working due to missing reference to NvModuleTracker'},
+                    {id: 4, title: ' 4 working due to missing reference to NvModuleTracker'},
+                    {id: 5, title: '5 working due to missing reference to NvModuleTracker'},
+                    {id: 8, title: '8 not working due to missing reference to NvModuleTracker'},
+                    {id: 10, title: '10 not working due to missing reference to NvModuleTracker'}
                 ]
             }
         },
-    ]
+        {
+            img: img1,
+            id: 2, name: 'Igor',
+            messages: {
+                myMess: [
+                    {id: 1, title: '1 not working due to missing reference to NvModuleTracker'},
+                    {id: 3, title: '3 not working due to missing reference to NvModuleTracker'},
+                    {id: 6, title: '6 Shadorking due to missing reference to NvModuleTracker'},
+                    {id: 7, title: '7 missing reference to NvModuleTracker'},
+                    {id: 9, title: '9 not working due to missing reference to NvModuleTracker'},
+                ],
+                friendMess: [
+                    {id: 2, title: '2 not working due to missing reference to NvModuleTracker'},
+                    {id: 4, title: '4 not working due to missing reference to NvModuleTracker'},
+                    {id: 5, title: '5 working due to missing reference to NvModuleTracker'},
+                    {id: 8, title: '8 not working due to missing reference to NvModuleTracker'},
+                    {id: 10, title: '10 not working due to missing reference to NvModuleTracker'}
+                ]
+            }
+        },
+        {
+            img: img3,
+            id: 3, name: 'Vitalia',
+            messages: {
+                myMess: [
+                    {id: 1, title: '1 not working due to missing reference to NvModuleTracker'},
+                    {id: 3, title: '3 not working due to missing reference to NvModuleTracker'},
+                    {id: 6, title: '6 Shadorking due to missing reference to NvModuleTracker'},
+                    {id: 7, title: '7 missing reference to NvModuleTracker'},
+                    {id: 9, title: '9 not working due to missing reference to NvModuleTracker'},
+                ],
+                friendMess: [
+                    {id: 2, title: '1 not working due to missing reference to NvModuleTracker'},
+                    {id: 4, title: '4 not working due to missing reference to NvModuleTracker'},
+                    {id: 5, title: '5 working due to missing reference to NvModuleTracker'},
+                    {id: 8, title: '8 not working due to missing reference to NvModuleTracker'},
+                    {id: 10, title: '10 to missing reference to NvModuleTracker'}
+                ]
+            }
+        },
+        {
+            img: img4,
+            id: 4, name: 'Egor',
+            messages: {
+                myMess: [
+                    {id: 1, title: '1 nossing reference to NvModuleTracker'},
+                    {id: 3, title: '3 not wissing reference to NvModuleTracker'},
+                    {id: 6, title: '6 due to missing reference to NvModuleTracker'},
+                    {id: 7, title: '7 e to NvModuleTracker'},
+                    {id: 9, title: '9 due to missing reference to NvModuleTracker'},
+                ],
+                friendMess: [
+                    {id: 2, title: '2 due to missing reference to NvModuleTracker'},
+                    {id: 4, title: '4 ue to missing reference to NvModuleTracker'},
+                    {id: 5, title: '5 reference to NvModuleTracker'},
+                    {id: 8, title: '8 to missing reference to NvModuleTracker'},
+                    {id: 10, title: '10 missing reference to NvModuleTracker'}
+                ]
+            }
+        },
+    ],
+
+}
+export let addPost = (postMessage: string) => {
+    let newPost: MyPostsType = {
+        id: 5,
+        text: postMessage,
+        likecount: 0
+    };
+    State.myPosts.push(newPost)
 }
