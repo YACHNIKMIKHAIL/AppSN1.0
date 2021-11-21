@@ -2,7 +2,8 @@ import img1 from './../Images/avas/images (1).jpeg'
 import img2 from './../Images/avas/images.jpeg'
 import img3 from './../Images/avas/images (2).jpeg'
 import img4 from './../Images/avas/images (3).jpeg'
-import {rerenderEntireTree} from "../../render";
+import {RerenderEntireTreePropsType} from "../../index";
+
 
 export type MyPostsType = {
     id: number
@@ -51,14 +52,15 @@ export type MessagesType = {
     friendMess: Array<friendMessType>
 }
 export type StateType = {
-    newPostText:string
+    newPostText: string
     myPosts: Array<MyPostsType>
     MyInfo: MyInfoType
     myFriends: Array<MyFriendsType>
 }
 
+
 export let state: StateType = {
-    newPostText:'My new POST!',
+    newPostText: 'My new POST!',
     myPosts: [
         {
             id: 1,
@@ -181,18 +183,25 @@ export let state: StateType = {
     ],
 
 }
-export let addPost = () => {
+let rerenderEntireTree = (props: RerenderEntireTreePropsType) => {
+    console.log('My name is PAIN!!!')
+}
+
+export const addPost = () => {
     let newPost: MyPostsType = {
         id: 5,
         text: state.newPostText,
         likecount: 0
     };
     state.myPosts.push(newPost)
-    state.newPostText=''
-    rerenderEntireTree({State:state})
+    state.newPostText = ''
+    rerenderEntireTree({State: state})
 }
-export let updateNewPost = (newText:string) => {
+export const updateNewPost = (newText: string) => {
 
-    state.newPostText=newText
-    rerenderEntireTree({State:state})
+    state.newPostText = newText
+    rerenderEntireTree({State: state})
+}
+export const subscribe = (observer: any) => {
+    rerenderEntireTree = observer
 }
