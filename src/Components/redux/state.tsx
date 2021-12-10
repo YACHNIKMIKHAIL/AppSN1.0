@@ -3,6 +3,7 @@ import img2 from './../Images/avas/images.jpeg'
 import img3 from './../Images/avas/images (2).jpeg'
 import img4 from './../Images/avas/images (3).jpeg'
 import {RerenderEntireTreePropsType} from "../../index";
+import {strict} from "assert";
 
 
 export type MyPostsType = {
@@ -65,7 +66,15 @@ export type StoreType = {
     // addPost: () => void
     // updateNewPost: (newText: string) => void
     subscribe: (observer: any) => void
-    dispatch:(action:any)=>void
+    dispatch: (action: AddPostActionType | UpdateNewPostTextActionType) => void
+}
+type AddPostActionType = {
+    type: 'ADD-POST',
+    newPostText: string
+}
+type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT',
+    newText: string
 }
 
 
@@ -217,8 +226,8 @@ export let store: StoreType = {
     //     this._state.newPostText = newText
     //     this._callSubsriber({State: this._state})
     // },
-    dispatch(action){
-        if(action.type==='ADD-POST'){
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
             let newPost: MyPostsType = {
                 // date: new Date().getTime(),
                 id: new Date().getTime(),
@@ -228,7 +237,7 @@ export let store: StoreType = {
             this._state.myPosts.push(newPost)
             this._state.newPostText = ''
             this._callSubsriber({State: this._state})
-        }else if( action.type==='UPDATE-NEW-POST-TEXT'){
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.newPostText = action.newText
             this._callSubsriber({State: this._state})
         }
