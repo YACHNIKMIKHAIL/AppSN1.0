@@ -111,21 +111,24 @@ export let store: StoreType = {
     _state: {
         newPostText: 'My new POST!',
         myPosts: [
-            // {
-            //     id: 1,
-            //     text: " But where to start",
-            //     likecount: 76
-            // },
-            // {
-            //     id: 2,
-            //     text: "actory is an American  se posts get a lot of ",
-            //     likecount: 46
-            // },
-            // {
-            //     id: 3,
-            //     text: "und the world. But whathat’s on the me",
-            //     likecount: 32
-            // }
+            {
+                date: new Date().getTime(),
+                id: 1,
+                text: " But where to start",
+                likecount: 76
+            },
+            {
+                date: new Date().getTime(),
+                id: 2,
+                text: "actory is an American  se posts get a lot of ",
+                likecount: 46
+            },
+            {
+                date: new Date().getTime(),
+                id: 3,
+                text: "und the world. But whathat’s on the me",
+                likecount: 32
+            }
 
         ],
         MyInfo: {
@@ -197,8 +200,10 @@ export let store: StoreType = {
     //     this._callSubsriber({State: this._state})
     // },
     dispatch(action) {
-        this._state.myPosts= newPostReducer(this._state.myPosts,action)
-        this._state.myFriends.newMessageBody= newMessageReducer(this._state.myFriends.newMessageBody,action)
+        // let initState = this._state.myPosts
+        // this._state.myPosts = newPostReducer(initState, action)
+        this._state = newPostReducer(this._state, action)
+        this._state.myFriends.newMessageBody = newMessageReducer(this._state.myFriends.newMessageBody, action)
 
         this._callSubsriber({State: this._state})
     }

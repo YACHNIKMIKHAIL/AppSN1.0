@@ -3,23 +3,23 @@ import {ActionsTypes, MyPostsType, StateType, StoreType} from "./state";
 const addPost = 'ADD-POST';
 const updateNewPostText = 'UPDATE-NEW-POST-TEXT';
 
- const newPostReducer = (state:any,action:ActionsTypes) => {
+ const newPostReducer = (_state:StateType,action:ActionsTypes): StateType => {
 
     if (action.type === addPost) {
         let newPost: MyPostsType = {
             date: new Date().getTime(),
-            id: new Date().getTime(),
-            text: state.newPostText,
+            id: 4,
+            text: _state.newPostText,
             likecount: 0
         }
-        state.myPosts.push(newPost)
-        state.newPostText = ''
+        _state.myPosts.push(newPost)
+        _state.newPostText = ''
         // state._callSubsriber({State: state})
     } else if (action.type === updateNewPostText) {
-        state.newPostText = action.newText
+        _state.newPostText = action.newText
         // state._callSubsriber({State: state})
 }
-    return state
+    return _state
 }
 
 export default newPostReducer
