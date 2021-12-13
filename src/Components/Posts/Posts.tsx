@@ -3,9 +3,7 @@ import s from './Posts.module.css'
 import {NewPost} from "./NewPost/NewPost";
 import {
     addPostAC,
-    addPostsActionCreator,
     MyPostsType,
-    onPostChangeActionCreator,
     UpdateNewPostTextAC
 } from "../redux/state";
 

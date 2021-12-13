@@ -1,10 +1,8 @@
 import React, {ChangeEvent} from "react";
 import s from './DialogsMessages.module.css'
 import {
-    MyFriendsType,
-    sendMessageCreator, sendNewMessageAC,
+    MyFriendsType, sendNewMessageAC,
     updateNewMessageBodyAC,
-    updateNewMessageBodyCreator
 } from "../../../redux/state";
 
 

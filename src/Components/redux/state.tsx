@@ -63,7 +63,7 @@ export type StoreType = {
     _callSubsriber: (props: RerenderEntireTreePropsType) => void
     // addPost: () => void
     // updateNewPost: (newText: string) => void
-    subscribe: (observer: () => void) => void
+    subscribe: (observer: any) => void
     dispatch: (action: ActionsTypes) => void
 }
 
