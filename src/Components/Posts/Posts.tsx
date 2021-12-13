@@ -1,7 +1,13 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from './Posts.module.css'
 import {NewPost} from "./NewPost/NewPost";
-import {addPostsActionCreator, MyPostsType, onPostChangeActionCreator} from "../redux/state";
+import {
+    addPostAC,
+    addPostsActionCreator,
+    MyPostsType,
+    onPostChangeActionCreator,
+    UpdateNewPostTextAC
+} from "../redux/state";
 
 
 type PostsPropsType = {
@@ -13,7 +19,6 @@ type PostsPropsType = {
 }
 
 
-
 export const Posts = (props: PostsPropsType) => {
 
     let newPostElement = React.createRef<HTMLInputElement>();
@@ -21,21 +26,20 @@ export const Posts = (props: PostsPropsType) => {
     let addPosts = () => {
         // let text = newPostElement.current!.value;
         // props.dispatch({type: 'ADD-POST', text: text})
-        props.dispatch(addPostsActionCreator())
+        props.dispatch(addPostAC())
     }
-    let onPostChange = () => {
-        let newText = newPostElement.current!.value;
+    let onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
+        let newText = e.currentTarget.value;
         // props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text})
-        props.dispatch(onPostChangeActionCreator(newText))
+        props.dispatch(UpdateNewPostTextAC(newText))
         console.log(newText)
     }
-
     return (
         <div className={s.content}>
             <NewPost myPosts={props.myPosts}/>
             <div className={s.newPost}>
                 <input type="text"
-                       onChange={onPostChange}
+                       onChange={(e) => onPostChange(e)}
                        value={props.newPostText}
                        className={s.input}
                        ref={newPostElement}/>

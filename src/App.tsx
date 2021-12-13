@@ -16,11 +16,11 @@ type AppPropsType = {
 
 function App(props: AppPropsType) {
     return (
-        <BrowserRouter>
             <div className="AppWrapper">
                 <Header/>
                 <Routes>
-                    <Route path='/messages' element={<Messages myFriends={props.state.myFriends}/>}/>
+                    <Route path='/messages' element={<Messages myFriends={props.state.myFriends}
+                    dispatch={props.dispatch}/>}/>
                     <Route path='/profile' element={<Profile
                         myInfo={props.state.MyInfo}/>}/>
                     <Route path='/posts' element={<Posts
@@ -33,7 +33,6 @@ function App(props: AppPropsType) {
                 {/*<Content/>*/}
                 <Footer/>
             </div>
-        </BrowserRouter>
     );
 }
 

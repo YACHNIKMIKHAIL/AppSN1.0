@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {StateType} from "./Components/redux/state";
+import {BrowserRouter} from "react-router-dom";
 
 
 export type RerenderEntireTreePropsType = {
@@ -13,12 +14,14 @@ export type RerenderEntireTreePropsType = {
 }
 const rerenderEntireTree = (props: RerenderEntireTreePropsType) => {
     ReactDOM.render(
-        <React.StrictMode>
+         
+            <BrowserRouter>
             <App state={store._state}
                  dispatch={store.dispatch.bind(store)}
                  // updateNewPost={store.updateNewPost.bind(store)}
             />
-        </React.StrictMode>,
+            </BrowserRouter>
+         ,
         document.getElementById('root')
     )
 }
