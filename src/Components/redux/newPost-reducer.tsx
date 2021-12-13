@@ -14,10 +14,8 @@ const updateNewPostText = 'UPDATE-NEW-POST-TEXT';
         }
         _state.myPosts.push(newPost)
         _state.newPostText = ''
-        // state._callSubsriber({State: state})
     } else if (action.type === updateNewPostText) {
         _state.newPostText = action.newText
-        // state._callSubsriber({State: state})
 }
     return _state
 }

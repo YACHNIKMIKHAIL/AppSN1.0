@@ -24,7 +24,6 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
         props.dispatch(sendNewMessageAC())
     }
     const onNewMassageChange = (e: ChangeEvent<HTMLInputElement>) => {
-        // e.currentTarget.value
         props.dispatch(updateNewMessageBodyAC(e.currentTarget.value))
     }
 
@@ -56,7 +55,6 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
                        placeholder='New Message'
                        value={props.newMessageBody}
                        onChange={onNewMassageChange}
-                    // ref={newMessageElement}
                 />
                 <button onClick={onSendMessageClick}>Send</button>
             </div>

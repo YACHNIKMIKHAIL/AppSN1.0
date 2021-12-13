@@ -14,14 +14,12 @@ export type RerenderEntireTreePropsType = {
 }
 const rerenderEntireTree = (props: RerenderEntireTreePropsType) => {
     ReactDOM.render(
-         
-            <BrowserRouter>
+        <BrowserRouter>
             <App state={store._state}
                  dispatch={store.dispatch.bind(store)}
-                 // updateNewPost={store.updateNewPost.bind(store)}
             />
-            </BrowserRouter>
-         ,
+        </BrowserRouter>
+        ,
         document.getElementById('root')
     )
 }

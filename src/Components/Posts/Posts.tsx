@@ -22,13 +22,10 @@ export const Posts = (props: PostsPropsType) => {
     let newPostElement = React.createRef<HTMLInputElement>();
 
     let addPosts = () => {
-        // let text = newPostElement.current!.value;
-        // props.dispatch({type: 'ADD-POST', text: text})
         props.dispatch(addPostAC())
     }
     let onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
         let newText = e.currentTarget.value;
-        // props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text})
         props.dispatch(UpdateNewPostTextAC(newText))
         console.log(newText)
     }
