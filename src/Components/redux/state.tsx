@@ -1,8 +1,8 @@
 import img1 from './../Images/avas/images (1).jpeg'
 import img2 from './../Images/avas/images.jpeg'
 import {RerenderEntireTreePropsType} from "../../index";
-import newPostReducer from "./newPost-reducer";
-import newMessageReducer from "./newMessage-reducer";
+import newPostReducer, {addPostAC, UpdateNewPostTextAC} from "./newPost-reducer";
+import newMessageReducer, {sendNewMessageAC, updateNewMessageBodyAC} from "./newMessage-reducer";
 
 
 export type MyPostsType = {
@@ -75,31 +75,9 @@ export type ActionsTypes =
     | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendNewMessageAC>
 
-export const addPostAC = () => {
-    return {
-        type: 'ADD-POST'
-    } as const
-}
 
-export const UpdateNewPostTextAC = (newText: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newText: newText
-    } as const
-}
 
-export const updateNewMessageBodyAC = (body: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
-        body: body
-    } as const
-}
 
-export const sendNewMessageAC = () => {
-    return {
-        type: 'SEND-NEW-MESSAGE'
-    } as const
-}
 
 export let store: StoreType = {
     _state: {

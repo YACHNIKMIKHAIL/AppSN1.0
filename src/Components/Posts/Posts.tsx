@@ -3,9 +3,9 @@ import s from './Posts.module.css'
 import {NewPost} from "./NewPost/NewPost";
 import {
     addPostAC,
-    MyPostsType,
     UpdateNewPostTextAC
-} from "../redux/state";
+} from "../redux/newPost-reducer";
+import {MyPostsType} from './../redux/state'
 
 
 type PostsPropsType = {

@@ -1,14 +1,14 @@
 import React, {ChangeEvent} from "react";
 import s from './DialogsMessages.module.css'
 import {
-    MyFriendsType, sendNewMessageAC,
+    sendNewMessageAC,
     updateNewMessageBodyAC,
-} from "../../../redux/state";
+} from "../../../redux/newMessage-reducer";
+import {MyFriendsType} from './../../../redux/state'
 
 
 type DialogsMessagesPropsType = {
     messages: MyFriendsType
-    // sendMessage:()=>void
     dispatch: (action: any) => void
     newMessageBody: string
 }
