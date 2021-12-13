@@ -3,11 +3,10 @@ import img2 from './../Images/avas/images.jpeg'
 import img3 from './../Images/avas/images (2).jpeg'
 import img4 from './../Images/avas/images (3).jpeg'
 import {RerenderEntireTreePropsType} from "../../index";
-import {strict} from "assert";
 
 
 export type MyPostsType = {
-    // date:()=>void
+    date:number
     id: number
     text: string
     likecount: number
@@ -85,6 +84,10 @@ const UpdateNewPostTextAC = (newText: string) => {
     } as const
 }
 
+
+
+const addPost = 'ADD-POST';
+const updateNewPostText = 'UPDATE-NEW-POST-TEXT';
 
 export let store: StoreType = {
     _state: {
@@ -235,9 +238,9 @@ export let store: StoreType = {
     //     this._callSubsriber({State: this._state})
     // },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === addPost) {
             let newPost: MyPostsType = {
-                // date: new Date().getTime(),
+                date: new Date().getTime(),
                 id: new Date().getTime(),
                 text: this._state.newPostText,
                 likecount: 0
@@ -245,10 +248,21 @@ export let store: StoreType = {
             this._state.myPosts.push(newPost)
             this._state.newPostText = ''
             this._callSubsriber({State: this._state})
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === updateNewPostText) {
             this._state.newPostText = action.newText
             this._callSubsriber({State: this._state})
         }
+    }
+}
+
+export const addPostsActionCreator = () => {
+    return {
+        type: addPost
+    }
+}
+export const onPostChangeActionCreator = (newText:string) => {
+    return {
+        type: {type: updateNewPostText, newText: newText}
     }
 }
 
