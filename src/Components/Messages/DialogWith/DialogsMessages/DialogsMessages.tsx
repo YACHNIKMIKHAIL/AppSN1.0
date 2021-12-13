@@ -53,6 +53,7 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
             </div>
             <div className={s.teaxtarea}>
                 <input type="text"
+                       placeholder='New Message'
                        value={props.newMessageBody}
                        onChange={onNewMassageChange}
                     // ref={newMessageElement}

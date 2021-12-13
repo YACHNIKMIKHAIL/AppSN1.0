@@ -1,6 +1,8 @@
 import img1 from './../Images/avas/images (1).jpeg'
 import img2 from './../Images/avas/images.jpeg'
 import {RerenderEntireTreePropsType} from "../../index";
+import newPostReducer from "./newPost-reducer";
+import newMessageReducer from "./newMessage-reducer";
 
 
 export type MyPostsType = {
@@ -100,10 +102,10 @@ export const sendNewMessageAC = () => {
 }
 
 
-const addPost = 'ADD-POST';
-const updateNewPostText = 'UPDATE-NEW-POST-TEXT';
-const updateNewMessageBody = 'UPDATE-NEW-MESSAGE-TEXT';
-const sendNewMessage = 'SEND-NEW-MESSAGE';
+// const addPost = 'ADD-POST';
+// const updateNewPostText = 'UPDATE-NEW-POST-TEXT';
+// const updateNewMessageBody = 'UPDATE-NEW-MESSAGE-TEXT';
+// const sendNewMessage = 'SEND-NEW-MESSAGE';
 
 export let store: StoreType = {
     _state: {
@@ -195,29 +197,34 @@ export let store: StoreType = {
     //     this._callSubsriber({State: this._state})
     // },
     dispatch(action) {
-        if (action.type === addPost) {
-            let newPost: MyPostsType = {
-                date: new Date().getTime(),
-                id: new Date().getTime(),
-                text: this._state.newPostText,
-                likecount: 0
-            }
-            this._state.myPosts.push(newPost)
-            this._state.newPostText = ''
-            this._callSubsriber({State: this._state})
-        } else if (action.type === updateNewPostText) {
-            this._state.newPostText = action.newText
-            this._callSubsriber({State: this._state})
-        } else if (action.type === updateNewMessageBody) {
-            this._state.myFriends.newMessageBody = action.body
-            this._callSubsriber({State: this._state})
-        } else if (action.type === sendNewMessage) {
-            let boby = this._state.myFriends.newMessageBody
-            this._state.myFriends.newMessageBody = ''
-            this._state.myFriends.messages.myMess.push({id: 11, title: boby})
-            this._callSubsriber({State: this._state})
-        }
+        this._state.myPosts= newPostReducer(this._state.myPosts,action)
+        this._state.myFriends.newMessageBody= newMessageReducer(this._state.myFriends.newMessageBody,action)
+
+        this._callSubsriber({State: this._state})
     }
+    //     if (action.type === addPost) {
+    //         let newPost: MyPostsType = {
+    //             date: new Date().getTime(),
+    //             id: new Date().getTime(),
+    //             text: this._state.newPostText,
+    //             likecount: 0
+    //         }
+    //         this._state.myPosts.push(newPost)
+    //         this._state.newPostText = ''
+    //         this._callSubsriber({State: this._state})
+    //     } else if (action.type === updateNewPostText) {
+    //         this._state.newPostText = action.newText
+    //         this._callSubsriber({State: this._state})
+    //     } else if (action.type === updateNewMessageBody) {
+    //         this._state.myFriends.newMessageBody = action.body
+    //         this._callSubsriber({State: this._state})
+    //     } else if (action.type === sendNewMessage) {
+    //         let boby = this._state.myFriends.newMessageBody
+    //         this._state.myFriends.newMessageBody = ''
+    //         this._state.myFriends.messages.myMess.push({id: 11, title: boby})
+    //         this._callSubsriber({State: this._state})
+    //     }
+    // }
 }
 
 
