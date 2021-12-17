@@ -62,7 +62,7 @@ export type StateType = {
 export type StoreType = {
     _state: StateType
     getState: () => StateType
-    _callSubsriber: (props: RerenderEntireTreePropsType) => void
+    _callSubsriber: (state: StateType) => void
     // addPost: () => void
     // updateNewPost: (newText: string) => void
     subscribe: (observer: any) => void
@@ -130,25 +130,17 @@ export let store: StoreType = {
                 name: 'Vitalya',
                 messages: {
                     myMess: [
-                        {id: 1, title: '1 not working due to missing reference to NvModuleTracker'},
-                        {id: 3, title: '3 not working due to missing reference to NvModuleTracker'},
-                        {id: 6, title: '6 Shadorking due to missing reference to NvModuleTracker'},
-                        {id: 7, title: '7 missing reference to NvModuleTracker'},
-                        {id: 9, title: '9 not working due to missing reference to NvModuleTracker'},
+                        {id: 1, title: '1 not working due to missing reference to NvModuleTracker'}
                     ],
                     friendMess: [
-                        {id: 2, title: '2 not working due to missing reference to NvModuleTracker'},
-                        {id: 4, title: ' 4 working due to missing reference to NvModuleTracker'},
-                        {id: 5, title: '5 working due to missing reference to NvModuleTracker'},
-                        {id: 8, title: '8 not working due to missing reference to NvModuleTracker'},
-                        {id: 10, title: '10 not working due to missing reference to NvModuleTracker'}
+                        {id: 2, title: '2 not working due to missing reference to NvModuleTracker'}
                     ],
                 },
                 newMessageBody: ''
             },
 
     },
-    _callSubsriber(props: RerenderEntireTreePropsType) {
+    _callSubsriber(state: StateType) {
         console.log('My name is PAIN!!!')
     },
     getState() {
@@ -172,10 +164,10 @@ export let store: StoreType = {
     //     this._callSubsriber({State: this._state})
     // },
     dispatch(action) {
-        this._state = newPostReducer(this._state, action)
-        this._state.myFriends = newMessageReducer(this._state.myFriends, action)
+        // this._state = newPostReducer(this._state, action)
+        // this._state.myFriends = newMessageReducer(this._state.myFriends, action)
 
-        this._callSubsriber({State: this._state})
+        this._callSubsriber(this._state)
     }
 }
 

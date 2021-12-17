@@ -7,9 +7,10 @@ import {Profile} from "./Components/Profile/Profile";
 import {Posts} from "./Components/Posts/Posts";
 import {StateType} from "./Components/redux/stote";
 import {Messages} from "./Components/Messages/Messages";
+import {AppStateType} from "./Components/redux/reduxStore";
 
 type AppPropsType = {
-    state: StateType
+    state: AppStateType
     dispatch: (action: any) => void
 }
 
@@ -18,13 +19,13 @@ function App(props: AppPropsType) {
         <div className="AppWrapper">
             <Header/>
             <Routes>
-                <Route path='/messages' element={<Messages myFriends={props.state.myFriends}
+                <Route path='/messages' element={<Messages myFriends={props.state.myFriends.myFriends}
                                                            dispatch={props.dispatch}/>}/>
-                <Route path='/profile' element={<Profile
-                    myInfo={props.state.MyInfo}/>}/>
+                {/*<Route path='/profile' element={<Profile*/}
+                {/*    myInfo={props.state.}/>}/>*/}
                 <Route path='/posts' element={<Posts
-                    newPostText={props.state.newPostText}
-                    myPosts={props.state.myPosts}
+                    newPostText={props.state.myPosts.newPostText}
+                    myPosts={props.state.myPosts.myPosts}
                     dispatch={props.dispatch}/>}
                 />
             </Routes>

@@ -3,24 +3,53 @@ import {ActionsTypes, MyPostsType, StateType} from "./stote";
 const addPost = 'ADD-POST';
 const updateNewPostText = 'UPDATE-NEW-POST-TEXT';
 
-const newPostReducer = (_state: StateType, action: ActionsTypes): StateType => {
+type InitialType = {
+    newPostText: string
+    myPosts: Array<MyPostsType>
+}
+let initialState: InitialType = {
+    newPostText:'',
+    myPosts: [
+        {
+            date: new Date().getTime(),
+            id: 1,
+            text: " But where to start",
+            likecount: 76
+        },
+        {
+            date: new Date().getTime(),
+            id: 2,
+            text: "actory is an American  se posts get a lot of ",
+            likecount: 46
+        },
+        {
+            date: new Date().getTime(),
+            id: 3,
+            text: "und the world. But whathat’s on the me",
+            likecount: 32
+        }
+
+    ]
+}
+
+const newPostReducer = (state = initialState, action: ActionsTypes): InitialType => {
     switch (action.type) {
         case addPost:
             let newPost: MyPostsType = {
                 date: new Date().getTime(),
                 id: 4,
-                text: _state.newPostText,
+                text: state.newPostText,
                 likecount: 0
             }
-            _state.myPosts.push(newPost)
-            _state.newPostText = ''
-            return _state
+            state.myPosts.push(newPost)
+            state.newPostText = ''
+            return state
         case updateNewPostText:
-            _state.newPostText = action.newText
-            return _state
+            state.newPostText = action.newText
+            return state
 
         default :
-            return _state
+            return state
     }
 }
 
