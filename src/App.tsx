@@ -3,15 +3,14 @@ import './App.css';
 import {Header} from "./Components/Header/Header";
 import {Footer} from "./Components/Footer/Footer";
 import {Route, Routes} from "react-router-dom";
-import {Profile} from "./Components/Profile/Profile";
-import {Posts} from "./Components/Posts/Posts";
-import {StateType} from "./Components/redux/stote";
 import {Messages} from "./Components/Messages/Messages";
 import {AppStateType} from "./Components/redux/reduxStore";
+import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
+import {Dispatch} from "redux";
 
 type AppPropsType = {
     state: AppStateType
-    dispatch: (action: any) => void
+    dispatch: Dispatch
 }
 
 function App(props: AppPropsType) {
@@ -23,11 +22,16 @@ function App(props: AppPropsType) {
                                                            dispatch={props.dispatch}/>}/>
                 {/*<Route path='/profile' element={<Profile*/}
                 {/*    myInfo={props.state.}/>}/>*/}
-                <Route path='/posts' element={<Posts
-                    newPostText={props.state.myPosts.newPostText}
-                    myPosts={props.state.myPosts.myPosts}
-                    dispatch={props.dispatch}/>}
+                {/*<Route path='/posts' element={<Posts*/}
+                {/*    newPostText={props.state.myPosts.newPostText}*/}
+                {/*    myPosts={props.state.myPosts.myPosts}*/}
+                {/*    dispatch={props.dispatch}*/}
+                {/*/>*/}
+                <Route path='/posts' element={<PostsContainer
+                    state={props.state}
+                    dispatch={props.dispatch}
                 />
+                }/>
             </Routes>
             {/*<Content/>*/}
             <Footer/>

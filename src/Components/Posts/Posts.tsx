@@ -10,23 +10,22 @@ import {MyPostsType} from './../redux/stote'
 
 type PostsPropsType = {
     myPosts: Array<MyPostsType>
-    // addPost: (text:string) => void
+    addPost: () => void
     newPostText: string
-    // updateNewPost:(newText:string)=>void
-    dispatch: (action: any) => void
+    updateNewPost: (newText: string) => void
+    // dispatch: (action: any) => void
 }
 
 
 export const Posts = (props: PostsPropsType) => {
 
-    let newPostElement = React.createRef<HTMLInputElement>();
-
-    let addPosts = () => {
-        props.dispatch(addPostAC())
+    let onAddPost = () => {
+        props.addPost()
     }
     let onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
         let newText = e.currentTarget.value;
-        props.dispatch(UpdateNewPostTextAC(newText))
+        props.updateNewPost(newText)
+        // props.dispatch(UpdateNewPostTextAC(newText))
         console.log(newText)
     }
     return (
@@ -36,10 +35,9 @@ export const Posts = (props: PostsPropsType) => {
                 <input type="text"
                        onChange={(e) => onPostChange(e)}
                        value={props.newPostText}
-                       className={s.input}
-                       ref={newPostElement}/>
+                       className={s.input}/>
                 <div className={s.button}>
-                    <button onClick={addPosts}>ADD</button>
+                    <button onClick={onAddPost}>ADD</button>
                     <button>REMOVE</button>
                 </div>
             </div>
