@@ -5,7 +5,7 @@ import {Footer} from "./Components/Footer/Footer";
 import {Route, Routes} from "react-router-dom";
 import {Profile} from "./Components/Profile/Profile";
 import {Posts} from "./Components/Posts/Posts";
-import {StateType} from "./Components/redux/state";
+import {StateType} from "./Components/redux/stote";
 import {Messages} from "./Components/Messages/Messages";
 
 type AppPropsType = {

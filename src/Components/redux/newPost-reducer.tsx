@@ -1,4 +1,4 @@
-import {ActionsTypes, MyPostsType, StateType} from "./state";
+import {ActionsTypes, MyPostsType, StateType} from "./stote";
 
 const addPost = 'ADD-POST';
 const updateNewPostText = 'UPDATE-NEW-POST-TEXT';

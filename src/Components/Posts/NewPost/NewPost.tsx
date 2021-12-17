@@ -1,6 +1,6 @@
 import s from "./NewPost.module.css";
 import React from "react";
-import {MyPostsType} from "../../redux/state";
+import {MyPostsType} from "../../redux/stote";
 
 type NewPostPrposType={
     myPosts:Array<MyPostsType>

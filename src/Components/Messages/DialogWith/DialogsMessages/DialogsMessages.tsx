@@ -4,7 +4,7 @@ import {
     sendNewMessageAC,
     updateNewMessageBodyAC,
 } from "../../../redux/newMessage-reducer";
-import {MyFriendsType} from './../../../redux/state'
+import {MyFriendsType} from './../../../redux/stote'
 
 
 type DialogsMessagesPropsType = {

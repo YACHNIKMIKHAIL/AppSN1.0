@@ -1,4 +1,4 @@
-import {ActionsTypes, MyFriendsType, MyPostsType} from "./state";
+import {ActionsTypes, MyFriendsType, MyPostsType} from "./stote";
 
 const sendNewMessage = 'SEND-NEW-MESSAGE';
 const updateNewMessageBody = 'UPDATE-NEW-MESSAGE-TEXT';

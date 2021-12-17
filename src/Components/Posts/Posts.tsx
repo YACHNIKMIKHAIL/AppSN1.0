@@ -5,7 +5,7 @@ import {
     addPostAC,
     UpdateNewPostTextAC
 } from "../redux/newPost-reducer";
-import {MyPostsType} from './../redux/state'
+import {MyPostsType} from './../redux/stote'
 
 
 type PostsPropsType = {

@@ -1,11 +1,11 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {store} from "./Components/redux/state";
+import {store} from "./Components/redux/stote";
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {StateType} from "./Components/redux/state";
+import {StateType} from "./Components/redux/stote";
 import {BrowserRouter} from "react-router-dom";
 
 
