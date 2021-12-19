@@ -13,6 +13,7 @@ type PostsPropsType = {
     addPost: () => void
     newPostText: string
     updateNewPost: (newText: string) => void
+
     // dispatch: (action: any) => void
 }
 
@@ -20,21 +21,23 @@ type PostsPropsType = {
 export const Posts = (props: PostsPropsType) => {
 
     let onAddPost = () => {
-        props.addPost()
+        // props.addPost()
     }
     let onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
         let newText = e.currentTarget.value;
-        props.updateNewPost(newText)
+        // props.updateNewPost(newText)
         // props.dispatch(UpdateNewPostTextAC(newText))
         console.log(newText)
     }
     return (
         <div className={s.content}>
-            <NewPost myPosts={props.myPosts}/>
+            <NewPost
+                // myPosts={props.myPosts}
+            />
             <div className={s.newPost}>
                 <input type="text"
                        onChange={(e) => onPostChange(e)}
-                       value={props.newPostText}
+                       // value={props.newPostText}
                        className={s.input}/>
                 <div className={s.button}>
                     <button onClick={onAddPost}>ADD</button>

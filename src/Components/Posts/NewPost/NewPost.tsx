@@ -3,26 +3,25 @@ import React from "react";
 import {MyPostsType} from "../../redux/stote";
 
 type NewPostPrposType={
-    myPosts:Array<MyPostsType>
+    // myPosts:Array<MyPostsType>
 }
 export const NewPost=(props: NewPostPrposType)=> {
-    let post=props.myPosts.map((pp)=>{
+    // let post=props.myPosts.map((pp)=>{
         return (
             <div className={s.post}>
                 <div className={s.postText}>
-                    {pp.text}
+                    {/*{pp.text}*/}
                 </div>
                 <div className={s.likes}>
-                    likes:{pp.likecount}
+                    {/*likes:{pp.likecount}*/}
                 </div>
             </div>
         )
-    })
 
 
     return (
         <div>
-            {post}
+            {/*{post}*/}
         </div>
     )
 }

@@ -9,8 +9,8 @@ import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import {Dispatch} from "redux";
 
 type AppPropsType = {
-    state: AppStateType
-    dispatch: Dispatch
+    // state: AppStateType
+    // dispatch: Dispatch
 }
 
 function App(props: AppPropsType) {
@@ -18,8 +18,11 @@ function App(props: AppPropsType) {
         <div className="AppWrapper">
             <Header/>
             <Routes>
-                <Route path='/messages' element={<Messages myFriends={props.state.myFriends.myFriends}
-                                                           dispatch={props.dispatch}/>}/>
+                <Route path='/messages' element={<Messages
+                    // myFriends={props.state.myFriends.myFriends}
+                    //                                        dispatch={props.dispatch}
+                />}
+                />
                 {/*<Route path='/profile' element={<Profile*/}
                 {/*    myInfo={props.state.}/>}/>*/}
                 {/*<Route path='/posts' element={<Posts*/}
@@ -28,8 +31,8 @@ function App(props: AppPropsType) {
                 {/*    dispatch={props.dispatch}*/}
                 {/*/>*/}
                 <Route path='/posts' element={<PostsContainer
-                    state={props.state}
-                    dispatch={props.dispatch}
+                    // state={props.state}
+                    // dispatch={props.dispatch}
                 />
                 }/>
             </Routes>

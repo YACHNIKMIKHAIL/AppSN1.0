@@ -3,11 +3,12 @@ import {Posts} from "../Posts";
 import {addPostAC, UpdateNewPostTextAC} from "../../redux/newPost-reducer";
 import {AppStateType, StoreType} from "../../redux/reduxStore";
 import {Dispatch} from "redux";
+import StoreContext from "../../../StoreContext";
 
 
 type PostsContainerPropsType = {
-    state: AppStateType,
-    dispatch: Dispatch
+    // state: AppStateType,
+    // dispatch: Dispatch
 
     // myPosts: Array<MyPostsType>
     // newPostText: string
@@ -22,14 +23,22 @@ export const PostsContainer = (props: PostsContainerPropsType) => {
 
     //let state = props.store.getState()
     let addPosts = () => {
-        props.dispatch(addPostAC())
+        // props.dispatch(addPostAC())
     }
     let onPostChange = (newText: string) => {
-        props.dispatch(UpdateNewPostTextAC(newText))
+        // props.dispatch(UpdateNewPostTextAC(newText))
         console.log(newText)
     }
     return (
-        <Posts myPosts={props.state.myPosts.myPosts} newPostText={props.state.myPosts.newPostText} updateNewPost={onPostChange} addPost={addPosts}/>
+        <>
+        <StoreContext.Consumer>
+            {(store)=><Posts
+                myPosts={store.getState().myPosts.myPosts} newPostText={store.getState().myPosts.newPostText}
+                updateNewPost={onPostChange}
+                addPost={addPosts}
+            />}
+        </StoreContext.Consumer>
+        </>
     )
 }
 

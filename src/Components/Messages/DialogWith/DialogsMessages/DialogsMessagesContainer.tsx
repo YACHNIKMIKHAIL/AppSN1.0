@@ -8,12 +8,12 @@ import {DialogsMessages} from "./DialogsMessages";
 
 
 type DialogsMessagesContainer = {
-    messages: MyFriendsType
-    dispatch: (action: any) => void
-    newMessageBody: string
+    // messages: MyFriendsType
+    // dispatch: (action: any) => void
+    // newMessageBody: string
 }
 export const DialogsMessagesContainer = (props: DialogsMessagesContainer) => {
-    let newMessageBody = props.messages
+    // let newMessageBody = props.messages
     let newMessageElement = React.createRef<HTMLInputElement>();
     let sendMessage = () => {
         let message = newMessageElement.current?.value;
@@ -21,12 +21,12 @@ export const DialogsMessagesContainer = (props: DialogsMessagesContainer) => {
     }
 
     const onSendMessageClick = () => {
-        props.dispatch(sendNewMessageAC())
+        // props.dispatch(sendNewMessageAC())
     }
     const onNewMassageChange = (boby: string) => {
-        props.dispatch(updateNewMessageBodyAC(boby))
+        // props.dispatch(updateNewMessageBodyAC(boby))
     }
-    let state = props.messages.messages
+    // let state = props.messages.messages
 
     // let myMess = state.messages.myMess.map((ff) => {
     //     return (
@@ -45,7 +45,7 @@ export const DialogsMessagesContainer = (props: DialogsMessagesContainer) => {
 
     return <DialogsMessages updateNewMessageBody={onNewMassageChange}
                             sendNewMessage={onSendMessageClick}
-                            messages={props.messages}
-                            newMessageBody={props.newMessageBody}
+                            // messages={props.messages}
+                            // newMessageBody={props.newMessageBody}
                             />
 }
