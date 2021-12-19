@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import StoreContext from "./StoreContext";
+import StoreContext, {Provider} from "./StoreContext";
 
 
 export type RerenderEntireTreePropsType = {
@@ -15,9 +15,9 @@ export type RerenderEntireTreePropsType = {
 const rerenderEntireTree = (state: AppStateType) => {
     ReactDOM.render(
         <BrowserRouter>
-            <StoreContext.Provider value={store}>
+            <Provider store={store} >
                 <App/>
-            </StoreContext.Provider>
+            </Provider>
         </BrowserRouter>
         ,
         document.getElementById('root')
