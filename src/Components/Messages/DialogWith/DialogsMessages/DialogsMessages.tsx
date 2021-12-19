@@ -9,8 +9,10 @@ import {MyFriendsType} from './../../../redux/stote'
 
 type DialogsMessagesPropsType = {
     messages: MyFriendsType
-    dispatch: (action: any) => void
+    // dispatch: (action: any) => void
     newMessageBody: string
+    updateNewMessageBody:(boby:string)=>void
+    sendNewMessage:()=>void
 }
 export const DialogsMessages = (props: DialogsMessagesPropsType) => {
     let newMessageBody = props.messages
@@ -21,13 +23,13 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
     }
 
     const onSendMessageClick = () => {
-        props.dispatch(sendNewMessageAC())
+        props.sendNewMessage()
     }
-    const onNewMassageChange = (e: ChangeEvent<HTMLInputElement>) => {
-        props.dispatch(updateNewMessageBodyAC(e.currentTarget.value))
+    const onNewMassageChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        props.updateNewMessageBody(e.currentTarget.value)
     }
 
-    let myMess = props.messages.messages.myMess.map((ff) => {
+    let myMess = props.messages.messages.myMess.map ((ff) => {
         return (
             <div className={s.myMess}>
                 {ff.title}
@@ -54,7 +56,7 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
                 <input type="text"
                        placeholder='New Message'
                        value={props.newMessageBody}
-                       onChange={onNewMassageChange}
+                       onChange={(e)=>onNewMassageChange(e)}
                 />
                 <button onClick={onSendMessageClick}>Send</button>
             </div>

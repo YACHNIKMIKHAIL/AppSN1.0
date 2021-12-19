@@ -3,6 +3,7 @@ import s from './Messages.module.css'
 import {DialogWith} from "./DialogWith/DialogWith";
 import {MyFriendsType} from "../redux/stote";
 import {DialogsMessages} from "./DialogWith/DialogsMessages/DialogsMessages";
+import {DialogsMessagesContainer} from "./DialogWith/DialogsMessages/DialogsMessagesContainer";
 
 type MessagesPropsType = {
     myFriends: MyFriendsType
@@ -13,7 +14,7 @@ export const Messages = (props: MessagesPropsType) => {
 
         <div className={s.content}>
             <DialogWith myFriends={props.myFriends}/>
-            <DialogsMessages messages={props.myFriends} dispatch={props.dispatch} newMessageBody={props.myFriends.newMessageBody}/>
+            <DialogsMessagesContainer messages={props.myFriends} dispatch={props.dispatch} newMessageBody={props.myFriends.newMessageBody}/>
         </div>
 
     )
