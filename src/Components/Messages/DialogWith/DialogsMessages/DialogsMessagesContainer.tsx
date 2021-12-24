@@ -6,6 +6,7 @@ import {
 import {MyFriendsType} from './../../../redux/stote'
 import {DialogsMessages} from "./DialogsMessages";
 import {connect} from "react-redux";
+import {AppStateType} from "../../../redux/reduxStore";
 
 
 // type DialogsMessagesContainer = {
@@ -54,16 +55,23 @@ import {connect} from "react-redux";
 //     //     </StoreContext.Consumer>
 //     // )
 
-
-const mapStateToProps = (state) => {
+type mapStateToPropsType = {
+    messages: Array<MyFriendsType>
+    newMessageBody:string
+}
+type DispatchPropsType = {
+    updateNewMessageBody: (boby: string) => void
+    sendNewMessage: () => void
+}
+const mapStateToProps = (state: mapStateToPropsType) => {
     return {
         messages: state.myFriends.myFriends,
         newMessageBody: state.myFriends.myFriends.newMessageBody
     }
 }
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: DispatchPropsType) => {
     return {
-        updateNewMessageBody: (boby) => {
+        updateNewMessageBody: (boby: string) => {
             dispatch(updateNewMessageBodyAC(boby))
         },
         sendNewMessage: () => {

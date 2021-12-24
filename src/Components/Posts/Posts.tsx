@@ -10,7 +10,7 @@ import {MyPostsType} from './../redux/stote'
 
 type PostsPropsType = {
     myPosts: Array<MyPostsType>
-    addPost: () => void
+    addPost: (newText:string) => void
     newPostText: string
     updateNewPost: (newText: string) => void
 
