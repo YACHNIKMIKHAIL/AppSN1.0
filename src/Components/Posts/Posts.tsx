@@ -21,18 +21,19 @@ type PostsPropsType = {
 export const Posts = (props: PostsPropsType) => {
 
     let onAddPost = () => {
-        // props.addPost()
+        props.addPost(props.newPostText)
     }
     let onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
         let newText = e.currentTarget.value;
-        // props.updateNewPost(newText)
+
+        props.updateNewPost(newText)
         // props.dispatch(UpdateNewPostTextAC(newText))
         console.log(newText)
     }
     return (
         <div className={s.content}>
             <NewPost
-                // myPosts={props.myPosts}
+                myPosts={props.myPosts}
             />
             <div className={s.newPost}>
                 <input type="text"

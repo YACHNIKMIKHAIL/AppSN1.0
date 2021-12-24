@@ -45,14 +45,6 @@ import {AppStateType} from "../../redux/reduxStore";
 //     )
 // }
 
-type mapStateToPropsType = {
-    myPosts: Array<MyPostsType>,
-    newPostText:string
-}
-type DispatchPropsType = {
-    updateNewMessageBody: (boby: string) => void
-    sendNewMessage: () => void
-}
 
 const mapStateToProps = (state:AppStateType) => {
     return {
@@ -62,11 +54,11 @@ const mapStateToProps = (state:AppStateType) => {
 }
 const mapDispatchToProps = (dispatch:Dispatch) => {
     return {
-        updateNewPost: () => {
-            dispatch(addPostAC())
-        },
-        addPost: (newText: string) => {
+        updateNewPost: (newText: string) => {
             dispatch(UpdateNewPostTextAC(newText))
+        },
+        addPost: () => {
+            dispatch(addPostAC())
         }
     }
 }

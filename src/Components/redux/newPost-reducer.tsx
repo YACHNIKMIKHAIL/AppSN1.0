@@ -48,8 +48,9 @@ const newPostReducer = (state = initialState, action: ActionsTypes): InitialType
             return stateCopy
         }
         case updateNewPostText: {
-            let stateCopy = {...state}
-            stateCopy.newPostText = action.newText
+            console.log('in reducer', action.newText)
+            let stateCopy = {...state,newPostText:action.newText}
+            // stateCopy.newPostText = action.newText
             return stateCopy
         }
 
