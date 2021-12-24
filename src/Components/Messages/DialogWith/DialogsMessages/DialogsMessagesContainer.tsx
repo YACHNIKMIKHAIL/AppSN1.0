@@ -5,47 +5,72 @@ import {
 } from "../../../redux/newMessage-reducer";
 import {MyFriendsType} from './../../../redux/stote'
 import {DialogsMessages} from "./DialogsMessages";
+import {connect} from "react-redux";
 
 
-type DialogsMessagesContainer = {
-    // messages: MyFriendsType
-    // dispatch: (action: any) => void
-    // newMessageBody: string
+// type DialogsMessagesContainer = {
+//     // messages: MyFriendsType
+//     // dispatch: (action: any) => void
+//     // newMessageBody: string
+// }
+// export const DialogsMessagesContainer = (props: DialogsMessagesContainer) => {
+//     // let newMessageBody = props.messages
+//     let newMessageElement = React.createRef<HTMLInputElement>();
+//     let sendMessage = () => {
+//         let message = newMessageElement.current?.value;
+//         alert('NEW MESSAGE!')
+//     }
+//     // let state = props.messages.messages
+//     // let myMess = state.messages.myMess.map((ff) => {
+//     //     return (
+//     //         <div className={s.myMess}>
+//     //             {ff.title}
+//     //         </div>
+//     //     )
+//     // })
+//     // let friendMess = state.messages.friendMess.map((ff) => {
+//     //     return (
+//     //         <div className={s.friendMess}>
+//     //             <div key={ff.id}>{ff.title}</div>
+//     //         </div>
+//     //     )
+//     // })
+//     // return (
+//     //     <StoreContext.Consumer>
+//     //         {(store) => {
+//     //             const onSendMessageClick = () => {
+//     //                 store.dispatch(sendNewMessageAC())
+//     //             }
+//     //             const onNewMassageChange = (boby: string) => {
+//     //                 store.dispatch(updateNewMessageBodyAC(boby))
+//     //             }
+//     //
+//     //             return <DialogsMessages updateNewMessageBody={onNewMassageChange}
+//     //                                     sendNewMessage={onSendMessageClick}
+//     //                                     messages={store.getState().myFriends.myFriends}
+//     //                                     newMessageBody={store.getState().myFriends.myFriends.newMessageBody}
+//     //             />
+//     //         }}
+//     //     </StoreContext.Consumer>
+//     // )
+
+
+const mapStateToProps = (state) => {
+    return {
+        messages: state.myFriends.myFriends,
+        newMessageBody: state.myFriends.myFriends.newMessageBody
+    }
 }
-export const DialogsMessagesContainer = (props: DialogsMessagesContainer) => {
-    // let newMessageBody = props.messages
-    let newMessageElement = React.createRef<HTMLInputElement>();
-    let sendMessage = () => {
-        let message = newMessageElement.current?.value;
-        alert('NEW MESSAGE!')
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateNewMessageBody: (boby) => {
+            dispatch(updateNewMessageBodyAC(boby))
+        },
+        sendNewMessage: () => {
+            dispatch(sendNewMessageAC())
+        }
     }
-
-    const onSendMessageClick = () => {
-        // props.dispatch(sendNewMessageAC())
-    }
-    const onNewMassageChange = (boby: string) => {
-        // props.dispatch(updateNewMessageBodyAC(boby))
-    }
-    // let state = props.messages.messages
-
-    // let myMess = state.messages.myMess.map((ff) => {
-    //     return (
-    //         <div className={s.myMess}>
-    //             {ff.title}
-    //         </div>
-    //     )
-    // })
-    // let friendMess = state.messages.friendMess.map((ff) => {
-    //     return (
-    //         <div className={s.friendMess}>
-    //             <div key={ff.id}>{ff.title}</div>
-    //         </div>
-    //     )
-    // })
-
-    return <DialogsMessages updateNewMessageBody={onNewMassageChange}
-                            sendNewMessage={onSendMessageClick}
-                            // messages={props.messages}
-                            // newMessageBody={props.newMessageBody}
-                            />
 }
+
+export const DialogsMessagesContainer = connect(mapStateToProps, mapDispatchToProps)(DialogsMessages)
+

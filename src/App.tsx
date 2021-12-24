@@ -19,7 +19,7 @@ function App(props: AppPropsType) {
             <Header/>
             <Routes>
                 <Route path='/messages' element={<Messages
-                    // myFriends={props.state.myFriends.myFriends}
+                    // myFriends={}
                     //                                        dispatch={props.dispatch}
                 />}
                 />

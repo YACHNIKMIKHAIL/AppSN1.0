@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import StoreContext, {Provider} from "./StoreContext";
+import {Provider} from "react-redux";
 
 
 export type RerenderEntireTreePropsType = {
@@ -16,7 +16,7 @@ const rerenderEntireTree = (state: AppStateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store} >
-                <App/>
+                <App />
             </Provider>
         </BrowserRouter>
         ,

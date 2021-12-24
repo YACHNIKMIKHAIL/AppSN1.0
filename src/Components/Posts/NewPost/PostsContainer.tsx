@@ -21,22 +21,24 @@ type PostsContainerPropsType = {
 
 export const PostsContainer = (props: PostsContainerPropsType) => {
 
-    //let state = props.store.getState()
-    let addPosts = () => {
-        // props.dispatch(addPostAC())
-    }
-    let onPostChange = (newText: string) => {
-        // props.dispatch(UpdateNewPostTextAC(newText))
-        console.log(newText)
-    }
     return (
         <>
         <StoreContext.Consumer>
-            {(store)=><Posts
-                myPosts={store.getState().myPosts.myPosts} newPostText={store.getState().myPosts.newPostText}
-                updateNewPost={onPostChange}
-                addPost={addPosts}
-            />}
+            {(store)=> {
+                let addPosts = () => {
+                    // props.dispatch(addPostAC())
+                }
+                let onPostChange = (newText: string) => {
+                    // props.dispatch(UpdateNewPostTextAC(newText))
+                    console.log(newText)
+                }
+
+                return <Posts
+                    myPosts={store.getState().myPosts.myPosts} newPostText={store.getState().myPosts.newPostText}
+                    updateNewPost={onPostChange}
+                    addPost={addPosts}
+                />
+            }}
         </StoreContext.Consumer>
         </>
     )

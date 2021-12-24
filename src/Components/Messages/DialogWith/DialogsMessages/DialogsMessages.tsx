@@ -8,10 +8,10 @@ import {MyFriendsType} from './../../../redux/stote'
 
 
 type DialogsMessagesPropsType = {
-    // messages: MyFriendsType
-    // newMessageBody: string
-    // updateNewMessageBody:(boby:string)=>void
-    // sendNewMessage:()=>void
+    messages: MyFriendsType
+    newMessageBody: string
+    updateNewMessageBody:(boby:string)=>void
+    sendNewMessage:()=>void
 }
 export const DialogsMessages = (props: DialogsMessagesPropsType) => {
     let newMessageBody = props.messages
