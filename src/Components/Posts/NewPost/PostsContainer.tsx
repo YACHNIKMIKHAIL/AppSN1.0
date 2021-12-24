@@ -2,6 +2,9 @@ import React from "react";
 import {Posts} from "../Posts";
 import {addPostAC, UpdateNewPostTextAC} from "../../redux/newPost-reducer";
 import {connect} from "react-redux";
+import {MyFriendsType, MyPostsType, StateType} from "../../redux/stote";
+import {Dispatch} from "redux";
+import {AppStateType} from "../../redux/reduxStore";
 
 
 // type PostsContainerPropsType = {
@@ -42,14 +45,22 @@ import {connect} from "react-redux";
 //     )
 // }
 
+type mapStateToPropsType = {
+    myPosts: Array<MyPostsType>,
+    newPostText:string
+}
+type DispatchPropsType = {
+    updateNewMessageBody: (boby: string) => void
+    sendNewMessage: () => void
+}
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:AppStateType) => {
     return {
         myPosts: state.myPosts.myPosts,
         newPostText: state.myPosts.newPostText
     }
 }
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch:Dispatch) => {
     return {
         updateNewPost: () => {
             dispatch(addPostAC())

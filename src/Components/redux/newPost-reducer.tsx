@@ -34,19 +34,24 @@ let initialState: InitialType = {
 
 const newPostReducer = (state = initialState, action: ActionsTypes): InitialType => {
     switch (action.type) {
-        case addPost:
+        case addPost: {
             let newPost: MyPostsType = {
                 date: new Date().getTime(),
                 id: 4,
                 text: state.newPostText,
                 likecount: 0
             }
-            state.myPosts.push(newPost)
-            state.newPostText = ''
-            return state
-        case updateNewPostText:
-            state.newPostText = action.newText
-            return state
+            let stateCopy = {...state}
+            stateCopy.myPosts = [...state.myPosts]
+            stateCopy.myPosts.push(newPost)
+            stateCopy.newPostText = ''
+            return stateCopy
+        }
+        case updateNewPostText: {
+            let stateCopy = {...state}
+            stateCopy.newPostText = action.newText
+            return stateCopy
+        }
 
         default :
             return state

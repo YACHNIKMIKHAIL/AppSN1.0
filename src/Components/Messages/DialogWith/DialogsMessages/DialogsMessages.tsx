@@ -4,11 +4,11 @@ import {
     sendNewMessageAC,
     updateNewMessageBodyAC,
 } from "../../../redux/newMessage-reducer";
-import {MyFriendsType} from './../../../redux/stote'
+import {MessagesType, MyFriendsType} from './../../../redux/stote'
 
 
 type DialogsMessagesPropsType = {
-    messages: MyFriendsType
+    messages: MessagesType
     newMessageBody: string
     updateNewMessageBody:(boby:string)=>void
     sendNewMessage:()=>void
@@ -28,14 +28,14 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
         props.updateNewMessageBody(e.currentTarget.value)
     }
 
-    let myMess = props.messages.messages.myMess.map ((ff) => {
+    let myMess = props.messages.myMess.map ((ff) => {
         return (
             <div className={s.myMess}>
                 {ff.title}
             </div>
         )
     })
-    let friendMess = props.messages.messages.friendMess.map((ff) => {
+    let friendMess = props.messages.friendMess.map((ff) => {
         return (
             <div className={s.friendMess}>
                 <div key={ff.id}>{ff.title}</div>

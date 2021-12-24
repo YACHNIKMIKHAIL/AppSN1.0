@@ -1,11 +1,12 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import {
     sendNewMessageAC,
     updateNewMessageBodyAC,
 } from "../../../redux/newMessage-reducer";
-import {MyFriendsType} from './../../../redux/stote'
+import {MessagesType, MyFriendsType} from './../../../redux/stote'
 import {DialogsMessages} from "./DialogsMessages";
 import {connect} from "react-redux";
+import {Dispatch} from "redux";
 import {AppStateType} from "../../../redux/reduxStore";
 
 
@@ -56,20 +57,20 @@ import {AppStateType} from "../../../redux/reduxStore";
 //     // )
 
 type mapStateToPropsType = {
-    messages: Array<MyFriendsType>
-    newMessageBody:string
+    myFriends:MyFriendsType
 }
 type DispatchPropsType = {
     updateNewMessageBody: (boby: string) => void
     sendNewMessage: () => void
 }
-const mapStateToProps = (state: mapStateToPropsType) => {
+const mapStateToProps = (state: AppStateType) => {
+    console.log('state', state)
     return {
-        messages: state.myFriends.myFriends,
+        messages: state.myFriends.myFriends.messages,
         newMessageBody: state.myFriends.myFriends.newMessageBody
     }
 }
-const mapDispatchToProps = (dispatch: DispatchPropsType) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         updateNewMessageBody: (boby: string) => {
             dispatch(updateNewMessageBodyAC(boby))

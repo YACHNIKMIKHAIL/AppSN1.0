@@ -37,7 +37,7 @@ export const Posts = (props: PostsPropsType) => {
             <div className={s.newPost}>
                 <input type="text"
                        onChange={(e) => onPostChange(e)}
-                       // value={props.newPostText}
+                       value={props.newPostText}
                        className={s.input}/>
                 <div className={s.button}>
                     <button onClick={onAddPost}>ADD</button>

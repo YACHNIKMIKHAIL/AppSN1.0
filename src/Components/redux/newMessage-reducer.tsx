@@ -33,14 +33,18 @@ let init_state:initStateType= {
 
 const newMessageReducer = (_state=init_state, action: ActionsTypes): initStateType => {
     switch (action.type) {
-        case updateNewMessageBody:
-            _state.myFriends.newMessageBody = action.body
-            return _state
-        case sendNewMessage:
-            let boby = _state.myFriends.newMessageBody
-            _state.myFriends.newMessageBody  = ''
-            _state.myFriends.messages.myMess.push({id: 11, title: boby})
-            return _state
+        case updateNewMessageBody: {
+            let copyState = {..._state}
+            copyState.myFriends.newMessageBody = action.body
+            return copyState
+        }
+        case sendNewMessage: {
+            let copyState = {..._state,myFriends:{..._state.myFriends}}
+            let boby = copyState.myFriends.newMessageBody
+            copyState.myFriends.newMessageBody = ''
+            copyState.myFriends.messages.myMess.push({id: 11, title: boby})
+            return copyState
+        }
 
         default :
             return _state
