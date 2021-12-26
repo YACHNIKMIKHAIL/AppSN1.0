@@ -1,8 +1,6 @@
 import React from "react";
 import s from './Messages.module.css'
 import {DialogWith} from "./DialogWith/DialogWith";
-import {MyFriendsType} from "../redux/stote";
-import {DialogsMessages} from "./DialogWith/DialogsMessages/DialogsMessages";
 import {DialogsMessagesContainer} from "./DialogWith/DialogsMessages/DialogsMessagesContainer";
 
 type MessagesPropsType = {

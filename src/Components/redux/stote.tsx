@@ -1,8 +1,7 @@
 import img1 from './../Images/avas/images (1).jpeg'
 import img2 from './../Images/avas/images.jpeg'
-import {RerenderEntireTreePropsType} from "../../index";
-import newPostReducer, {addPostAC, UpdateNewPostTextAC} from "./newPost-reducer";
-import newMessageReducer, {sendNewMessageAC, updateNewMessageBodyAC} from "./newMessage-reducer";
+import {addPostAC, UpdateNewPostTextAC} from "./newPost-reducer";
+import {sendNewMessageAC, updateNewMessageBodyAC} from "./newMessage-reducer";
 
 
 export type MyPostsType = {
@@ -63,8 +62,6 @@ export type StoreType = {
     _state: StateType
     getState: () => StateType
     _callSubsriber: (state: StateType) => void
-    // addPost: () => void
-    // updateNewPost: (newText: string) => void
     subscribe: (observer: any) => void
     dispatch: (action: ActionsTypes) => void
 }
@@ -74,9 +71,6 @@ export type ActionsTypes =
     | ReturnType<typeof UpdateNewPostTextAC>
     | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendNewMessageAC>
-
-
-
 
 
 export let store: StoreType = {
@@ -149,24 +143,8 @@ export let store: StoreType = {
     subscribe(observer: () => void) {
         this._callSubsriber = observer
     },
-    // _addPost() {
-    //     let newPost: MyPostsType = {
-    //         id: 5,
-    //         text: this._state.newPostText,
-    //         likecount: 0
-    //     }
-    //     this._state.myPosts.push(newPost)
-    //     this._state.newPostText = ''
-    //     this._callSubsriber({State: this._state})
-    // },
-    // _updateNewPost(newText: string) {
-    //     this._state.newPostText = newText
-    //     this._callSubsriber({State: this._state})
-    // },
-    dispatch(action) {
-        // this._state = newPostReducer(this._state, action)
-        // this._state.myFriends = newMessageReducer(this._state.myFriends, action)
 
+    dispatch(action) {
         this._callSubsriber(this._state)
     }
 }

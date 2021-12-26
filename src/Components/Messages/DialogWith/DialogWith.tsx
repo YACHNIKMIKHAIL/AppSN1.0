@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import s from './DialogWith.module.css'
-import {MyFriendsType} from "../../redux/stote";
 
 type DialogWithPropsType = {
     // myFriends: MyFriendsType

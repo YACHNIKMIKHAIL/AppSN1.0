@@ -1,10 +1,6 @@
 import React, {ChangeEvent} from "react";
 import s from './Posts.module.css'
 import {NewPost} from "./NewPost/NewPost";
-import {
-    addPostAC,
-    UpdateNewPostTextAC
-} from "../redux/newPost-reducer";
 import {MyPostsType} from './../redux/stote'
 
 
@@ -13,8 +9,6 @@ type PostsPropsType = {
     addPost: (newText:string) => void
     newPostText: string
     updateNewPost: (newText: string) => void
-
-    // dispatch: (action: any) => void
 }
 
 
@@ -27,7 +21,6 @@ export const Posts = (props: PostsPropsType) => {
         let newText = e.currentTarget.value;
 
         props.updateNewPost(newText)
-        // props.dispatch(UpdateNewPostTextAC(newText))
         console.log(newText)
     }
     return (

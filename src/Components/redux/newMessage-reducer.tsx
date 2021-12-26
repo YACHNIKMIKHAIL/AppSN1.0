@@ -1,4 +1,4 @@
-import {ActionsTypes, MessagesType, MyFriendsType, MyPostsType} from "./stote";
+import {ActionsTypes, MessagesType} from "./stote";
 import img2 from "../Images/avas/images.jpeg";
 
 const sendNewMessage = 'SEND-NEW-MESSAGE';
@@ -32,12 +32,8 @@ let init_state: initStateType = {
 }
 
 const newMessageReducer = (_state = init_state, action: ActionsTypes): initStateType => {
-    // let stateCopy = {..._state}
-    // stateCopy.myFriends.messages = {..._state.myFriends.messages}
-
     switch (action.type) {
         case updateNewMessageBody: {
-            // let copyState = {..._state}
             return {..._state, myFriends: {..._state.myFriends, newMessageBody: action.body}}
         }
         case sendNewMessage: {
@@ -53,10 +49,6 @@ const newMessageReducer = (_state = init_state, action: ActionsTypes): initState
                     newMessageBody: ''
                 }
             }
-
-            // stateCopy.myFriends.newMessageBody = ''
-            // stateCopy.myFriends.messages.myMess.push({id: 11, title: boby})
-
         }
 
         default :
