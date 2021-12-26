@@ -8,7 +8,7 @@ type InitialType = {
     myPosts: Array<MyPostsType>
 }
 let initialState: InitialType = {
-    newPostText:'',
+    newPostText: '',
     myPosts: [
         {
             date: new Date().getTime(),
@@ -35,23 +35,30 @@ let initialState: InitialType = {
 const newPostReducer = (state = initialState, action: ActionsTypes): InitialType => {
     switch (action.type) {
         case addPost: {
-            let newPost: MyPostsType = {
-                date: new Date().getTime(),
-                id: 4,
-                text: state.newPostText,
-                likecount: 0
+            // let newPost: MyPostsType = {
+            //     date: new Date().getTime(),
+            //     id: 4,
+            //     text: state.newPostText,
+            //     likecount: 0
+            // }
+            // let stateCopy = {...state}
+            // stateCopy.myPosts = [...state.myPosts]
+            // stateCopy.myPosts.push(newPost)
+            // stateCopy.newPostText = ''
+            // return stateCopy
+            return {
+                ...state, newPostText: '', myPosts: [ ...state.myPosts,{
+                    date: new Date().getTime(),
+                    id: 4,
+                    text: state.newPostText,
+                    likecount: 0
+                }]
             }
-            let stateCopy = {...state}
-            stateCopy.myPosts = [...state.myPosts]
-            stateCopy.myPosts.push(newPost)
-            stateCopy.newPostText = ''
-            return stateCopy
         }
         case updateNewPostText: {
             console.log('in reducer', action.newText)
-            let stateCopy = {...state,newPostText:action.newText}
             // stateCopy.newPostText = action.newText
-            return stateCopy
+            return {...state, newPostText: action.newText}
         }
 
         default :

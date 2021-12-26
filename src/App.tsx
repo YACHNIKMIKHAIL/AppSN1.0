@@ -4,7 +4,7 @@ import {Header} from "./Components/Header/Header";
 import {Footer} from "./Components/Footer/Footer";
 import {Route, Routes} from "react-router-dom";
 import {Messages} from "./Components/Messages/Messages";
-import {AppStateType} from "./Components/redux/reduxStore";
+import store, {AppStateType} from "./Components/redux/reduxStore";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import {Dispatch} from "redux";
 

@@ -4,8 +4,8 @@ import img2 from "../Images/avas/images.jpeg";
 const sendNewMessage = 'SEND-NEW-MESSAGE';
 const updateNewMessageBody = 'UPDATE-NEW-MESSAGE-TEXT';
 
-type initStateType= {
-    myFriends:{
+type initStateType = {
+    myFriends: {
         img: string
         id: number
         name: string
@@ -13,7 +13,7 @@ type initStateType= {
         newMessageBody: string
     }
 }
-let init_state:initStateType= {
+let init_state: initStateType = {
     myFriends:
         {
             img: img2,
@@ -31,19 +31,32 @@ let init_state:initStateType= {
         }
 }
 
-const newMessageReducer = (_state=init_state, action: ActionsTypes): initStateType => {
+const newMessageReducer = (_state = init_state, action: ActionsTypes): initStateType => {
+    // let stateCopy = {..._state}
+    // stateCopy.myFriends.messages = {..._state.myFriends.messages}
+
     switch (action.type) {
         case updateNewMessageBody: {
-            let copyState = {..._state}
-            copyState.myFriends.newMessageBody = action.body
-            return copyState
+            // let copyState = {..._state}
+            return {..._state, myFriends: {..._state.myFriends, newMessageBody: action.body}}
         }
         case sendNewMessage: {
-            let copyState = {..._state,myFriends:{..._state.myFriends}}
-            let boby = copyState.myFriends.newMessageBody
-            copyState.myFriends.newMessageBody = ''
-            copyState.myFriends.messages.myMess.push({id: 11, title: boby})
-            return copyState
+            let boby = _state.myFriends.newMessageBody
+            return {
+                ..._state,
+                myFriends: {
+                    ..._state.myFriends,
+                    messages: {
+                        ..._state.myFriends.messages,
+                        myMess: [..._state.myFriends.messages.myMess, {id: 11, title: boby}]
+                    },
+                    newMessageBody: ''
+                }
+            }
+
+            // stateCopy.myFriends.newMessageBody = ''
+            // stateCopy.myFriends.messages.myMess.push({id: 11, title: boby})
+
         }
 
         default :
