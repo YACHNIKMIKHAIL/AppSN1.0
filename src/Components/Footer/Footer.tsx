@@ -7,7 +7,8 @@ export const Footer = () => {
         <div className={s.footer}>
             <div className={s.content}>
                 <div className={s.news}>
-                    News
+                    <NavLink to='/users'
+                             className={({isActive}) => ((isActive ? s.active : ''))}> Users</NavLink>
                 </div>
                 <div className={s.posts}>
                     <NavLink to='/posts'
