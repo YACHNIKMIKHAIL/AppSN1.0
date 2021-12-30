@@ -1,11 +1,6 @@
 import React, {ChangeEvent} from "react";
 import s from './Users.module.css'
-
-
-
-type UsersPropsType = {
-
-}
+import {UsersPropsType} from "./UsersContainer";
 
 
 export const Users = (props: UsersPropsType) => {

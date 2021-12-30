@@ -6,6 +6,7 @@ import {Route, Routes} from "react-router-dom";
 import {Messages} from "./Components/Messages/Messages";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import {Users} from "./Components/Users/Users";
+import UsersContainer from "./Components/Users/UsersContainer";
 
 type AppPropsType = {
     // state: AppStateType
@@ -17,7 +18,7 @@ function App(props: AppPropsType) {
         <div className="AppWrapper">
             <Header/>
             <Routes>
-                <Route path='/users' element={<Users
+                <Route path='/users' element={<UsersContainer
                     // state={props.state}
                     // dispatch={props.dispatch}
                 />

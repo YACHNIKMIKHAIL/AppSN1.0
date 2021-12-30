@@ -2,6 +2,7 @@ import img1 from './../Images/avas/images (1).jpeg'
 import img2 from './../Images/avas/images.jpeg'
 import {addPostAC, UpdateNewPostTextAC} from "./newPost-reducer";
 import {sendNewMessageAC, updateNewMessageBodyAC} from "./newMessage-reducer";
+import {UserType} from "./user-reducer";
 
 
 export type MyPostsType = {
@@ -57,6 +58,7 @@ export type StateType = {
     myPosts: Array<MyPostsType>
     MyInfo: MyInfoType
     myFriends: MyFriendsType
+    users: Array<UserType>
 }
 export type StoreType = {
     _state: StateType
@@ -75,6 +77,7 @@ export type ActionsTypes =
 
 export let store: StoreType = {
     _state: {
+        users: [],
         newPostText: 'My new POST!',
         myPosts: [
             {
