@@ -1,49 +1,55 @@
 export type UserType = {
     id: number
+    photoUrl: string
     followed: boolean
     fullName: string
     status: string
     location: { city: string, country: string }
 }
 
-let initState: Array<UserType> = [
-    {
-        id: 1,
-        followed: true,
-        fullName: 'Vitalya',
-        status: 'I am the best',
-        location: {city: 'Brest', country: 'Belarus'}
-    },
-    {
-        id: 2,
-        followed: false,
-        fullName: 'Igor',
-        status: 'I am the best of the best',
-        location: {city: 'Brest', country: 'Belarus'}
-    },
-    {
-        id: 3,
-        followed: false,
-        fullName: 'Egor',
-        status: 'I am the best of the best of the best',
-        location: {city: 'Brest', country: 'Belarus'}
-    },
-    {
-        id: 4,
-        followed: true,
-        fullName: 'Genya',
-        status: 'I am the best of the best of the best of the best',
-        location: {city: 'Brest', country: 'Belarus'}
-    },
-    {
-        id: 5,
-        followed: true,
-        fullName: 'Romchik',
-        status: 'I am the best of the best of the best of the best of the best',
-        location: {city: 'Gomel', country: 'Belarus'}
-    },
-]
-const UsersReducer = (state = initState, action: ActionsTypes): Array<UserType> => {
+// let initState: Array<UserType> = [
+//     {
+//         id: 1,
+//         photoUrl:'https://w7.pngwing.com/pngs/838/427/png-transparent-lilo-stitch-lilo-pelekai-reuben-character-others-experiment-fictional-character-stitch.png',
+//         followed: true,
+//         fullName: 'Vitalya',
+//         status: 'I am the best',
+//         location: {city: 'Brest', country: 'Belarus'}
+//     },
+//     {
+//         id: 2,
+//         photoUrl:'https://w7.pngwing.com/pngs/838/427/png-transparent-lilo-stitch-lilo-pelekai-reuben-character-others-experiment-fictional-character-stitch.png',
+//         followed: false,
+//         fullName: 'Igor',
+//         status: 'I am the best of the best',
+//         location: {city: 'Brest', country: 'Belarus'}
+//     },
+//     {
+//         id: 3,
+//         photoUrl:'https://w7.pngwing.com/pngs/838/427/png-transparent-lilo-stitch-lilo-pelekai-reuben-character-others-experiment-fictional-character-stitch.png',
+//         followed: false,
+//         fullName: 'Egor',
+//         status: 'I am the best of the best of the best',
+//         location: {city: 'Brest', country: 'Belarus'}
+//     },
+//     {
+//         id: 4,
+//         photoUrl:'https://w7.pngwing.com/pngs/838/427/png-transparent-lilo-stitch-lilo-pelekai-reuben-character-others-experiment-fictional-character-stitch.png',
+//         followed: true,
+//         fullName: 'Genya',
+//         status: 'I am the best of the best of the best of the best',
+//         location: {city: 'Brest', country: 'Belarus'}
+//     },
+//     {
+//         id: 5,
+//         photoUrl:'https://w7.pngwing.com/pngs/838/427/png-transparent-lilo-stitch-lilo-pelekai-reuben-character-others-experiment-fictional-character-stitch.png',
+//         followed: true,
+//         fullName: 'Romchik',
+//         status: 'I am the best of the best of the best of the best of the best',
+//         location: {city: 'Gomel', country: 'Belarus'}
+//     },
+// ]
+const UsersReducer = (state: Array<UserType>, action: ActionsTypes): Array<UserType> => {
     switch (action.type) {
         case 'FOLLOW': {
             return state.map(m => m.id === action.id ? {...m, followed: true} : m)
