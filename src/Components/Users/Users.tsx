@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useEffect} from "react";
 import s from './Users.module.css'
 import {UserType} from "../redux/user-reducer";
 import axios from "axios";
@@ -11,14 +11,18 @@ type UsersPropsType = {
     setUsers: (users: Array<UserType>) => void
 }
 export const Users = (props: UsersPropsType) => {
-    if (props.users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            props.setUsers(response.data.items)
-        })
-    }
+
+    useEffect(() => {
+        if (props.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                props.setUsers(response.data.items)
+            })
+        }
+    }, [])
+
     return (
         <div className={s.content}>
-            {props.users.map(m => {
+            {props.users?.map(m => {
                 return <div key={m.id}>
                     <span>
                         <div>
