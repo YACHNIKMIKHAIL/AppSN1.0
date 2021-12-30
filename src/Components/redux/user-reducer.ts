@@ -1,14 +1,55 @@
 export type UserType = {
     id: number
-    photoUrl: string
+    photos: { small: string | null, large: string | null }
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: { city: string, country: string }
 }
 
-
-const UsersReducer = (state: Array<UserType>, action: ActionsTypes): Array<UserType> => {
+let initState: Array<UserType> = [
+    {
+        id: 1,
+        photos: {small: null, large: null},
+        followed: true,
+        name: 'Vitalya',
+        status: 'I am the best',
+        location: {city: 'Brest', country: 'Belarus'}
+    },
+    {
+        id: 2,
+        photos: {small: null, large: null},
+        followed: false,
+        name: 'Igor',
+        status: 'I am the best of the best',
+        location: {city: 'Brest', country: 'Belarus'}
+    },
+    {
+        id: 3,
+        photos: {small: null, large: null},
+        followed: false,
+        name: 'Egor',
+        status: 'I am the best of the best of the best',
+        location: {city: 'Brest', country: 'Belarus'}
+    },
+    {
+        id: 4,
+        photos: {small: null, large: null},
+        followed: true,
+        name: 'Genya',
+        status: 'I am the best of the best of the best of the best',
+        location: {city: 'Brest', country: 'Belarus'}
+    },
+    {
+        id: 5,
+        photos: {small: null, large: null},
+        followed: true,
+        name: 'Romchik',
+        status: 'I am the best of the best of the best of the best of the best',
+        location: {city: 'Gomel', country: 'Belarus'}
+    },
+]
+const UsersReducer = (state = initState, action: ActionsTypes): Array<UserType> => {
     switch (action.type) {
         case 'FOLLOW': {
             return state.map(m => m.id === action.id ? {...m, followed: true} : m)

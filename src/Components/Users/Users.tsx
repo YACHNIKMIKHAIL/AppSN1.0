@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from "react";
 import s from './Users.module.css'
 import {UserType} from "../redux/user-reducer";
-// import {UsersPropsType} from "./UsersContainer";
+import axios from "axios";
+import userPhoto from './../../assets/images/images.png'
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -11,58 +12,17 @@ type UsersPropsType = {
 }
 export const Users = (props: UsersPropsType) => {
     if (props.users.length === 0) {
-        props.setUsers([
-            {
-                id: 1,
-                photoUrl: 'https://w7.pngwing.com/pngs/838/427/png-transparent-lilo-stitch-lilo-pelekai-reuben-character-others-experiment-fictional-character-stitch.png',
-                followed: true,
-                fullName: 'Vitalya',
-                status: 'I am the best',
-                location: {city: 'Brest', country: 'Belarus'}
-            },
-            {
-                id: 2,
-                photoUrl: 'https://w7.pngwing.com/pngs/838/427/png-transparent-lilo-stitch-lilo-pelekai-reuben-character-others-experiment-fictional-character-stitch.png',
-                followed: false,
-                fullName: 'Igor',
-                status: 'I am the best of the best',
-                location: {city: 'Brest', country: 'Belarus'}
-            },
-            {
-                id: 3,
-                photoUrl: 'https://w7.pngwing.com/pngs/838/427/png-transparent-lilo-stitch-lilo-pelekai-reuben-character-others-experiment-fictional-character-stitch.png',
-                followed: false,
-                fullName: 'Egor',
-                status: 'I am the best of the best of the best',
-                location: {city: 'Brest', country: 'Belarus'}
-            },
-            {
-                id: 4,
-                photoUrl: 'https://w7.pngwing.com/pngs/838/427/png-transparent-lilo-stitch-lilo-pelekai-reuben-character-others-experiment-fictional-character-stitch.png',
-                followed: true,
-                fullName: 'Genya',
-                status: 'I am the best of the best of the best of the best',
-                location: {city: 'Brest', country: 'Belarus'}
-            },
-            {
-                id: 5,
-                photoUrl: 'https://w7.pngwing.com/pngs/838/427/png-transparent-lilo-stitch-lilo-pelekai-reuben-character-others-experiment-fictional-character-stitch.png',
-                followed: true,
-                fullName: 'Romchik',
-                status: 'I am the best of the best of the best of the best of the best',
-                location: {city: 'Gomel', country: 'Belarus'}
-            },
-        ])
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            props.setUsers(response.data.items)
+        })
     }
-
-
     return (
         <div className={s.content}>
             {props.users.map(m => {
                 return <div key={m.id}>
                     <span>
                         <div>
-                            <img src={m.photoUrl}/>
+                            <img src={m.photos.small !== null ? m.photos.small : userPhoto}/>
                         </div>
                         <div>
                             {m.followed
@@ -72,12 +32,12 @@ export const Users = (props: UsersPropsType) => {
                     </span>
                     <span>
                         <span>
-                    <div>{m.fullName}</div>
+                    <div>{m.name}</div>
                     <div>{m.status}</div>
                             </span>
                         <span>
-                    <div>{m.location.country}</div>
-                             <div>{m.location.city}</div>
+                    <div>{'m.location.country'}</div>
+                             <div>{'m.location.city'}</div>
                         </span>
                     </span>
                 </div>
