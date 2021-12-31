@@ -8,22 +8,28 @@ export type UserType = {
 }
 
 let initialState: initialStateType = {
-    users: [] as Array<UserType>
+    users: [] as Array<UserType>,
+    pageSize: 30,
+    totalCount: 100,
+    currentPage: 5
 }
 
 type initialStateType = {
     users: Array<UserType>
+    pageSize: number
+    totalCount: number
+    currentPage: number
 }
 
-const UsersReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
+const UsersReducer = (state = initialState, action: ActionsTypes): initialStateType => {
     switch (action.type) {
         case 'FOLLOW': {
-            return {
+            return {...state,
                 users: state.users.map(m => m.id === action.id ? {...m, followed: true} : m)
             }
         }
         case 'UNFOLLOW': {
-            return {
+            return {...state,
                 users: state.users.map(m => m.id === action.id ? {...m, followed: false} : m)
             }
         }

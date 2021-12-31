@@ -9,11 +9,14 @@ type UsersPropsType = {
     follow: (id: number) => void
     unFollow: (id: number) => void
     setUsers: (users: Array<UserType>) => void
+    totalCount:number
+    pageSize:number
+    currentPage:number
 }
 
 export class UsersClass extends React.Component<UsersPropsType, Array<UserType>> {
     constructor(props: UsersPropsType) {
-        alert('New instance')
+        // alert('New instance')
         super(props);
     }
 
@@ -25,8 +28,18 @@ export class UsersClass extends React.Component<UsersPropsType, Array<UserType>>
     }
 
     render() {
+        let pagesCount = Math.ceil(this.props.totalCount / this.props.pageSize)
+        let pages = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
         return (
             <div className={s.content}>
+                {pages.map(m => {
+                    return <span className={this.props.currentPage === m ? s.selected : ''}>{m}</span>
+                })}
+
                 {this.props.users?.map(m => {
                     return <div key={m.id}>
                     <span>

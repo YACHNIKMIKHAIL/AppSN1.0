@@ -51,3 +51,8 @@ img{
     height: 90px;
     width: 100px;
 }
+
+.selected{
+    color:yellow;
+    font-weight: bold;
+}

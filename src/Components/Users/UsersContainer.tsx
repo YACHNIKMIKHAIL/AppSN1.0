@@ -8,7 +8,10 @@ import {UsersClass} from "./UsersClass";
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        users: state.usersPage.users
+        users: state.usersPage.users,
+        pageSize:state.usersPage.pageSize,
+        totalCount: state.usersPage.totalCount,
+        currentPage:state.usersPage.currentPage
     }
 }
 
