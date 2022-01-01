@@ -2,7 +2,7 @@ import React from 'react';
 import {Users} from "./Users";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {followAC, setUsersAC, unFollowAC, UserType} from "../redux/user-reducer";
+import {followAC, setCurrentPageAC, setUsersAC, unFollowAC, UserType} from "../redux/user-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {UsersClass} from "./UsersClass";
 
@@ -25,6 +25,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         },
         setUsers: (users: Array<UserType>) => {
             dispatch(setUsersAC(users))
+        },
+        setCurrentPage:(page:number)=>{
+            dispatch(setCurrentPageAC(page))
         }
     }
 }
