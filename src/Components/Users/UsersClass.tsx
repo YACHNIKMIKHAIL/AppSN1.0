@@ -1,5 +1,5 @@
 import React from "react";
-import {setCurrentPageAC, UserType} from "../redux/user-reducer";
+import {UserType} from "../redux/user-reducer";
 import axios from "axios";
 import userPhoto from './../../assets/images/images.png'
 import s from './Users.module.css'
@@ -9,7 +9,8 @@ type UsersPropsType = {
     follow: (id: number) => void
     unFollow: (id: number) => void
     setUsers: (users: Array<UserType>) => void
-    setCurrentPage: (page: number) => void
+    setCurrentPage: (pageNumber: number) => void
+    setTotalUsersCount: (usersCount: number) =>void
     totalCount: number
     pageSize: number
     currentPage: number
@@ -25,7 +26,18 @@ export class UsersClass extends React.Component<UsersPropsType, Array<UserType>>
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
             })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+
     }
 
     render() {
@@ -39,7 +51,7 @@ export class UsersClass extends React.Component<UsersPropsType, Array<UserType>>
             <div className={s.content}>
                 {pages.map(m => {
                     return <span className={this.props.currentPage === m ? s.selected : ''}
-                                 onClick={() => this.props.setCurrentPage(m)}>{m}</span>
+                                 onClick={() => this.onPageChanged(m)}>{m}</span>
                 })}
 
                 {this.props.users?.map(m => {
