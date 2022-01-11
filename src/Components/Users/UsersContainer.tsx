@@ -1,5 +1,4 @@
 import React from 'react';
-import {Users} from "./Users";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {
@@ -11,7 +10,49 @@ import {
     UserType
 } from "../redux/user-reducer";
 import {AppStateType} from "../redux/reduxStore";
-import {UsersClass} from "./UsersClass";
+import axios from "axios";
+import {Users} from "./Users";
+
+type UsersPropsType = {
+    users: Array<UserType>
+    follow: (id: number) => void
+    unFollow: (id: number) => void
+    setUsers: (users: Array<UserType>) => void
+    setCurrentPage: (pageNumber: number) => void
+    setTotalUsersCount: (usersCount: number) => void
+    totalCount: number
+    pageSize: number
+    currentPage: number
+}
+
+export class UsersComponent extends React.Component<UsersPropsType, Array<UserType>> {
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+    }
+
+    render() {
+        return <> <Users totalCount={this.props.totalCount}
+                         pageSize={this.props.pageSize}
+                         currentPage={this.props.currentPage}
+                         onPageChanged={this.onPageChanged}
+                         users={this.props.users}
+                         follow={this.props.follow}
+                         unFollow={this.props.unFollow}
+        /></>
+    }
+}
 
 const mapStateToProps = (state: AppStateType) => {
     return {
@@ -42,5 +83,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersClass);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersComponent);
 
