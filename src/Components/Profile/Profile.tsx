@@ -7,18 +7,22 @@ type ProfilePropsType = {
     profile: ProfileType
 }
 export const Profile = (props: ProfilePropsType) => {
+
     if (!props.profile) {
         return <Preloader/>
     }
-    console.log(props)
     return (
         <div className={s.content}>
             <img
                 src={props.profile.photos.small}
                 alt=""/>
+            <span>{props.profile.aboutMe}</span>
             <div className={s.info}>
-                <div>
-                </div>
+
+                <div>{props.profile.fullName}</div>
+                <div>{props.profile.lookingForAJobDescription}</div>
+                <div style={props.profile.lookingForAJob? {color:'green'}:{color:'red'}}>Looking for a JOB</div>
+
             </div>
 
         </div>

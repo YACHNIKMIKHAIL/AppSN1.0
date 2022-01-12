@@ -7,4 +7,13 @@
     border-radius: 5px;
     color: white;
 }
-
+.info{
+    background-color: white;
+    margin: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color:blue;
+}
