@@ -3,6 +3,7 @@ import img2 from './../Images/avas/images.jpeg'
 import {addPostAC, UpdateNewPostTextAC} from "./newPost-reducer";
 import {sendNewMessageAC, updateNewMessageBodyAC} from "./newMessage-reducer";
 import {UserType} from "./user-reducer";
+import {setUserProfileAC} from "./profile-reducer";
 
 
 export type MyPostsType = {
@@ -73,6 +74,7 @@ export type ActionsTypes =
     | ReturnType<typeof UpdateNewPostTextAC>
     | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendNewMessageAC>
+    | ReturnType<typeof setUserProfileAC>
 
 
 export let store: StoreType = {
