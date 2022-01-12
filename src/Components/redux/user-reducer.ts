@@ -60,22 +60,22 @@ type ActionsTypes =
     | setTotalUsersCountACType
     | TOGGLE_IS_FETCHINGACType
 
-type followACType = ReturnType<typeof followAC>
-export const followAC = (id: number) => ({type: 'FOLLOW', id} as const)
+type followACType = ReturnType<typeof follow>
+export const follow = (id: number) => ({type: 'FOLLOW', id} as const)
 
-type unFollowACType = ReturnType<typeof unFollowAC>
-export const unFollowAC = (id: number) => ({type: 'UNFOLLOW', id} as const)
+type unFollowACType = ReturnType<typeof unFollow>
+export const unFollow = (id: number) => ({type: 'UNFOLLOW', id} as const)
 
-type setUsersACType = ReturnType<typeof setUsersAC>
-export const setUsersAC = (users: Array<UserType>) => ({type: 'SET_USERS', users} as const)
+type setUsersACType = ReturnType<typeof setUsers>
+export const setUsers = (users: Array<UserType>) => ({type: 'SET_USERS', users} as const)
 
-type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
-export const setCurrentPageAC = (currentPage: number) => ({type: 'SET_CURRENT_PAGE', currentPage} as const)
+type setCurrentPageACType = ReturnType<typeof setCurrentPage>
+export const setCurrentPage = (currentPage: number) => ({type: 'SET_CURRENT_PAGE', currentPage} as const)
 
-type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
-export const setTotalUsersCountAC = (usersCount: number) => ({type: 'SET_TOTAL_USERS_COUNT', usersCount} as const)
+type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
+export const setTotalUsersCount = (usersCount: number) => ({type: 'SET_TOTAL_USERS_COUNT', usersCount} as const)
 
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
-type TOGGLE_IS_FETCHINGACType = ReturnType<typeof toggleIsFetchingAC>
-export const toggleIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
+type TOGGLE_IS_FETCHINGACType = ReturnType<typeof toggleIsFetching>
+export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
 export default UsersReducer
