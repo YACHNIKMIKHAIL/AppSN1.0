@@ -8,9 +8,8 @@ import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 
-type AppPropsType = {}
 
-function App(props: AppPropsType) {
+function App() {
     return (
         <div className="AppWrapper">
             <Header/>
@@ -18,6 +17,7 @@ function App(props: AppPropsType) {
                 <Route path='/users' element={<UsersContainer/>}/>
                 <Route path='/messages' element={<Messages/>}/>
                 <Route path='/posts' element={<PostsContainer/>}/>
+                <Route path='/profile/:userId' element={<ProfileContainer/>}/>
                 <Route path='/profile' element={<ProfileContainer/>}/>
             </Routes>
             <Footer/>
