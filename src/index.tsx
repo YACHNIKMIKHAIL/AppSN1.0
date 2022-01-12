@@ -21,7 +21,10 @@ export type RerenderEntireTreePropsType = {
         </BrowserRouter>
         ,
         document.getElementById('root')
+
     );
+
+
 // }
 // rerenderEntireTree(store.getState());
 
