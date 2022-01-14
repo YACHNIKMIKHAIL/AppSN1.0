@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    follow,
+    follow, toggleFollowingInProgress,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
@@ -26,6 +26,8 @@ type UsersPropsType = {
     currentPage: number
     isFetching: boolean
     toggleIsFetching: (isFetching: boolean) => void
+    followingInProgress: boolean
+    toggleFollowingInProgress:(followingInProgress: boolean)=>void
 }
 
 export class UsersComponent extends React.Component<UsersPropsType, Array<UserType>> {
@@ -51,7 +53,8 @@ export class UsersComponent extends React.Component<UsersPropsType, Array<UserTy
         return <div style={{display: 'flex', flexDirection: 'column'}}>
             {this.props.isFetching
                 ? <Preloader/>
-                : null}
+                : null
+            }
             <Users totalCount={this.props.totalCount}
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}
@@ -59,6 +62,8 @@ export class UsersComponent extends React.Component<UsersPropsType, Array<UserTy
                    users={this.props.users}
                    follow={this.props.follow}
                    unFollow={this.props.unFollow}
+                   toggleFollowingInProgress={this.props.toggleFollowingInProgress}
+                   followingInProgress={this.props.followingInProgress}
             />
         </div>
     }
@@ -70,7 +75,8 @@ const mapStateToProps = (state: AppStateType) => {
         pageSize: state.usersPage.pageSize,
         totalCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -80,6 +86,7 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleIsFetching
+    toggleIsFetching,
+    toggleFollowingInProgress
 })(UsersComponent);
 

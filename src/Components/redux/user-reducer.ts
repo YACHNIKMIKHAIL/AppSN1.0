@@ -12,6 +12,7 @@ type initialStateType = {
     totalCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: boolean
 }
 
 let initialState: initialStateType = {
@@ -19,7 +20,8 @@ let initialState: initialStateType = {
     pageSize: 90,
     totalCount: 0,
     currentPage: 2,
-    isFetching: true
+    isFetching: true,
+    followingInProgress: false
 }
 
 const UsersReducer = (state = initialState, action: ActionsTypes): initialStateType => {
@@ -45,8 +47,12 @@ const UsersReducer = (state = initialState, action: ActionsTypes): initialStateT
         case 'SET_TOTAL_USERS_COUNT': {
             return {...state, totalCount: action.usersCount}
         }
-        case 'TOGGLE_IS_FETCHING': {
+        case TOGGLE_IS_FETCHING: {
             return {...state, isFetching: action.isFetching}
+        }
+        case FOLLOWING_IN_PROGRESS: {
+            debugger
+            return {...state, followingInProgress: action.followingInProgress}
         }
         default :
             return state
@@ -58,7 +64,8 @@ type ActionsTypes =
     | setUsersACType
     | setCurrentPageACType
     | setTotalUsersCountACType
-    | TOGGLE_IS_FETCHINGACType
+    | ToggleIsFetchingACType
+    | FollowingInProgressACType
 
 type followACType = ReturnType<typeof follow>
 export const follow = (id: number) => {
@@ -78,6 +85,16 @@ type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
 export const setTotalUsersCount = (usersCount: number) => ({type: 'SET_TOTAL_USERS_COUNT', usersCount} as const)
 
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
-type TOGGLE_IS_FETCHINGACType = ReturnType<typeof toggleIsFetching>
+type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
+
+const FOLLOWING_IN_PROGRESS = 'FOLLOWING_IN_PROGRESS'
+type FollowingInProgressACType = ReturnType<typeof toggleFollowingInProgress>
+export const toggleFollowingInProgress = (followingInProgress: boolean) => {
+    return {
+        type: FOLLOWING_IN_PROGRESS,
+        followingInProgress
+    } as const
+}
+
 export default UsersReducer
