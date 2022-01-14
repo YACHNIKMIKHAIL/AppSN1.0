@@ -17,5 +17,6 @@ export type AppStateType = ReturnType<typeof reducer>
 
 let store = createStore(reducer);
 export type StoreType = typeof store;
-
+//@ts-ignore
+window.store=store
 export default store

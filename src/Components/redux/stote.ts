@@ -4,7 +4,7 @@ import {addPostAC, UpdateNewPostTextAC} from "./newPost-reducer";
 import {sendNewMessageAC, updateNewMessageBodyAC} from "./newMessage-reducer";
 import {UserType} from "./user-reducer";
 import {setUserProfileAC} from "./profile-reducer";
-import {setUserDataAC} from "./auth-reducer";
+import {setAuthUserData} from "./auth-reducer";
 
 
 export type MyPostsType = {
@@ -76,7 +76,7 @@ export type ActionsTypes =
     | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendNewMessageAC>
     | ReturnType<typeof setUserProfileAC>
-    | ReturnType<typeof setUserDataAC>
+    | ReturnType<typeof setAuthUserData>
 
 
 export let store: StoreType = {

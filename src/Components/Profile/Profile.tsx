@@ -11,10 +11,9 @@ type ProfilePropsType = {
 export const Profile = (props: ProfilePropsType) => {
 
     // console.log(Object.keys(props.profile).length)
-    useEffect(()=>{
+    useEffect(() => {
 
-    },[])
-    console.log(props.profile)
+    }, [])
     if (!Object.keys(props.profile).length) {
         return <Preloader/>
     }

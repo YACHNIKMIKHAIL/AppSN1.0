@@ -6,23 +6,22 @@ import {ProfileType, setUserProfileAC} from "../redux/profile-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {useParams} from "react-router-dom";
 
-type ProfileContainerPropsType={
-        profile: ProfileType
+type ProfileContainerPropsType = {
+    profile: ProfileType
     setUserProfileAC: (profile: ProfileType) => void
 }
 
-export const ProfileContainer = ()=>{
-    const { userId } = useParams()
-    const profile=useSelector<AppStateType,ProfileType>(state=>state.profile.profile )
-const dispatch = useDispatch()
-    console.log(profile)
+export const ProfileContainer = () => {
+    const {userId} = useParams()
+    const profile = useSelector<AppStateType, ProfileType>(state => state.profile.profile)
+    const dispatch = useDispatch()
 
-       const getProfile = (userId: number) => {
+    const getProfile = (userId: number) => {
 
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(response => {
 
-                dispatch( setUserProfileAC(response.data))
+                dispatch(setUserProfileAC(response.data))
             })
     }
 
@@ -31,9 +30,9 @@ const dispatch = useDispatch()
     }, [userId])
 
 
-            return <Profile
-            profile={profile}
-        />
+    return <Profile
+        profile={profile}
+    />
 
 
 }
