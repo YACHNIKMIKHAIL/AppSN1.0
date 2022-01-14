@@ -61,7 +61,9 @@ type ActionsTypes =
     | TOGGLE_IS_FETCHINGACType
 
 type followACType = ReturnType<typeof follow>
-export const follow = (id: number) => ({type: 'FOLLOW', id} as const)
+export const follow = (id: number) => {
+    return {type: 'FOLLOW', id} as const
+}
 
 type unFollowACType = ReturnType<typeof unFollow>
 export const unFollow = (id: number) => ({type: 'UNFOLLOW', id} as const)
