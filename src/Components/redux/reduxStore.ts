@@ -3,12 +3,14 @@ import newPostReducer from "./newPost-reducer";
 import newMessageReducer from "./newMessage-reducer";
 import UsersReducer from "./user-reducer";
 import profileReducer from "./profile-reducer";
+import authReducer from "./auth-reducer";
 
 let reducer = combineReducers({
     myPosts: newPostReducer,
     myFriends: newMessageReducer,
     usersPage: UsersReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    auth: authReducer
 })
 
 export type AppStateType = ReturnType<typeof reducer>

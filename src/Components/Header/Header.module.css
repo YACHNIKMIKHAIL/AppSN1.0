@@ -13,8 +13,13 @@
 
     color: rgba(226, 232, 237, 1);
     /*rgba(90,164,196,1);*/
-    display: grid;
+    display: flex;
     justify-items: start;
     align-items: center;
     padding: 0 10px;
+    justify-content: space-between;
+}
+
+.loginBlock {
+    float: right;
 }
