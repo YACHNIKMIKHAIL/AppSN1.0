@@ -6,31 +6,32 @@ import {useParams} from "react-router-dom";
 
 type ProfilePropsType = {
     profile: ProfileType
-    getProfile: (userId: number) => void
+
 }
 export const Profile = (props: ProfilePropsType) => {
-    const { userId } = useParams()
 
-    useEffect(() => {
-        props.getProfile(userId ? +userId : 2)
-    }, [props,userId])
+    // console.log(Object.keys(props.profile).length)
+    useEffect(()=>{
 
-    if (!props.profile) {
+    },[])
+    console.log(props.profile)
+    if (!Object.keys(props.profile).length) {
         return <Preloader/>
     }
 
+
     return (
         <div className={s.content}>
+            {props.profile.fullName}
             <img
-                src={props.profile.photos.small}
+                src={props.profile.photos?.small || ""}
                 alt=""/>
+
             <span>{props.profile.aboutMe}</span>
             <div className={s.info}>
-
                 <div>{props.profile.fullName}</div>
                 <div>{props.profile.lookingForAJobDescription}</div>
                 <div style={props.profile.lookingForAJob ? {color: 'green'} : {color: 'red'}}>Looking for a JOB</div>
-
             </div>
 
         </div>

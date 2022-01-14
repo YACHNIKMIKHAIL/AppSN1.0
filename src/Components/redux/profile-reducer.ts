@@ -1,4 +1,5 @@
 import {ActionsTypes} from "./stote";
+
 const setUserProfile = 'SET_USER_PROFILE';
 
 export type ProfileType = {
@@ -28,26 +29,29 @@ export type InitialProfileType = {
 }
 let initialProfileState: InitialProfileType  = {
     profile: {
-            aboutMe: '',
-            contacts: {
-                facebook: '',
-                website: null,
-                vk: '',
-                twitter: '',
-                instagram: '',
-                youtube: null,
-                github: '',
-                mainLink: null
-            },
-            lookingForAJob: false,
-            lookingForAJobDescription: '',
-            fullName: '',
-            userId: 0,
-            photos: {
-                small: '',
-                large: ''
-            }
-        }
+
+    } as ProfileType
+        // {
+        //     aboutMe: '',
+        //     contacts: {
+        //         facebook: '',
+        //         website: null,
+        //         vk: '',
+        //         twitter: '',
+        //         instagram: '',
+        //         youtube: null,
+        //         github: '',
+        //         mainLink: null
+        //     },
+        //     lookingForAJob: false,
+        //     lookingForAJobDescription: '',
+        //     fullName: '',
+        //     userId: 0,
+        //     photos: {
+        //         small: '',
+        //         large: ''
+        //     }
+        // }
 }
 
 const profileReducer = (state = initialProfileState, action: ActionsTypes): InitialProfileType  => {

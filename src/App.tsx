@@ -6,7 +6,8 @@ import {Route, Routes} from "react-router-dom";
 import {Messages} from "./Components/Messages/Messages";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
-import ProfileContainer from "./Components/Profile/ProfileContainer";
+import {ProfileContainer} from "./Components/Profile/ProfileContainer";
+
 
 
 function App() {
