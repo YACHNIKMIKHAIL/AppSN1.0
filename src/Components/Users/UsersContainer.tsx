@@ -27,7 +27,8 @@ type UsersPropsType = {
     isFetching: boolean
     toggleIsFetching: (isFetching: boolean) => void
     followingInProgress: boolean
-    toggleFollowingInProgress:(followingInProgress: boolean)=>void
+    toggleFollowingInProgress: (followingInProgress: boolean, id: number) => void
+    followingId:Array<number>
 }
 
 export class UsersComponent extends React.Component<UsersPropsType, Array<UserType>> {
@@ -64,6 +65,7 @@ export class UsersComponent extends React.Component<UsersPropsType, Array<UserTy
                    unFollow={this.props.unFollow}
                    toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                    followingInProgress={this.props.followingInProgress}
+                   followingId={this.props.followingId}
             />
         </div>
     }
@@ -76,7 +78,8 @@ const mapStateToProps = (state: AppStateType) => {
         totalCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        followingId:state.usersPage.followingId
     }
 }
 
