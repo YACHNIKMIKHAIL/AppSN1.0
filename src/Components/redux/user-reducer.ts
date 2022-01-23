@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersApi} from "../../API/Api";
+
 export type UserType = {
     id: number
     photos: { small: string | null, large: string | null }
@@ -53,7 +56,6 @@ const UsersReducer = (state = initialState, action: ActionsTypes): initialStateT
             return {...state, isFetching: action.isFetching}
         }
         case FOLLOWING_IN_PROGRESS: {
-            debugger
             return {
                 ...state, followingInProgress: action.followingInProgress,
                 followingId:
@@ -103,6 +105,17 @@ export const toggleFollowingInProgress = (followingInProgress: boolean, id: numb
         type: FOLLOWING_IN_PROGRESS,
         followingInProgress, id
     } as const
+}
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true))
+        usersApi.getUsersApi(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+    }
 }
 
 export default UsersReducer

@@ -53,7 +53,6 @@ export const Users = (props: UsersPropsType) => {
                                           disabled={props.followingId.some(id => id === m.id)}
                                           // style={!props.followingInProgress ? {color: 'red'} : {color: 'white'}}
                                           onClick={() => {
-                                              debugger
                                               props.toggleFollowingInProgress(true, m.id)
                                               // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${m.id}`, {
                                               //     withCredentials: true,
@@ -73,7 +72,6 @@ export const Users = (props: UsersPropsType) => {
                                           disabled={props.followingId.some(id => id === m.id)}
                                           // style={!props.followingInProgress ? {color: 'red'} : {color: 'white'}}
                                           onClick={() => {
-                                              debugger
                                               props.toggleFollowingInProgress(true, m.id)
                                               // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${m.id}`, {}, {
                                               //     withCredentials: true,
@@ -87,7 +85,6 @@ export const Users = (props: UsersPropsType) => {
                                               //         }
                                               //     )
                                               usersApi.follow(m.id).then(data => {
-                                                      debugger
                                                       if (data.resultCode === 0) {
                                                           props.follow(m.id)
                                                       }
