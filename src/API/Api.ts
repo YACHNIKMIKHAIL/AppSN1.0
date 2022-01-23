@@ -33,27 +33,3 @@ export const authApi={
         })
     }
 }
-// export const getUsersApi = (currentPage: number = 1, pageSize: number = 10) => {
-//     return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-//         .then(response => {
-//             return response.data
-//         })
-// }
-//
-// export const unFollow = (id: number) => {
-//     return instance.delete(`follow/${id}`).then(response => {
-//         return response.data
-//     })
-// }
-//
-// export const follow = (id: number) => {
-//     return instance.post(`follow/${id}`).then(response => {
-//         return response.data
-//     })
-// }
-
-// export const authMe = () => {
-//     return instance.get(`auth/me`).then(response => {
-//         return response.data
-//     })
-// }

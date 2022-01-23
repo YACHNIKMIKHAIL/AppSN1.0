@@ -14,7 +14,7 @@ type UsersPropsType = {
     users: Array<UserType>
     follow: (id: number) => void
     unFollow: (id: number) => void
-    toggleFollowingInProgress: (followingInProgress: boolean, id: number) => void
+    // toggleFollowingInProgress: (followingInProgress: boolean, id: number) => void
     followingInProgress: boolean
     followingId: Array<number>
     // setUsers: (users: Array<UserType>) => void

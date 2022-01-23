@@ -17,10 +17,8 @@ export const ProfileContainer = () => {
     const dispatch = useDispatch()
 
     const getProfile = (userId: number) => {
-
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(response => {
-
                 dispatch(setUserProfileAC(response.data))
             })
     }

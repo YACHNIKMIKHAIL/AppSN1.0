@@ -71,7 +71,7 @@ export class UsersComponent extends React.Component<UsersPropsType, Array<UserTy
                    users={this.props.users}
                    follow={this.props.follow}
                    unFollow={this.props.unFollow}
-                   toggleFollowingInProgress={this.props.toggleFollowingInProgress}
+                   // toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                    followingInProgress={this.props.followingInProgress}
                    followingId={this.props.followingId}
                    unFollowThunkCreator={this.props.unFollowThunkCreator}
