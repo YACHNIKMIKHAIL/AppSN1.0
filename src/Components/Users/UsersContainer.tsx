@@ -7,7 +7,7 @@ import {
     setUsers,
     toggleIsFetching,
     unFollow,
-    UserType
+    UserType, getUsersThunkCreator
 } from "../redux/user-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {Users} from "./Users";
@@ -28,17 +28,20 @@ type UsersPropsType = {
     toggleIsFetching: (isFetching: boolean) => void
     followingInProgress: boolean
     toggleFollowingInProgress: (followingInProgress: boolean, id: number) => void
-    followingId:Array<number>
+    followingId: Array<number>
+    getUsersThunkCreator: (currentPage: number, pageSize: number) => void
 }
 
 export class UsersComponent extends React.Component<UsersPropsType, Array<UserType>> {
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        usersApi.getUsersApi(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-            this.props.setTotalUsersCount(data.totalCount)
-        })
+        // this.props.toggleIsFetching(true)
+        // usersApi.getUsersApi(this.props.currentPage, this.props.pageSize).then(data => {
+        //     this.props.toggleIsFetching(false)
+        //     this.props.setUsers(data.items)
+        //     this.props.setTotalUsersCount(data.totalCount)
+        // })
+
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
@@ -79,7 +82,7 @@ const mapStateToProps = (state: AppStateType) => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
-        followingId:state.usersPage.followingId
+        followingId: state.usersPage.followingId
     }
 }
 
@@ -90,6 +93,7 @@ export default connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     toggleIsFetching,
-    toggleFollowingInProgress
+    toggleFollowingInProgress,
+    getUsersThunkCreator
 })(UsersComponent);
 
