@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    follow, toggleFollowingInProgress,
+    followSuccess, toggleFollowingInProgress,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
     toggleIsFetching,
-    unFollow,
-    UserType, getUsersThunkCreator, onPageChangedThunkCreator
+    unFollowSuccess,
+    UserType, getUsersThunkCreator, onPageChangedThunkCreator, unFollowThunkCreator, followThunkCreator
 } from "../redux/user-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {Users} from "./Users";
@@ -18,19 +18,21 @@ type UsersPropsType = {
     users: Array<UserType>
     follow: (id: number) => void
     unFollow: (id: number) => void
-    setUsers: (users: Array<UserType>) => void
+    // setUsers: (users: Array<UserType>) => void
     setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount: (usersCount: number) => void
+    // setTotalUsersCount: (usersCount: number) => void
     totalCount: number
     pageSize: number
     currentPage: number
     isFetching: boolean
-    toggleIsFetching: (isFetching: boolean) => void
+    // toggleIsFetching: (isFetching: boolean) => void
     followingInProgress: boolean
     toggleFollowingInProgress: (followingInProgress: boolean, id: number) => void
     followingId: Array<number>
     getUsersThunkCreator: (currentPage: number, pageSize: number) => void
     onPageChangedThunkCreator: (pageNumber: number, pageSize: number) => void
+    unFollowThunkCreator: (id: number) => void
+    followThunkCreator: (id: number) => void
 }
 
 export class UsersComponent extends React.Component<UsersPropsType, Array<UserType>> {
@@ -72,6 +74,8 @@ export class UsersComponent extends React.Component<UsersPropsType, Array<UserTy
                    toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                    followingInProgress={this.props.followingInProgress}
                    followingId={this.props.followingId}
+                   unFollowThunkCreator={this.props.unFollowThunkCreator}
+                   followThunkCreator={this.props.followThunkCreator}
             />
         </div>
     }
@@ -90,14 +94,16 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 export default connect(mapStateToProps, {
-    follow,
-    unFollow,
-    setUsers,
+    follow: followSuccess,
+    unFollow: unFollowSuccess,
+    // setUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
+    // setTotalUsersCount,
+    // toggleIsFetching,
     toggleFollowingInProgress,
     getUsersThunkCreator,
-    onPageChangedThunkCreator
+    onPageChangedThunkCreator,
+    unFollowThunkCreator,
+    followThunkCreator,
 })(UsersComponent);
 

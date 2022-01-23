@@ -69,21 +69,21 @@ const UsersReducer = (state = initialState, action: ActionsTypes): initialStateT
     }
 }
 type ActionsTypes =
-    followACType
-    | unFollowACType
+    FollowSuccessACType
+    | UnFollowSuccessACType
     | setUsersACType
     | setCurrentPageACType
     | setTotalUsersCountACType
     | ToggleIsFetchingACType
     | FollowingInProgressACType
 
-type followACType = ReturnType<typeof follow>
-export const follow = (id: number) => {
+type FollowSuccessACType = ReturnType<typeof followSuccess>
+export const followSuccess = (id: number) => {
     return {type: 'FOLLOW', id} as const
 }
 
-type unFollowACType = ReturnType<typeof unFollow>
-export const unFollow = (id: number) => ({type: 'UNFOLLOW', id} as const)
+type UnFollowSuccessACType = ReturnType<typeof unFollowSuccess>
+export const unFollowSuccess = (id: number) => ({type: 'UNFOLLOW', id} as const)
 
 type setUsersACType = ReturnType<typeof setUsers>
 export const setUsers = (users: Array<UserType>) => ({type: 'SET_USERS', users} as const)
@@ -126,6 +126,32 @@ export const onPageChangedThunkCreator = (pageNumber: number, pageSize: number) 
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))
         })
+    }
+}
+
+export const unFollowThunkCreator = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingInProgress(true, id))
+        usersApi.unFollow(id).then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unFollowSuccess(id))
+                }
+                dispatch(toggleFollowingInProgress(false, id))
+            }
+        )
+    }
+}
+
+export const followThunkCreator = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingInProgress(true, id))
+        usersApi.follow(id).then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(followSuccess(id))
+                }
+                dispatch(toggleFollowingInProgress(false, id))
+            }
+        )
     }
 }
 
