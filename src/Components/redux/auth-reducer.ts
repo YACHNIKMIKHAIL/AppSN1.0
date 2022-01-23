@@ -1,4 +1,6 @@
 import {ActionsTypes} from "./stote";
+import {Dispatch} from "redux";
+import {authApi} from "../../API/Api";
 
 export type initDataType = {
         id: number | null
@@ -33,5 +35,15 @@ export const setAuthUserData = (id: number, email: string, login: string) => {
     } as const
 }
 
+export const authMeThunkCreator=()=>{
+    return (dispatch:Dispatch)=>{
+        authApi.authMe().then(data => {
+            if (data.resultCode === 0) {
+                let {id, email, login} = data.data
+                dispatch(setAuthUserData(id, email, login))
+            }
+        })
+    }
+}
 
 export default authReducer
