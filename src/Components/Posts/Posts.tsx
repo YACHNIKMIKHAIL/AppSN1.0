@@ -2,6 +2,7 @@ import React, {ChangeEvent} from "react";
 import s from './Posts.module.css'
 import {NewPost} from "./NewPost/NewPost";
 import {MyPostsType} from './../redux/stote'
+import {Navigate} from "react-router-dom";
 
 
 type PostsPropsType = {
@@ -9,6 +10,7 @@ type PostsPropsType = {
     addPost: (newText:string) => void
     newPostText: string
     updateNewPost: (newText: string) => void
+    isAuth:boolean
 }
 
 
@@ -23,6 +25,8 @@ export const Posts = (props: PostsPropsType) => {
         props.updateNewPost(newText)
         console.log(newText)
     }
+
+    if (!props.isAuth) return <Navigate to={"/login"}/>
     return (
         <div className={s.content}>
             <NewPost

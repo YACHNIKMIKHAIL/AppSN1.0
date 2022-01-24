@@ -3,25 +3,25 @@ import {Dispatch} from "redux";
 import {authApi} from "../../API/Api";
 
 export type initDataType = {
-        id: number | null
-        email: string | null
-        login: string | null
-        isFetching: boolean
-        isAuth: boolean
+    id: number | null
+    email: string | null
+    login: string | null
+    isFetching: boolean
+    isAuth: boolean
 }
 const initState: initDataType = {
-        id: null,
-        email: null,
-        login: null,
-        isFetching: false,
-        isAuth: false
+    id: null,
+    email: null,
+    login: null,
+    isFetching: false,
+    isAuth: false
 
 }
 
 const authReducer = (state: initDataType = initState, action: ActionsTypes): initDataType => {
     switch (action.type) {
         case SET_USER_DATA: {
-            return {...state,...action.data,isAuth:true}
+            return {...state, ...action.data, isAuth: true}
         }
         default :
             return state
@@ -35,8 +35,8 @@ export const setAuthUserData = (id: number, email: string, login: string) => {
     } as const
 }
 
-export const authMeThunkCreator=()=>{
-    return (dispatch:Dispatch)=>{
+export const authMeThunkCreator = () => {
+    return (dispatch: Dispatch) => {
         authApi.authMe().then(data => {
             if (data.resultCode === 0) {
                 let {id, email, login} = data.data

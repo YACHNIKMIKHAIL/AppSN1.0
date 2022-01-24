@@ -1,17 +1,15 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './DialogsMessages.module.css'
-import {
-    sendNewMessageAC,
-    updateNewMessageBodyAC,
-} from "../../../redux/newMessage-reducer";
-import {MessagesType, MyFriendsType} from './../../../redux/stote'
+import {MessagesType} from './../../../redux/stote'
+import {Navigate} from "react-router-dom";
 
 
 type DialogsMessagesPropsType = {
     messages: MessagesType
     newMessageBody: string
-    updateNewMessageBody:(boby:string)=>void
-    sendNewMessage:()=>void
+    updateNewMessageBody: (boby: string) => void
+    sendNewMessage: () => void
+    isAuth: boolean
 }
 export const DialogsMessages = (props: DialogsMessagesPropsType) => {
     let newMessageBody = props.messages
@@ -21,14 +19,18 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
         alert('NEW MESSAGE!')
     }
 
+    // if(!props.isAuth) return <Redirect to={'/login'}/>
+    if (!props.isAuth) return <Navigate to={"/login"}/>
+
+
     const onSendMessageClick = () => {
         props.sendNewMessage()
     }
-    const onNewMassageChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const onNewMassageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         props.updateNewMessageBody(e.currentTarget.value)
     }
 
-    let myMess = props.messages.myMess.map ((ff) => {
+    let myMess = props.messages.myMess.map((ff) => {
         return (
             <div className={s.myMess}>
                 {ff.title}
@@ -43,6 +45,7 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
         )
     })
 
+
     return (
         <div className={s.content}>
             <div>
@@ -55,7 +58,7 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
                 <input type="text"
                        placeholder='New Message'
                        value={props.newMessageBody}
-                       onChange={(e)=>onNewMassageChange(e)}
+                       onChange={(e) => onNewMassageChange(e)}
                 />
                 <button onClick={onSendMessageClick}>Send</button>
             </div>

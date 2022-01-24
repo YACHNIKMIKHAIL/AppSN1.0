@@ -1,9 +1,6 @@
 import React from "react";
-import {
-    sendNewMessageAC,
-    updateNewMessageBodyAC,
-} from "../../../redux/newMessage-reducer";
-import {MessagesType, MyFriendsType} from './../../../redux/stote'
+import {sendNewMessageAC, updateNewMessageBodyAC,} from "../../../redux/newMessage-reducer";
+import {MyFriendsType} from './../../../redux/stote'
 import {DialogsMessages} from "./DialogsMessages";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
@@ -67,7 +64,8 @@ const mapStateToProps = (state: AppStateType) => {
     console.log('state', state)
     return {
         messages: state.myFriends.myFriends.messages,
-        newMessageBody: state.myFriends.myFriends.newMessageBody
+        newMessageBody: state.myFriends.myFriends.newMessageBody,
+        isAuth:state.auth.isAuth
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => {

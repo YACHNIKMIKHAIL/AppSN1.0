@@ -11,7 +11,7 @@ let reducer = combineReducers({
     myFriends: newMessageReducer,
     usersPage: UsersReducer,
     profile: profileReducer,
-    auth: authReducer
+    auth: authReducer,
 })
 
 export type AppStateType = ReturnType<typeof reducer>

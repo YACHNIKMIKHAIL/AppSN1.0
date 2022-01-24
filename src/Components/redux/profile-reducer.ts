@@ -1,6 +1,6 @@
 import {ActionsTypes} from "./stote";
 import {Dispatch} from "redux";
-import {profileApi} from "../../API/Api";
+import {usersApi} from "../../API/Api";
 
 const setUserProfile = 'SET_USER_PROFILE';
 
@@ -29,34 +29,11 @@ export type ProfileType = {
 export type InitialProfileType = {
     profile: ProfileType
 }
-let initialProfileState: InitialProfileType  = {
-    profile: {
-
-    } as ProfileType
-        // {
-        //     aboutMe: '',
-        //     contacts: {
-        //         facebook: '',
-        //         website: null,
-        //         vk: '',
-        //         twitter: '',
-        //         instagram: '',
-        //         youtube: null,
-        //         github: '',
-        //         mainLink: null
-        //     },
-        //     lookingForAJob: false,
-        //     lookingForAJobDescription: '',
-        //     fullName: '',
-        //     userId: 0,
-        //     photos: {
-        //         small: '',
-        //         large: ''
-        //     }
-        // }
+let initialProfileState: InitialProfileType = {
+    profile: {} as ProfileType
 }
 
-const profileReducer = (state = initialProfileState, action: ActionsTypes): InitialProfileType  => {
+const profileReducer = (state = initialProfileState, action: ActionsTypes): InitialProfileType => {
     switch (action.type) {
         case setUserProfile: {
             return {...state, profile: action.profile}
@@ -72,10 +49,9 @@ export const setUserProfileAC = (profile: ProfileType) => {
     } as const
 }
 
-export const getProfileThunkCreator=(userId:number)=>{
-    return (dispatch:Dispatch)=>{
-        debugger
-        profileApi.getProfile(userId)
+export const getProfileThunkCreator = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        usersApi.getProfile(userId)
             .then(response => {
                 dispatch(setUserProfileAC(response.data))
             })

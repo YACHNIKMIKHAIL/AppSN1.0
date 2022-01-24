@@ -8,8 +8,6 @@ type HeaderPropsType = {
     login: string
 }
 export const Header = (props: HeaderPropsType) => {
-    console.log(props.login)
-    console.log(props.isAuth)
 
     return (
         <div className={s.header}>

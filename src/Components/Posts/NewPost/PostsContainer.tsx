@@ -8,7 +8,8 @@ import {AppStateType} from "../../redux/reduxStore";
 const mapStateToProps = (state:AppStateType) => {
     return {
         myPosts: state.myPosts.myPosts,
-        newPostText: state.myPosts.newPostText
+        newPostText: state.myPosts.newPostText,
+        isAuth:state.auth.isAuth
     }
 }
 const mapDispatchToProps = (dispatch:Dispatch) => {
