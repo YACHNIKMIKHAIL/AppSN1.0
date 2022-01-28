@@ -1,7 +1,7 @@
 import React from "react";
 import s from './DialogsMessages.module.css'
-import {MessagesType} from './../../../redux/stote'
-import {Navigate} from "react-router-dom";
+import {MessagesType} from "../../../redux/stote";
+
 
 
 type DialogsMessagesPropsType = {
@@ -19,8 +19,7 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
         alert('NEW MESSAGE!')
     }
 
-    // if(!props.isAuth) return <Redirect to={'/login'}/>
-    if (!props.isAuth) return <Navigate to={"/login"}/>
+    // if (props.isAuth) return <Navigate to={"/login"}/>
 
 
     const onSendMessageClick = () => {

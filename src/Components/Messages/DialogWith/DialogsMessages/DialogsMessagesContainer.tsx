@@ -1,12 +1,8 @@
-import React from "react";
 import {sendNewMessageAC, updateNewMessageBodyAC,} from "../../../redux/newMessage-reducer";
-import {MyFriendsType} from './../../../redux/stote'
 import {DialogsMessages} from "./DialogsMessages";
-import {connect, useSelector} from "react-redux";
-import {Dispatch} from "redux";
+import {connect} from "react-redux";
+import {compose, Dispatch} from "redux";
 import {AppStateType} from "../../../redux/reduxStore";
-import {Navigate} from "react-router-dom";
-import {ProfileContainer} from "../../../Profile/ProfileContainer";
 import {WithAuthRedirect} from "../../../Hoc/WithAuthRedirect";
 
 
@@ -82,6 +78,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 // const AuthRedirectComponent=WithAuthRedirect(DialogsMessages)
+compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    WithAuthRedirect
+)(DialogsMessages)
 
 export const DialogsMessagesContainer = WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(DialogsMessages))
 

@@ -14,7 +14,8 @@ import {
 import {AppStateType} from "../redux/reduxStore";
 import {Users} from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
-import {Navigate} from "react-router-dom";
+import {WithAuthRedirect} from "../Hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -32,7 +33,7 @@ type UsersPropsType = {
     onPageChangedThunkCreator: (pageNumber: number, pageSize: number) => void
     unFollowThunkCreator: (id: number) => void
     followThunkCreator: (id: number) => void
-    isAuth:boolean
+    // isAuth:boolean
 }
 
 export class UsersComponent extends React.Component<UsersPropsType, Array<UserType>> {
@@ -45,28 +46,27 @@ export class UsersComponent extends React.Component<UsersPropsType, Array<UserTy
     }
 
     render() {
-        if (!this.props.isAuth) {
-            return <Navigate to={"/login"}/>
-        }else {
-            return <div style={{display: 'flex', flexDirection: 'column'}}>
-                {this.props.isFetching
-                    ? <Preloader/>
-                    : null
-                }
-                <Users totalCount={this.props.totalCount}
-                       pageSize={this.props.pageSize}
-                       currentPage={this.props.currentPage}
-                       onPageChanged={this.onPageChanged}
-                       users={this.props.users}
-                       follow={this.props.follow}
-                       unFollow={this.props.unFollow}
-                       followingInProgress={this.props.followingInProgress}
-                       followingId={this.props.followingId}
-                       unFollowThunkCreator={this.props.unFollowThunkCreator}
-                       followThunkCreator={this.props.followThunkCreator}
-                />
-            </div>
-        }
+        // if (!this.props.isAuth) {
+        //     return <Navigate to={"/login"}/>
+        // }else {
+        return <div style={{display: 'flex', flexDirection: 'column'}}>
+            {this.props.isFetching
+                ? <Preloader/>
+                : null
+            }
+            <Users totalCount={this.props.totalCount}
+                   pageSize={this.props.pageSize}
+                   currentPage={this.props.currentPage}
+                   onPageChanged={this.onPageChanged}
+                   users={this.props.users}
+                   follow={this.props.follow}
+                   unFollow={this.props.unFollow}
+                   followingInProgress={this.props.followingInProgress}
+                   followingId={this.props.followingId}
+                   unFollowThunkCreator={this.props.unFollowThunkCreator}
+                   followThunkCreator={this.props.followThunkCreator}
+            />
+        </div>
     }
 }
 
@@ -79,18 +79,22 @@ const mapStateToProps = (state: AppStateType) => {
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
         followingId: state.usersPage.followingId,
-        isAuth: state.auth.isAuth
+        // isAuth: state.auth.isAuth
     }
 }
 
-export default connect(mapStateToProps, {
-    follow: followSuccess,
-    unFollow: unFollowSuccess,
-    setCurrentPage,
-    toggleFollowingInProgress,
-    getUsersThunkCreator,
-    onPageChangedThunkCreator,
-    unFollowThunkCreator,
-    followThunkCreator,
-})(UsersComponent);
+
+export default compose(
+    connect(mapStateToProps, {
+        follow: followSuccess,
+        unFollow: unFollowSuccess,
+        setCurrentPage,
+        toggleFollowingInProgress,
+        getUsersThunkCreator,
+        onPageChangedThunkCreator,
+        unFollowThunkCreator,
+        followThunkCreator,
+    }),
+    WithAuthRedirect
+)(UsersComponent)
 
