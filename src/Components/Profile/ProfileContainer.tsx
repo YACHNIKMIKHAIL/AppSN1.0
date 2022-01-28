@@ -1,9 +1,10 @@
 import React, {useCallback, useEffect} from "react";
-import {Profile} from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfileThunkCreator, ProfileType} from "../redux/profile-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {Navigate, useParams} from "react-router-dom";
+import {Profile} from "./Profile";
+import {WithAuthRedirect} from "../Hoc/WithAuthRedirect";
 
 export const ProfileContainer = () => {
     const {userId} = useParams()
@@ -24,3 +25,5 @@ export const ProfileContainer = () => {
         ? <Profile profile={profile}/>
         : <Navigate to={"/login"}/>
 }
+
+// const AuthRedirectComponent=WithAuthRedirect(<ProfileContainer/>)

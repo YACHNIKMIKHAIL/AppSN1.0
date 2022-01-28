@@ -2,9 +2,12 @@ import React from "react";
 import {sendNewMessageAC, updateNewMessageBodyAC,} from "../../../redux/newMessage-reducer";
 import {MyFriendsType} from './../../../redux/stote'
 import {DialogsMessages} from "./DialogsMessages";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../../redux/reduxStore";
+import {Navigate} from "react-router-dom";
+import {ProfileContainer} from "../../../Profile/ProfileContainer";
+import {WithAuthRedirect} from "../../../Hoc/WithAuthRedirect";
 
 
 // type DialogsMessagesContainer = {
@@ -53,19 +56,19 @@ import {AppStateType} from "../../../redux/reduxStore";
 //     //     </StoreContext.Consumer>
 //     // )
 
-type mapStateToPropsType = {
-    myFriends:MyFriendsType
-}
-type DispatchPropsType = {
-    updateNewMessageBody: (boby: string) => void
-    sendNewMessage: () => void
-}
+// type mapStateToPropsType = {
+//     myFriends:MyFriendsType
+// }
+// type DispatchPropsType = {
+//     updateNewMessageBody: (boby: string) => void
+//     sendNewMessage: () => void
+// }
 const mapStateToProps = (state: AppStateType) => {
     console.log('state', state)
     return {
         messages: state.myFriends.myFriends.messages,
         newMessageBody: state.myFriends.myFriends.newMessageBody,
-        isAuth:state.auth.isAuth
+        // isAuth: state.auth.isAuth
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -78,6 +81,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         }
     }
 }
+// const AuthRedirectComponent=WithAuthRedirect(DialogsMessages)
 
-export const DialogsMessagesContainer = connect(mapStateToProps, mapDispatchToProps)(DialogsMessages)
+export const DialogsMessagesContainer = WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(DialogsMessages))
 

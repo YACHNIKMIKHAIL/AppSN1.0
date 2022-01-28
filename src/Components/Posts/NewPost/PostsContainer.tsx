@@ -5,6 +5,8 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/reduxStore";
 
+
+
 const mapStateToProps = (state:AppStateType) => {
     return {
         myPosts: state.myPosts.myPosts,
