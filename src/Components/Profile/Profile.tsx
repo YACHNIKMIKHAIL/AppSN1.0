@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import s from './Profile.module.css'
 import Preloader from "../Common/Preloader/Preloader";
 import {ProfileType} from "../redux/profile-reducer";
-import {Navigate, useParams} from "react-router-dom";
+import ProfileStatus from "./ProfileStatus";
 
 type ProfilePropsType = {
     profile: ProfileType
@@ -20,6 +20,7 @@ export const Profile = (props: ProfilePropsType) => {
 
     return (
         <div className={s.content}>
+            <ProfileStatus status={'bla bla blaaaaaa!'}/>
             {props.profile.fullName}
             <img
                 src={props.profile.photos?.small || ""}
