@@ -5,15 +5,29 @@ type ProfileStatusPropsType = {
 }
 
 class ProfileStatus extends React.Component {
+    state = {
+        editMode: false,
+        title: 'blabla'
+    }
+
+    activateEditMode() {
+        this.setState(
+            this.state.editMode = true
+        )
+    }
+
     render() {
         return (
             <div>
+                {!this.state.editMode &&
                 <div>
-                    <span>{props.status}</span>
-                </div>
+                    <span onDoubleClick={this.activateEditMode.bind(this)}>{this.state.title}</span>
+                </div>}
+                {this.state.editMode &&
                 <div>
-                    <input value={props.status}/>
-                </div>
+                    <input value={this.state.title}/>
+                </div>}
+
             </div>
         );
     }

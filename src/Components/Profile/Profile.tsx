@@ -20,7 +20,7 @@ export const Profile = (props: ProfilePropsType) => {
 
     return (
         <div className={s.content}>
-            <ProfileStatus status={'bla bla blaaaaaa!'}/>
+            <ProfileStatus/>
             {props.profile.fullName}
             <img
                 src={props.profile.photos?.small || ""}
