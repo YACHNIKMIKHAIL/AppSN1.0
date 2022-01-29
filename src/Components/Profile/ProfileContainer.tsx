@@ -27,10 +27,11 @@ export const ProfileContainer = () => {
         dispatch(updateStatusThunkCreator(status))
     }, [dispatch])
 
+    //21487
     useEffect(() => {
-        getProfile(userId ? +userId : 2)
-        getStatus(userId ? +userId : 2)
-    }, [userId, getProfile])
+        getProfile(userId ? +userId : 21487)
+        getStatus(userId ? +userId : 21487)
+    }, [userId, getProfile,getStatus])
 
 
     return isAuth

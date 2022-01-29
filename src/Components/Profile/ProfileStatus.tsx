@@ -28,7 +28,7 @@ class ProfileStatus extends React.Component<{ status: string, updateStatus: (sta
             <div>
                 {!this.state.editMode &&
                 <div>
-                    <span onDoubleClick={this.activateEditMode}>{this.props.status}</span>
+                    <span onDoubleClick={this.activateEditMode}>My status: {this.props.status || 'No status'}</span>
                 </div>}
                 {this.state.editMode &&
                 <div>
@@ -40,6 +40,6 @@ class ProfileStatus extends React.Component<{ status: string, updateStatus: (sta
         );
     }
 
-};
+}
 
 export default ProfileStatus;
