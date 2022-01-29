@@ -1,6 +1,6 @@
 import {ActionsTypes} from "./stote";
 import {Dispatch} from "redux";
-import {usersApi} from "../../API/Api";
+import {profileApi, usersApi} from "../../API/Api";
 
 const setUserProfile = 'SET_USER_PROFILE';
 
@@ -51,7 +51,7 @@ export const setUserProfileAC = (profile: ProfileType) => {
 
 export const getProfileThunkCreator = (userId: number) => {
     return (dispatch: Dispatch) => {
-        usersApi.getProfile(userId)
+        profileApi.getProfile(userId)
             .then(response => {
                 dispatch(setUserProfileAC(response.data))
             })

@@ -23,11 +23,6 @@ export const usersApi = {
         return instance.post(`follow/${id}`).then(response => {
             return response.data
         })
-    },
-    getProfile (userId:number) {
-        return instance.get(`profile/ ${userId}`).then(response => {
-            return response
-        })
     }
 }
 
@@ -35,6 +30,24 @@ export const authApi={
     authMe () {
         return instance.get(`auth/me`).then(response => {
             return response.data
+        })
+    }
+}
+
+export const profileApi={
+    getProfile (userId:number) {
+        return instance.get(`profile/ ${userId}`).then(response => {
+            return response
+        })
+    },
+    getStatus (userId:number) {
+        return instance.get(`status/ ${userId}`).then(response => {
+            return response
+        })
+    },
+    updateStatus (status:string) {
+        return instance.put(`status/`,{status}).then(response => {
+            return response
         })
     }
 }
