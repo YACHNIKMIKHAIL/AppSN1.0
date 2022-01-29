@@ -1,6 +1,11 @@
 import React, {useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getProfileThunkCreator, getStatusThunkCreator, ProfileType} from "../redux/profile-reducer";
+import {
+    getProfileThunkCreator,
+    getStatusThunkCreator,
+    ProfileType,
+    updateStatusThunkCreator
+} from "../redux/profile-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {Navigate, useParams} from "react-router-dom";
 import {Profile} from "./Profile";
@@ -18,6 +23,9 @@ export const ProfileContainer = () => {
     const getStatus = useCallback((userId: number) => {
         dispatch(getStatusThunkCreator(userId))
     }, [dispatch])
+    const updateStatus = useCallback((status: string) => {
+        dispatch(updateStatusThunkCreator(status))
+    }, [dispatch])
 
     useEffect(() => {
         getProfile(userId ? +userId : 2)
@@ -26,7 +34,7 @@ export const ProfileContainer = () => {
 
 
     return isAuth
-        ? <Profile profile={profile} status={status}/>
+        ? <Profile profile={profile} status={status} updateStatus={updateStatus}/>
         : <Navigate to={"/login"}/>
 }
 

@@ -1,10 +1,7 @@
 import React from 'react';
 
-type ProfileStatusPropsType = {
-    status: string
-}
 
-class ProfileStatus extends React.Component {
+class ProfileStatus extends React.Component<{ status: string }> {
     state = {
         editMode: false,
         title: 'fvefasv'
@@ -27,7 +24,7 @@ class ProfileStatus extends React.Component {
             <div>
                 {!this.state.editMode &&
                 <div>
-                    <span onDoubleClick={this.activateEditMode}>{this.state.title}</span>
+                    <span onDoubleClick={this.activateEditMode}>{this.props.status}</span>
                 </div>}
                 {this.state.editMode &&
                 <div>

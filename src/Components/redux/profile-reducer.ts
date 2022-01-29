@@ -4,6 +4,8 @@ import {profileApi, usersApi} from "../../API/Api";
 
 const setUserProfile = 'SET_USER_PROFILE';
 const getStatus = 'GET_STATUS';
+const setStatus = 'SET_STATUS';
+const updateStatus = 'UPDATE_STATUS';
 
 export type ProfileType = {
     aboutMe: string,
@@ -44,6 +46,12 @@ const profileReducer = (state = initialProfileState, action: ActionsTypes): Init
         case getStatus: {
             return {...state, status: action.status}
         }
+        case setStatus: {
+            return {...state, status: action.status}
+        }
+        case updateStatus: {
+            return {...state, status: action.status}
+        }
         default :
             return state
     }
@@ -57,6 +65,16 @@ export const setUserProfileAC = (profile: ProfileType) => {
 export const getStatusAC = (status: string) => {
     return {
         type: getStatus, status
+    } as const
+}
+export const setStatusAC = (status: string) => {
+    return {
+        type: setStatus, status
+    } as const
+}
+export const updateStatusAC = (status: string) => {
+    return {
+        type: updateStatus, status
     } as const
 }
 
@@ -73,6 +91,16 @@ export const getStatusThunkCreator = (userId: number) => {
         profileApi.getStatus(userId)
             .then(response => {
                 dispatch(getStatusAC(response.data))
+            })
+    }
+}
+export const updateStatusThunkCreator = (status: string) => {
+    return (dispatch: Dispatch) => {
+        profileApi.updateStatus(status)
+            .then(response => {
+                if(response.data.resultCode===0) {
+                    dispatch(setStatusAC(status))
+                }
             })
     }
 }

@@ -41,12 +41,12 @@ export const profileApi={
         })
     },
     getStatus (userId:number) {
-        return instance.get(`status/ ${userId}`).then(response => {
+        return instance.get(`profile/status/ ${userId}`).then(response => {
             return response
         })
     },
     updateStatus (status:string) {
-        return instance.put(`status/`,{status}).then(response => {
+        return instance.put(`profile/status`,{status}).then(response => {
             return response
         })
     }
