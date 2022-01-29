@@ -7,7 +7,7 @@ type ProfileStatusPropsType = {
 class ProfileStatus extends React.Component {
     state = {
         editMode: false,
-        title: 'blabla'
+        title: 'fvefasv'
     }
 
     activateEditMode = () => {
