@@ -1,10 +1,10 @@
 import React from 'react';
 
 
-class ProfileStatus extends React.Component<{ status: string }> {
+class ProfileStatus extends React.Component<{ status: string, updateStatus: (status: string) => void }> {
     state = {
         editMode: false,
-        title: 'fvefasv'
+        status:this.props.status
     }
 
     activateEditMode = () => {
@@ -17,6 +17,7 @@ class ProfileStatus extends React.Component<{ status: string }> {
         this.setState(
             {editMode: false}
         )
+        this.props.updateStatus(this.state.status);
     }
 
     render() {
@@ -28,7 +29,7 @@ class ProfileStatus extends React.Component<{ status: string }> {
                 </div>}
                 {this.state.editMode &&
                 <div>
-                    <input value={this.state.title} onBlur={this.deactivateEditMode} autoFocus/>
+                    <input value={this.state.status} onBlur={this.deactivateEditMode} autoFocus/>
                 </div>}
 
             </div>
