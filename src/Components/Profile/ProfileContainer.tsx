@@ -4,7 +4,6 @@ import {getProfileThunkCreator, ProfileType} from "../redux/profile-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {Navigate, useParams} from "react-router-dom";
 import {Profile} from "./Profile";
-import {WithAuthRedirect} from "../Hoc/WithAuthRedirect";
 
 export const ProfileContainer = () => {
     const {userId} = useParams()
