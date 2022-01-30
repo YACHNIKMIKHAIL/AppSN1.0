@@ -1,13 +1,15 @@
 import React from 'react';
-import Field, {InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm, Field} from "redux-form";
 
 type FormDataType = {
     login: string
     password: string
     rememberMe: boolean
 }
-const Login = (props:FormDataType) => {
-    const onSubmit = {props.handleSubmit}
+const Login = () => {
+    const onSubmit = (formData: any) => {
+        console.log(formData)
+    }
     return (
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <div style={{color: 'yellow', backgroundColor: 'black', padding: '40px', borderRadius: '20px'}}>
