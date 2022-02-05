@@ -73,8 +73,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         updateNewMessageBody: (boby: string) => {
             dispatch(updateNewMessageBodyAC(boby))
         },
-        sendNewMessage: () => {
-            dispatch(sendNewMessageAC())
+        sendNewMessage: (newMessageBody:string) => {
+            dispatch(sendNewMessageAC(newMessageBody))
         }
     }
 }

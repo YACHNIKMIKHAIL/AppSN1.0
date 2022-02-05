@@ -33,11 +33,8 @@ let init_state: initStateType = {
 
 const newMessageReducer = (_state = init_state, action: ActionsTypes): initStateType => {
     switch (action.type) {
-        case updateNewMessageBody: {
-            return {..._state, myFriends: {..._state.myFriends, newMessageBody: action.body}}
-        }
         case sendNewMessage: {
-            let boby = _state.myFriends.newMessageBody
+            let boby = action.newMessageBody
             return {
                 ..._state,
                 myFriends: {
@@ -45,8 +42,7 @@ const newMessageReducer = (_state = init_state, action: ActionsTypes): initState
                     messages: {
                         ..._state.myFriends.messages,
                         myMess: [..._state.myFriends.messages.myMess, {id: 11, title: boby}]
-                    },
-                    newMessageBody: ''
+                    }
                 }
             }
         }
@@ -63,9 +59,9 @@ export const updateNewMessageBodyAC = (body: string) => {
     } as const
 }
 
-export const sendNewMessageAC = () => {
+export const sendNewMessageAC = (newMessageBody:string) => {
     return {
-        type: 'SEND-NEW-MESSAGE'
+        type: 'SEND-NEW-MESSAGE',newMessageBody
     } as const
 }
 
