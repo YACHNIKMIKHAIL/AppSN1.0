@@ -1,14 +1,11 @@
 import {ActionsTypes, MyPostsType} from "./stote";
 
 const addPost = 'ADD-POST';
-const updateNewPostText = 'UPDATE-NEW-POST-TEXT';
 
 type InitialType = {
-    newPostText: string
     myPosts: Array<MyPostsType>
 }
 let initialState: InitialType = {
-    newPostText: '',
     myPosts: [
         {
             date: new Date().getTime(),
@@ -36,7 +33,7 @@ const newPostReducer = (state = initialState, action: ActionsTypes): InitialType
     switch (action.type) {
         case addPost: {
             return {
-                ...state, newPostText: '', myPosts: [ ...state.myPosts,{
+                ...state, myPosts: [ ...state.myPosts,{
                     date: new Date().getTime(),
                     id: 4,
                     text: action.newPostText,
@@ -44,11 +41,6 @@ const newPostReducer = (state = initialState, action: ActionsTypes): InitialType
                 }]
             }
         }
-        case updateNewPostText: {
-            console.log('in reducer', action.newText)
-            return {...state, newPostText: action.newText}
-        }
-
         default :
             return state
     }
@@ -57,13 +49,6 @@ const newPostReducer = (state = initialState, action: ActionsTypes): InitialType
 export const addPostAC = (newPostText: string) => {
     return {
         type: 'ADD-POST',newPostText
-    } as const
-}
-
-export const UpdateNewPostTextAC = (newText: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newText: newText
     } as const
 }
 
