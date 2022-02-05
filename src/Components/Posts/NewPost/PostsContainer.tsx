@@ -9,14 +9,12 @@ import React from "react";
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        myPosts: state.myPosts.myPosts,
-        // newPostText: state.myPosts.newPostText,
-        // isAuth:state.auth.isAuth
+        myPosts: state.myPosts.myPosts
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        addPost: (newPostText:string) => {
+        addPost: (newPostText: string) => {
             dispatch(addPostAC(newPostText))
         }
     }

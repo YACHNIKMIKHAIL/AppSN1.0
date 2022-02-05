@@ -2,9 +2,6 @@ import React from "react";
 import s from './DialogsMessages.module.css'
 import {MessagesType} from "../../../redux/stote";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {ReactReduxContextValue, useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/reduxStore";
-
 
 type DialogsMessagesPropsType = {
     messages: MessagesType

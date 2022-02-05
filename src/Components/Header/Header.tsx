@@ -18,9 +18,8 @@ export const Header = (props: HeaderPropsType) => {
                     {
                         !props.isAuth
                             ? <NavLink to={'/login'}>login</NavLink>
-                            : <div style={{color: 'yellow',fontSize:'20px'}}>{props.login}</div>
+                            : <div style={{color: 'yellow', fontSize: '20px'}}>{props.login}</div>
                     }
-                    {/*<NavLink to={'/login'}>login</NavLink>*/}
                 </div>
 
             </div>

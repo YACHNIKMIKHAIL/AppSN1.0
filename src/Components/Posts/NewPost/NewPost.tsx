@@ -18,8 +18,6 @@ export const NewPost = (props: NewPostPrposType) => {
             </div>
         )
     })
-
-
     return (
         <div>
             {post}
