@@ -39,7 +39,7 @@ const newPostReducer = (state = initialState, action: ActionsTypes): InitialType
                 ...state, newPostText: '', myPosts: [ ...state.myPosts,{
                     date: new Date().getTime(),
                     id: 4,
-                    text: state.newPostText,
+                    text: action.newPostText,
                     likecount: 0
                 }]
             }
@@ -54,9 +54,9 @@ const newPostReducer = (state = initialState, action: ActionsTypes): InitialType
     }
 }
 
-export const addPostAC = () => {
+export const addPostAC = (newPostText: string) => {
     return {
-        type: 'ADD-POST'
+        type: 'ADD-POST',newPostText
     } as const
 }
 

@@ -2,6 +2,8 @@ import React, {ChangeEvent} from "react";
 import s from './Posts.module.css'
 import {NewPost} from "./NewPost/NewPost";
 import {MyPostsType} from "../redux/stote";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {NewMessageFormValuesType} from "../Messages/DialogWith/DialogsMessages/DialogsMessages";
 
 
 
@@ -16,14 +18,8 @@ type PostsPropsType = {
 
 export const Posts = (props: PostsPropsType) => {
 
-    let onAddPost = () => {
-        props.addPost(props.newPostText)
-    }
-    let onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
-        let newText = e.currentTarget.value;
-
-        props.updateNewPost(newText)
-        console.log(newText)
+    let onAddPost = (values: NewPostFormValuesType) => {
+        props.addPost(values.newPostText)
     }
 
     // if (!props.isAuth) return <Navigate to={"/login"}/>
@@ -32,17 +28,27 @@ export const Posts = (props: PostsPropsType) => {
             <NewPost
                 myPosts={props.myPosts}
             />
-            <div className={s.newPost}>
-                <input type="text"
-                       onChange={(e) => onPostChange(e)}
-                       value={props.newPostText}
-                       className={s.input}/>
-                <div className={s.button}>
-                    <button onClick={onAddPost}>ADD</button>
-                    <button>REMOVE</button>
-                </div>
-            </div>
+            <AddPostFormRedux onSubmit={onAddPost}/>
         </div>
     )
 }
 
+export type NewPostFormValuesType = {
+    newPostText: string
+}
+export const AddPostForm: React.FC<InjectedFormProps<NewPostFormValuesType, {}> & {}>
+    = (props) => {
+    return <>
+        <form className={s.teaxtarea} onSubmit={props.handleSubmit}>
+            <div>
+                <Field component='textarea' name="newPostText" placeholder='New Post'/>
+            </div>
+            <div className={s.button}>
+                <button>ADD</button>
+                <button>REMOVE</button>
+            </div>
+        </form>
+    </>
+}
+
+const AddPostFormRedux = reduxForm<NewPostFormValuesType>({form: 'dialogAddMessageForm'})(AddPostForm)

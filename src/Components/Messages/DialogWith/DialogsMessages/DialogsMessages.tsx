@@ -14,27 +14,9 @@ type DialogsMessagesPropsType = {
     isAuth: boolean
 }
 export const DialogsMessages = (props: DialogsMessagesPropsType) => {
-    let newMessageBody = props.messages
-    let newMessageElement = React.createRef<HTMLInputElement>();
-    let sendMessage = () => {
-        let message = newMessageElement.current?.value;
-        alert('NEW MESSAGE!')
-    }
-
-    // if (props.isAuth) return <Navigate to={"/login"}/>
-
-
-    const onSendMessageClick = () => {
-        // props.sendNewMessage()
-    }
-    const onNewMassageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        props.updateNewMessageBody(e.currentTarget.value)
-    }
-
     const addNewMessage = (values: NewMessageFormValuesType) => {
         props.sendNewMessage(values.newMessageBody)
     }
-
     let myMess = props.messages.myMess.map((ff) => {
         return (
             <div className={s.myMess}>
