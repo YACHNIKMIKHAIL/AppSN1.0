@@ -1,24 +1,20 @@
 import {ActionsTypes} from "./stote";
 import {Dispatch} from "redux";
-import {profileApi, usersApi} from "../../API/Api";
+import {profileApi} from "../../API/Api";
 
-const setUserProfile = 'SET_USER_PROFILE';
-const getStatus = 'GET_STATUS';
-const setStatus = 'SET_STATUS';
-const updateStatus = 'UPDATE_STATUS';
-
+type ContactsType = {
+    facebook: string,
+    website: null,
+    vk: string,
+    twitter: string,
+    instagram: string,
+    youtube: null,
+    github: string,
+    mainLink: null
+}
 export type ProfileType = {
     aboutMe: string,
-    contacts: {
-        facebook: string,
-        website: null,
-        vk: string,
-        twitter: string,
-        instagram: string,
-        youtube: null,
-        github: string,
-        mainLink: null
-    },
+    contacts: ContactsType,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
     fullName: string,
@@ -56,27 +52,48 @@ const profileReducer = (state = initialProfileState, action: ActionsTypes): Init
             return state
     }
 }
+const setUserProfile = 'SET_USER_PROFILE';
+const getStatus = 'GET_STATUS';
+const setStatus = 'SET_STATUS';
+const updateStatus = 'UPDATE_STATUS';
 
-export const setUserProfileAC = (profile: ProfileType) => {
+type setUserProfileACType={
+    type: typeof setUserProfile,
+    profile: ProfileType
+}
+export const setUserProfileAC = (profile: ProfileType):setUserProfileACType => {
     return {
         type: setUserProfile, profile
     } as const
 }
-export const getStatusAC = (status: string) => {
+type getStatusACType={
+    type: typeof getStatus,
+    status: string
+}
+export const getStatusAC = (status: string):getStatusACType => {
     return {
         type: getStatus, status
     } as const
 }
-export const setStatusAC = (status: string) => {
+type setStatusACType={
+    type: typeof setStatus,
+    status: string
+}
+export const setStatusAC = (status: string):setStatusACType => {
     return {
         type: setStatus, status
     } as const
 }
-export const updateStatusAC = (status: string) => {
+type updateStatusACACType={
+    type: typeof updateStatus,
+    status: string
+}
+export const updateStatusAC = (status: string):updateStatusACACType => {
     return {
         type: updateStatus, status
     } as const
 }
+
 
 export const getProfileThunkCreator = (userId: number) => {
     return (dispatch: Dispatch) => {
@@ -98,7 +115,7 @@ export const updateStatusThunkCreator = (status: string) => {
     return (dispatch: Dispatch) => {
         profileApi.updateStatus(status)
             .then(response => {
-                if(response.data.resultCode===0) {
+                if (response.data.resultCode === 0) {
                     dispatch(setStatusAC(status))
                 }
             })

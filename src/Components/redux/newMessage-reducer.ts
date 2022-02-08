@@ -1,9 +1,6 @@
 import {ActionsTypes, MessagesType} from "./stote";
 import img2 from "../Images/avas/images.jpeg";
 
-const sendNewMessage = 'SEND-NEW-MESSAGE';
-const updateNewMessageBody = 'UPDATE-NEW-MESSAGE-TEXT';
-
 type initStateType = {
     myFriends: {
         img: string
@@ -13,7 +10,7 @@ type initStateType = {
         newMessageBody: string
     }
 }
-let init_state: initStateType = {
+let init_state = {
     myFriends:
         {
             img: img2,
@@ -30,11 +27,11 @@ let init_state: initStateType = {
             newMessageBody: ''
         }
 }
-
+// type initStateType = typeof init_state
 const newMessageReducer = (_state = init_state, action: ActionsTypes): initStateType => {
     switch (action.type) {
-        case sendNewMessage: {
-            let boby = action.newMessageBody
+        case SEND_NEW_MESSAGE: {
+            let boby = action.payload.newMessageBody
             return {
                 ..._state,
                 myFriends: {
@@ -51,17 +48,14 @@ const newMessageReducer = (_state = init_state, action: ActionsTypes): initState
             return _state
     }
 }
-
-export const updateNewMessageBodyAC = (body: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
-        body: body
-    } as const
+const SEND_NEW_MESSAGE = 'SEND_NEW_MESSAGE'
+type sendNewMessageACType = {
+    type: typeof SEND_NEW_MESSAGE,
+    payload: { newMessageBody: string }
 }
-
-export const sendNewMessageAC = (newMessageBody:string) => {
+export const sendNewMessageAC = (newMessageBody: string): sendNewMessageACType => {
     return {
-        type: 'SEND-NEW-MESSAGE',newMessageBody
+        type: 'SEND_NEW_MESSAGE', payload: {newMessageBody}
     } as const
 }
 

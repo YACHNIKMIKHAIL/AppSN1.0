@@ -1,7 +1,11 @@
-import {ActionsTypes, MyPostsType} from "./stote";
+import {ActionsTypes} from "./stote";
 
-const addPost = 'ADD-POST';
-
+type MyPostsType = {
+    date: number
+    id: number
+    text: string
+    likecount: number
+}
 type InitialType = {
     myPosts: Array<MyPostsType>
 }
@@ -31,9 +35,9 @@ let initialState: InitialType = {
 
 const newPostReducer = (state = initialState, action: ActionsTypes): InitialType => {
     switch (action.type) {
-        case addPost: {
+        case ADD_POST: {
             return {
-                ...state, myPosts: [ ...state.myPosts,{
+                ...state, myPosts: [...state.myPosts, {
                     date: new Date().getTime(),
                     id: 4,
                     text: action.newPostText,
@@ -45,10 +49,24 @@ const newPostReducer = (state = initialState, action: ActionsTypes): InitialType
             return state
     }
 }
-
-export const addPostAC = (newPostText: string) => {
+const ADD_POST = 'ADD_POST';
+type addPostACType = {
+    type: typeof ADD_POST,
+    newPostText: string
+}
+export const addPostAC = (newPostText: string): addPostACType => {
     return {
-        type: 'ADD-POST',newPostText
+        type: ADD_POST, newPostText
+    } as const
+}
+
+const DELETE_POST = 'DELETE_POST';
+type deletePostACType = {
+    type: typeof DELETE_POST
+}
+export const deletePostAC = (): deletePostACType => {
+    return {
+        type: DELETE_POST
     } as const
 }
 
