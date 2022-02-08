@@ -26,27 +26,40 @@ export const usersApi = {
     }
 }
 
-export const authApi={
-    authMe () {
+export const authApi = {
+    authMe() {
         return instance.get(`auth/me`).then(response => {
             return response.data
         })
+    },
+    login(email: string, password: string, rememberMe: boolean = false) {
+        debugger
+        return instance.post(`auth/login`, {email, password, rememberMe})
+            .then(response => {
+            return response.data
+        })
+    },
+    logout() {
+        return instance.delete(`auth/login`)
+            .then(response => {
+                return response.data
+            })
     }
 }
 
-export const profileApi={
-    getProfile (userId:number) {
+export const profileApi = {
+    getProfile(userId: number) {
         return instance.get(`profile/ ${userId}`).then(response => {
             return response
         })
     },
-    getStatus (userId:number) {
+    getStatus(userId: number) {
         return instance.get(`profile/status/ ${userId}`).then(response => {
             return response
         })
     },
-    updateStatus (status:string) {
-        return instance.put(`profile/status`,{status}).then(response => {
+    updateStatus(status: string) {
+        return instance.put(`profile/status`, {status}).then(response => {
             return response
         })
     }
