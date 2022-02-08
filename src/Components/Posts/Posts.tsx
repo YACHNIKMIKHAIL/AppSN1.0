@@ -4,12 +4,12 @@ import {NewPost} from "./NewPost/NewPost";
 import {MyPostsType} from "../redux/stote";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {NewMessageFormValuesType} from "../Messages/DialogWith/DialogsMessages/DialogsMessages";
-
+import required from "../../Utils/Validators/validators";
 
 
 type PostsPropsType = {
     myPosts: Array<MyPostsType>
-    addPost: (newText:string) => void
+    addPost: (newText: string) => void
     newPostText: string
     updateNewPost: (newText: string) => void
     // isAuth:boolean
@@ -41,7 +41,8 @@ export const AddPostForm: React.FC<InjectedFormProps<NewPostFormValuesType, {}> 
     return <>
         <form className={s.teaxtarea} onSubmit={props.handleSubmit}>
             <div>
-                <Field component='textarea' name="newPostText" placeholder='New Post'/>
+                <Field component='textarea' name="newPostText" placeholder='New Post'
+                       validate={[required]}/>
             </div>
             <div className={s.button}>
                 <button>ADD</button>
