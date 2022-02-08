@@ -62,6 +62,10 @@ const LoginReduxForm = reduxForm<FormDataType>({
     form: 'login'
 })(LoginForm)
 
-export default connect(null, {
+const mapStateToProps=(state:AppStateType)=>{
+    return {isAuth: state.auth.isAuth}
+}
+
+export default connect(mapStateToProps, {
     loginThunkCreator
 })(Login);
