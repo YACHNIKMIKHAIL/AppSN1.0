@@ -1,10 +1,10 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './Posts.module.css'
 import {NewPost} from "./NewPost/NewPost";
 import {MyPostsType} from "../redux/stote";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {NewMessageFormValuesType} from "../Messages/DialogWith/DialogsMessages/DialogsMessages";
-import required from "../../Utils/Validators/validators";
+import {maxLengthCreator, required} from "../../Utils/Validators/validators";
+import Textarea from "../Common/FormsControls/FormsControls";
 
 
 type PostsPropsType = {
@@ -33,6 +33,8 @@ export const Posts = (props: PostsPropsType) => {
     )
 }
 
+const maxLength10 = maxLengthCreator(10)
+
 export type NewPostFormValuesType = {
     newPostText: string
 }
@@ -41,8 +43,8 @@ export const AddPostForm: React.FC<InjectedFormProps<NewPostFormValuesType, {}> 
     return <>
         <form className={s.teaxtarea} onSubmit={props.handleSubmit}>
             <div>
-                <Field component='textarea' name="newPostText" placeholder='New Post'
-                       validate={[required]}/>
+                <Field component={Textarea} name="newPostText" placeholder='New Post'
+                       validate={[required, maxLength10]}/>
             </div>
             <div className={s.button}>
                 <button>ADD</button>
