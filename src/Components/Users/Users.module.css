@@ -1,21 +1,29 @@
 .content {
-    /*max-width: 590px;*/
     grid-area: content;
     height: 82vh;
     align-items: center;
     background-color: rgba(65, 70, 78, 0.7);
     margin: 5px;
     border-radius: 5px;
-    overflow: auto;
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 3fr 1fr;
-    grid-template-areas: "post" "newpost";
-    justify-items: center;
     color:white;
 }
-
-
+.pages{
+    height: 10%;
+    overflow: auto;
+}
+.users{
+    height: 90%;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.u{
+    border: 2px red solid;
+    width: 25%;
+    margin: 5px 0;
+    border-radius: 10px;
+}
 
 .newPost {
     width: 100%;
@@ -39,7 +47,7 @@
     grid-area:button ;
     height: 180%;
     margin: 0 10px;
-    background-color: rgba(89, 92, 93, 0.6);
+    background-color: rgba(89, 92, 93, 0.29);
     color: rgba(127, 221, 246, 1);
     justify-items: center;
     align-items: center;
@@ -53,6 +61,6 @@ img{
 }
 
 .selected{
-    color:yellow;
+    color:#638AED;
     font-weight: bold;
 }

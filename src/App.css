@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&family=Poppins:wght@200&family=Shalimar&family=Titillium+Web:wght@200&display=swap');
 
 .AppWrapper{
-  background-image: url("./Components/Images/4c749123363599.5fb545a62cf9c.jpg");
+  background: url("./Components/Images/wallpaperflare.com_wallpaper (2).jpg") no-repeat center/cover;
   width: 600px;
   height: 100vh;
   margin: 0 auto;

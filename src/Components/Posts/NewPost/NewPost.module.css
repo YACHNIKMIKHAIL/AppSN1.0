@@ -2,20 +2,22 @@
     text-align: center;
     font-weight: bold;
     font-size: 40px;
+
 }
 
 .likes {
     text-align: end;
     font-size: 20px;
     margin: 0 10px;
+    color: #638AED;
 }
 
 .post {
     word-wrap: break-word;
     width: 580px;
-    color: whitesmoke;
+    color: #D93938;
     font-size: 40px;
     margin: 10px;
-    background-color: rgba(127, 221, 246, 0.2);
+    background-color: rgba(199, 188, 188, 0.71);
     border-radius: 5px;
 }

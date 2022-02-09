@@ -27,14 +27,15 @@ export const Users = (props: UsersPropsType) => {
 
     return (
         <div className={s.content}>
-            <div>{pages.map(p => {
+            <div className={s.pages}>{pages.map(p => {
                 return <span onClick={() => {
                     props.onPageChanged(p)
                 }} className={props.currentPage === p ? s.selected : ''}>-{p}-</span>
             })}
             </div>
-            {props.users?.map(m => {
-                return <div key={m.id}>
+            <div className={s.users}>
+                {props.users?.map(m => {
+                    return <div key={m.id} className={s.u}>
                     <span>
                         <div>
                             <NavLink to={'/profile/' + m.id}>
@@ -59,7 +60,7 @@ export const Users = (props: UsersPropsType) => {
                                           }}>Follow</button>}
                         </div>
                     </span>
-                    <span>
+                        <span>
                         <span>
                     <div>{m.name}</div>
                     <div>{m.status}</div>
@@ -69,8 +70,9 @@ export const Users = (props: UsersPropsType) => {
                              <div>{'m.location.city'}</div>
                         </span>
                     </span>
-                </div>
-            })}
+                    </div>
+                })}
+            </div>
         </div>
 
     )

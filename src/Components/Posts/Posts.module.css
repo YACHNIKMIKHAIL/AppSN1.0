@@ -1,9 +1,8 @@
 .content {
-    /*max-width: 590px;*/
     grid-area: content;
     height: 82vh;
     align-items: center;
-    background-color: rgba(65, 70, 78, 0.7);
+    /*background-color: rgba(65, 70, 78, 0.09);*/
     margin: 5px;
     border-radius: 5px;
     overflow: auto;
@@ -38,7 +37,6 @@
     grid-area:button ;
     height: 180%;
     margin: 0 10px;
-    background-color: rgba(89, 92, 93, 0.6);
     color: rgba(127, 221, 246, 1);
     justify-items: center;
     align-items: center;

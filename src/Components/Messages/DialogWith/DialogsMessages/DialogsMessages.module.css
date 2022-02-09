@@ -6,23 +6,20 @@
     background-color: rgba(223, 228, 231, 0.5);
     grid-area: content;
     /*height: 82vh;*/
-    height: 47vh;
+    height: 85%;
     font-size: 20px;
     font-weight: bold;
 }
 .myMess {
-    border: 2px yellow solid;
+    border: 2px black solid;
     margin: 5px;
     padding: 10px;
     border-radius: 5px;
-    /*border: 3px solid rgba(65, 70, 78, 0.7);*/
-    color: black;
+    color: blue;
     width: 70%;
     height:max-content;
 }
 .friendMess{
-    border: 2px red solid;
-    margin: 5px;
     padding: 10px;
     border-radius: 5px;
     background-color: rgba(65, 70, 78, 0.7);

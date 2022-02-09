@@ -13,7 +13,7 @@ export const Header = (props: HeaderPropsType) => {
     return (
         <div className={s.header}>
             <div className={s.content}>
-                WelcomeToFixieSocialNetwork
+                Welcome
 
                 <div className={s.loginBlock}>
                     {

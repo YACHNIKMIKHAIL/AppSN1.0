@@ -3,14 +3,13 @@
 }
 .footer {
     grid-area: footer;
-    /*width: 596px;*/
     height: 10vh;
     align-items: end;
 
 }
 
 .content {
-    background-color: rgba(65, 70, 78, 0.7);
+    background-color: #6389ED;
     height: 8.5vh;
     margin: 0 5px;
     border-radius: 5px;
@@ -19,10 +18,8 @@
     grid-template-areas: "news posts messages profile settings";
     align-items: start;
     justify-items: center;
-    color: rgba(127,221,246,1);
+    color: white;
     font-size: 30px;
-    /*font-weight: bold;*/
-
 }
 .news{
     grid-area: news;
@@ -40,7 +37,7 @@
     grid-area:settings ;
 }
 a{
-    color: rgba(127,221,246,1);
+    color: white;
     width: 100%;
 
 }
