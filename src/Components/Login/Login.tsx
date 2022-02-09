@@ -6,6 +6,7 @@ import {connect, useDispatch, useSelector} from "react-redux";
 import {loginThunkCreator} from "../redux/auth-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {Navigate} from "react-router-dom";
+import s from './../Common/FormsControls/FormControls.module.css'
 
 
 type FormDataType = {
@@ -28,7 +29,7 @@ const Login = () => {
     return isAuth
         ? <Navigate to={'/profile'}/>
         : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <div style={{color: 'yellow', backgroundColor: 'black', padding: '40px', borderRadius: '20px'}}>
+            <div style={{color: 'black', padding: '40px', borderRadius: '20px', border: '3px black solid'}}>
                 <h1>Login</h1>
                 <LoginReduxForm onSubmit={onSubmit}/>
             </div>
@@ -49,6 +50,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field type="checkbox" name={'rememberMe'} component={Input}/>Remember me
             </div>
+            {props.error && <div className={s.formSummaryError}>
+                {props.error}
+            </div>}
             <div>
                 <button>
                     Login
@@ -62,7 +66,7 @@ const LoginReduxForm = reduxForm<FormDataType>({
     form: 'login'
 })(LoginForm)
 
-const mapStateToProps=(state:AppStateType)=>{
+const mapStateToProps = (state: AppStateType) => {
     return {isAuth: state.auth.isAuth}
 }
 

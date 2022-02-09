@@ -1,11 +1,15 @@
-*{
+* {
     text-decoration: none;
 }
+
 .footer {
     grid-area: footer;
     height: 10vh;
     align-items: end;
-
+    width: 88vh;
+    position: absolute;
+    left: auto;
+    bottom: 0;
 }
 
 .content {
@@ -21,27 +25,34 @@
     color: white;
     font-size: 30px;
 }
-.news{
+
+.news {
     grid-area: news;
 }
-.posts{
-    grid-area:posts ;
+
+.posts {
+    grid-area: posts;
 }
-.messages{
-    grid-area:messages ;
+
+.messages {
+    grid-area: messages;
 }
-.profile{
+
+.profile {
     grid-area: profile;
 }
-.settings{
-    grid-area:settings ;
+
+.settings {
+    grid-area: settings;
 }
-a{
+
+a {
     color: white;
     width: 100%;
 
 }
-.active{
+
+.active {
     font-size: 35px;
     color: whitesmoke;
     font-weight: bold;

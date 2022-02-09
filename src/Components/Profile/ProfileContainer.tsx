@@ -14,7 +14,7 @@ export const ProfileContainer = () => {
     const {userId} = useParams()
     const profile = useSelector<AppStateType, ProfileType>(state => state.profile.profile)
     const status = useSelector<AppStateType, string>(state => state.profile.status)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch() 
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
 
     const getProfile = useCallback((userId: number) => {
