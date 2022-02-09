@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/AppSN1.0/static/css/main.6fa063ab.css",
+    "main.js": "/AppSN1.0/static/js/main.b4f00157.js",
+    "static/js/787.fec03637.chunk.js": "/AppSN1.0/static/js/787.fec03637.chunk.js",
+    "static/media/wallpaperflare.com_wallpaper (2).jpg": "/AppSN1.0/static/media/wallpaperflare.com_wallpaper (2).397a85a334acfa425ccc.jpg",
+    "static/media/images.jpeg": "/AppSN1.0/static/media/images.6a6f0332e84cc53496bd.jpeg",
+    "index.html": "/AppSN1.0/index.html",
+    "main.6fa063ab.css.map": "/AppSN1.0/static/css/main.6fa063ab.css.map",
+    "main.b4f00157.js.map": "/AppSN1.0/static/js/main.b4f00157.js.map",
+    "787.fec03637.chunk.js.map": "/AppSN1.0/static/js/787.fec03637.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6fa063ab.css",
+    "static/js/main.b4f00157.js"
+  ]
+}
