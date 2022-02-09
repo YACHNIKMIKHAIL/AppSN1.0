@@ -15,9 +15,10 @@
 .post {
     word-wrap: break-word;
     width: 580px;
-    color: #D93938;
+    color: #d93938;
     font-size: 40px;
     margin: 10px;
-    background-color: rgba(199, 188, 188, 0.71);
+    background-color: rgba(255, 255, 255, 0.82);
     border-radius: 5px;
+    border:2px #638AED solid;
 }

@@ -29,7 +29,8 @@ const Login = () => {
     return isAuth
         ? <Navigate to={'/profile'}/>
         : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <div style={{color: 'black', padding: '40px', borderRadius: '20px', border: '3px black solid'}}>
+            <div style={{color: 'black', padding: '80px', borderRadius: '150px', border: '15px #D93938 solid',backgroundColor:'#D9393864' +
+                    ''}}>
                 <h1>Login</h1>
                 <LoginReduxForm onSubmit={onSubmit}/>
             </div>
