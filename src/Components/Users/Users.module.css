@@ -19,9 +19,10 @@
     justify-content: space-around;
 }
 .u{
-    border: 2px red solid;
+    color: black;
+    background-color: rgba(253, 254, 255, 0.69);
     width: 25%;
-    margin: 5px 0;
+    margin: 5px 5px;
     border-radius: 10px;
 }
 

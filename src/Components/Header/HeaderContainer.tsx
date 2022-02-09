@@ -5,9 +5,9 @@ import {authMeThunkCreator, logoutThunkCreator} from "../redux/auth-reducer";
 import {AppStateType} from "../redux/reduxStore";
 
 class HeaderContainer extends React.Component<any, any> {
-    componentDidMount() {
-        this.props.authMeThunkCreator()
-    }
+    // componentDidMount() {
+    //     this.props.authMeThunkCreator()
+    // }
 
     render() {
         return <Header
