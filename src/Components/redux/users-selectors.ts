@@ -1,8 +1,13 @@
 import {AppStateType} from "./reduxStore";
+import { createSelector } from '@reduxjs/toolkit'
+
 
 export const getUsers = (state: AppStateType) => {
     return state.usersPage.users
 }
+export const getUsersSuperSelector = createSelector (getUsers, (users:any) => {
+    return users.filter(u => true)
+})
 export const getPageSize = (state: AppStateType) => {
     return state.usersPage.pageSize
 }
@@ -21,9 +26,4 @@ export const getFollowingInProgress = (state: AppStateType) => {
 export const getFollowingId = (state: AppStateType) => {
     return state.usersPage.followingId
 }
-
-
-
-
-
 
