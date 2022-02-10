@@ -43,7 +43,7 @@ class App extends Component<any, any> {
         return (<div className="AppWrapper">
             <HeaderContainer/>
             <Routes>
-                <Route path='/users' element={<UsersContainer/>}/>
+                <Route path='/users' element={<UsersContainer pageTitle={'Samurai hello! Denis RESPECT!!!'}/>}/>
                 <Route path='/messages' element={<Messages/>}/>
                 <Route path='/posts' element={<PostsContainer/>}/>
                 <Route path='/profile/:userId' element={<ProfileContainer/>}/>

@@ -23,29 +23,52 @@ import {
     getIsFetching,
     getPageSize,
     getTotalCount,
-    getUsers, getUsersSuperSelector
+    getUsersSuperSelector
 } from "../redux/users-selectors";
 
-type UsersPropsType = {
+type MapStatePropsType = {
     users: Array<UserType>
-    follow: (id: number) => void
-    unFollow: (id: number) => void
-    setCurrentPage: (pageNumber: number) => void
     totalCount: number
     pageSize: number
     currentPage: number
     isFetching: boolean
     followingInProgress: boolean
-    toggleFollowingInProgress: (followingInProgress: boolean, id: number) => void
     followingId: Array<number>
+}
+type MapDispatchPropsType = {
+    follow: (id: number) => void
+    unFollow: (id: number) => void
+    setCurrentPage: (pageNumber: number) => void
+    toggleFollowingInProgress: (followingInProgress: boolean, id: number) => void
     getUsersThunkCreator: (currentPage: number, pageSize: number) => void
     onPageChangedThunkCreator: (pageNumber: number, pageSize: number) => void
     unFollowThunkCreator: (id: number) => void
     followThunkCreator: (id: number) => void
-    // isAuth:boolean
 }
+type OwnPropsType = {
+    pageTitle: string
+}
+type UsersPropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+//     {
+//     title: string
+//     users: Array<UserType>
+//     follow: (id: number) => void
+//     unFollow: (id: number) => void
+//     setCurrentPage: (pageNumber: number) => void
+//     totalCount: number
+//     pageSize: number
+//     currentPage: number
+//     isFetching: boolean
+//     followingInProgress: boolean
+//     toggleFollowingInProgress: (followingInProgress: boolean, id: number) => void
+//     followingId: Array<number>
+//     getUsersThunkCreator: (currentPage: number, pageSize: number) => void
+//     onPageChangedThunkCreator: (pageNumber: number, pageSize: number) => void
+//     unFollowThunkCreator: (id: number) => void
+//     followThunkCreator: (id: number) => void
+// }
 
-export class UsersComponent extends React.Component<UsersPropsType, Array<UserType>> {
+export class UsersComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
     }
@@ -55,10 +78,8 @@ export class UsersComponent extends React.Component<UsersPropsType, Array<UserTy
     }
 
     render() {
-        // if (!this.props.isAuth) {
-        //     return <Navigate to={"/login"}/>
-        // }else {
         return <div style={{display: 'flex', flexDirection: 'column'}}>
+            <h2>{this.props.pageTitle}</h2>
             {this.props.isFetching
                 ? <Preloader/>
                 : null
@@ -90,7 +111,7 @@ export class UsersComponent extends React.Component<UsersPropsType, Array<UserTy
 //         followingId: state.usersPage.followingId,
 //     }
 // }
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsersSuperSelector(state),
         pageSize: getPageSize(state),
@@ -102,8 +123,8 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {
+export default compose<React.ComponentType<OwnPropsType>>(
+    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
         follow: followSuccess,
         unFollow: unFollowSuccess,
         setCurrentPage,
