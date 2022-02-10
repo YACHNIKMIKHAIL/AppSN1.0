@@ -37,7 +37,6 @@ class App extends Component<any, any> {
     }
 
     render() {
-        debugger
         if (!this.props.initialized) {
             return <Preloader/>
         }
