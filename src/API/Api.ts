@@ -26,17 +26,37 @@ export const usersApi = {
     }
 }
 
+export enum ResultCode {
+    Success = 0,
+    Error = 1
+}
+
+export enum ResultCodeForCaptcha {
+    CaptchaIsRequired = 10
+}
+
+type AuthRespType<D> = {
+    data: D
+    resultCode: ResultCode | ResultCodeForCaptcha
+    messages: string[]
+}
 export const authApi = {
     authMe() {
-        return instance.get(`auth/me`).then(response => {
+        return instance.get<AuthRespType<{
+            id: number
+            email: string
+            login: string
+        }>>(`auth/me`).then(response => {
             return response.data
         })
     },
     login(email: string, password: string, rememberMe: boolean = false) {
-        return instance.post(`auth/login`, {email, password, rememberMe})
+        return instance.post<AuthRespType<{
+            userId: number
+        }>>(`auth/login`, {email, password, rememberMe})
             .then(response => {
-            return response.data
-        })
+                return response.data
+            })
     },
     logout() {
         return instance.delete(`auth/login`)
