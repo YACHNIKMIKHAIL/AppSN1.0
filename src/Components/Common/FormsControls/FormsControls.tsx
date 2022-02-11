@@ -1,25 +1,30 @@
 import React from 'react';
 import style from './FormControls.module.css'
 import {FieldValidatorType} from "../../../Utils/Validators/validators";
-import {Field} from "redux-form";
+import {Field, WrappedFieldProps} from "redux-form";
+import {WrappedFieldMetaProps} from "redux-form/lib/Field";
 
-export const Textarea = (props: any) => {
+export const Textarea: React.FC<WrappedFieldProps> = (props) => {
     const {input, meta, ...restProps} = props
     return <FormControl {...props}> <textarea {...input} {...restProps}/></FormControl>
 };
 
-export const Input = (props: any) => {
+export const Input: React.FC<WrappedFieldProps> = (props) => {
     const {input, meta, ...restProps} = props
     return <FormControl {...props}><input {...input} {...restProps}/> </FormControl>
 };
 
 type FormControlPropsType = {
     input: any
-    meta: { touched: boolean, error: string }
+    meta: WrappedFieldMetaProps
     children: React.ReactNode
-    element: any
 }
-export const FormControl: React.FC<FormControlPropsType> = ({input, meta: {touched, error}, children, element, ...props}) => {
+export const FormControl: React.FC<FormControlPropsType> = ({
+                                                                input,
+                                                                meta: {touched, error},
+                                                                children,
+                                                                ...props
+                                                            }) => {
     const hasError = touched && error
     return (
         <div className={style.formControl + " " + (hasError ? style.error : '')}>
