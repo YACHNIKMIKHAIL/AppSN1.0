@@ -1,43 +1,49 @@
 import React from 'react';
-import {InjectedFormProps, reduxForm, Field} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../Common/FormsControls/FormsControls";
 import {required} from "../../Utils/Validators/validators";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {connect} from "react-redux";
 import {loginThunkCreator} from "../redux/auth-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {Navigate} from "react-router-dom";
 import s from './../Common/FormsControls/FormControls.module.css'
 
-
-type FormDataType = {
-    email: string
-    password: string
-    rememberMe: boolean
+type MapStateToProps = {
+    isAuth: boolean
+    captchaUrl: string
 }
-// type LoginType = {
-//     data: FormDataType
-//     login: (email: string, password: string, rememberMe?: boolean) => void
-// }
-const Login = () => {
-    const dispatch = useDispatch()
-    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
-    const onSubmit = (formData: FormDataType) => {
-        dispatch(loginThunkCreator(formData.email, formData.password, formData.rememberMe))
+type MapDispatchToProps = {
+    loginThunkCreator: (email: string, password: string, rememberMe: boolean) => void
+}
+const Login: React.FC<MapStateToProps & MapDispatchToProps> = (props) => {
+    const onSubmit = (formData: LoginFormType) => {
+        props.loginThunkCreator(formData.email, formData.password, formData.rememberMe)
     }
-
-
-    return isAuth
+    return props.isAuth
         ? <Navigate to={'/profile'}/>
         : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <div style={{color: 'black', padding: '80px', borderRadius: '150px', border: '15px #D93938 solid',backgroundColor:'#D9393864' +
-                    ''}}>
+            <div style={{
+                color: 'black',
+                padding: '80px',
+                borderRadius: '150px',
+                border: '15px #D93938 solid',
+                backgroundColor: '#D9393864'
+            }}>
                 <h1>Login</h1>
-                <LoginReduxForm onSubmit={onSubmit}/>
+                <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
             </div>
         </div>
 };
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+type LoginFormType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
+type LoginFormTypeOwnType = {
+    captchaUrl: string | null
+}
+const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginFormTypeOwnType> & LoginFormTypeOwnType> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -63,12 +69,15 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     );
 };
 
-const LoginReduxForm = reduxForm<FormDataType>({
+const LoginReduxForm = reduxForm<LoginFormType, LoginFormTypeOwnType>({
     form: 'login'
 })(LoginForm)
 
-const mapStateToProps = (state: AppStateType) => {
-    return {isAuth: state.auth.isAuth}
+const mapStateToProps = (state: AppStateType): MapStateToProps => {
+    return {
+        isAuth: state.auth.isAuth,
+        captchaUrl: 'ffff'
+    }
 }
 
 export default connect(mapStateToProps, {
