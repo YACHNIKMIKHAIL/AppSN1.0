@@ -1,7 +1,8 @@
 import {ActionsTypes} from "./stote";
-import {Dispatch} from "redux";
 import {authApi} from "../../API/Api";
 import {stopSubmit} from "redux-form";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./reduxStore";
 
 export type initStateType = {
     id: number | null
@@ -55,8 +56,8 @@ export const getCaptcoUrlSuccess = (captchaUrl: string): getCaptcoUrlSuccessActi
     }
 }
 
-
-export const authMeThunkCreator = () => async (dispatch: Dispatch) => {
+type AuthThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
+export const authMeThunkCreator = ():AuthThunkType => async (dispatch) => {
     let res = await authApi.authMe()
     if (res.resultCode === 0) {
         let {id, email, login} = res.data
@@ -76,8 +77,8 @@ export const loginThunkCreator = (email: string, password: string, rememberMe?: 
             })
     }
 }
-export const logoutThunkCreator = () => {
-    return (dispatch: Dispatch) => {
+export const logoutThunkCreator = ():AuthThunkType => {
+    return (dispatch) => {
         authApi.logout()
             .then(data => {
                 if (data.resultCode === 0) {

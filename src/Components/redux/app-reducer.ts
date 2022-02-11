@@ -1,4 +1,6 @@
 import {authMeThunkCreator} from "./auth-reducer";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./reduxStore";
 
 type initialStateType = {
     initialized: boolean
@@ -23,7 +25,8 @@ export const setInitializedSuccess = () => {
         type: INITIALIZED_SUCCESS
     } as const
 }
-export const initializAppThunkCreator = () => async (dispatch: any) => {
+type InitializAppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, setInitializedSuccessType>
+export const initializAppThunkCreator = (): InitializAppThunkType => async (dispatch) => {
     await dispatch(authMeThunkCreator())
     dispatch(setInitializedSuccess())
 }
