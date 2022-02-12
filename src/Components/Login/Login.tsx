@@ -1,6 +1,6 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../Common/FormsControls/FormsControls";
+import {InjectedFormProps, reduxForm} from "redux-form";
+import {createField, Input, LoginFormType} from "../Common/FormsControls/FormsControls";
 import {required} from "../../Utils/Validators/validators";
 import {connect} from "react-redux";
 import {loginThunkCreator} from "../redux/auth-reducer";
@@ -35,28 +35,30 @@ const Login: React.FC<MapStateToProps & MapDispatchToProps> = (props) => {
         </div>
 };
 
-type LoginFormType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
+
 type LoginFormTypeOwnType = {
     captchaUrl: string | null
 }
 const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginFormTypeOwnType> & LoginFormTypeOwnType> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field placeholder={'email '} name={'email'} component={Input}
-                       validate={[required]}/>
-            </div>
-            <div>
-                <Field placeholder={'password'} name={'password'} component={Input} type={'password'}
-                       validate={[required]}/>
-            </div>
-            <div>
-                <Field type="checkbox" name={'rememberMe'} component={Input}/>Remember me
-            </div>
+            {/*<div>*/}
+            {/*    <Field placeholder={'email '} name={'email'} component={Input}*/}
+            {/*           validate={[required]}/>*/}
+            {/*</div>*/}
+            {/*<div>*/}
+            {/*    <Field placeholder={'password'} name={'password'} component={Input} type={'password'}*/}
+            {/*           validate={[required]}/>*/}
+            {/*</div>*/}
+            {/*<div>*/}
+            {/*    <Field type="checkbox" name={'rememberMe'} component={Input}/>Remember me*/}
+            {/*</div>*/}
+
+            {createField('Email', 'email', [required], Input)}
+            {createField('Password', 'password', [required], Input, {type: 'password'})}
+            {createField(undefined, 'rememberMe', [], Input, {type: 'checkbox'})}
+
+
             {props.error && <div className={s.formSummaryError}>
                 {props.error}
             </div>}
