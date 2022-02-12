@@ -1,6 +1,6 @@
 import React from 'react';
 import {InjectedFormProps, reduxForm} from "redux-form";
-import {createField, Input, LoginFormType} from "../Common/FormsControls/FormsControls";
+import {createField, Input} from "../Common/FormsControls/FormsControls";
 import {required} from "../../Utils/Validators/validators";
 import {connect} from "react-redux";
 import {loginThunkCreator} from "../redux/auth-reducer";
@@ -15,6 +15,15 @@ type MapStateToProps = {
 type MapDispatchToProps = {
     loginThunkCreator: (email: string, password: string, rememberMe: boolean) => void
 }
+
+export type LoginFormType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
+type LoginFormValuseTypeKeys = Extract<keyof LoginFormType, string>
+
+
 const Login: React.FC<MapStateToProps & MapDispatchToProps> = (props) => {
     const onSubmit = (formData: LoginFormType) => {
         props.loginThunkCreator(formData.email, formData.password, formData.rememberMe)
@@ -54,9 +63,9 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginFormTypeOwnType>
             {/*    <Field type="checkbox" name={'rememberMe'} component={Input}/>Remember me*/}
             {/*</div>*/}
 
-            {createField('Email', 'email', [required], Input)}
-            {createField('Password', 'password', [required], Input, {type: 'password'})}
-            {createField(undefined, 'rememberMe', [], Input, {type: 'checkbox'})}
+            {createField<LoginFormValuseTypeKeys>('Email', 'email', [required], Input)}
+            {createField<LoginFormValuseTypeKeys>('Password', 'password', [required], Input, {type: 'password'})}
+            {createField<LoginFormValuseTypeKeys>(undefined, 'rememberMe', [], Input, {type: 'checkbox'})}
 
 
             {props.error && <div className={s.formSummaryError}>

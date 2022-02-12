@@ -36,16 +36,10 @@ export const FormControl: React.FC<FormControlPropsType> = ({
     );
 };
 
-export type LoginFormType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
-type LoginFormValuseTypeKeys = keyof LoginFormType
-export const createField = (placeholder: string | undefined, name: LoginFormValuseTypeKeys,
-                            validators: FieldValidatorType[], component: React.FC<WrappedFieldProps>,
-                            props = {}, text = '') => {
-    <div>
+export function createField<FormKeysType extends string>(placeholder: string | undefined, name: FormKeysType,
+                                                         validators: FieldValidatorType[], component: React.FC<WrappedFieldProps>,
+                                                         props = {}, text = '') {
+    return <div>
         <Field placeholder={placeholder} name={name} validators={validators} component={component} {...props}
         />{text}
     </div>
