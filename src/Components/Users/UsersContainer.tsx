@@ -49,24 +49,6 @@ type OwnPropsType = {
     pageTitle: string
 }
 type UsersPropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
-//     {
-//     title: string
-//     users: Array<UserType>
-//     follow: (id: number) => void
-//     unFollow: (id: number) => void
-//     setCurrentPage: (pageNumber: number) => void
-//     totalCount: number
-//     pageSize: number
-//     currentPage: number
-//     isFetching: boolean
-//     followingInProgress: boolean
-//     toggleFollowingInProgress: (followingInProgress: boolean, id: number) => void
-//     followingId: Array<number>
-//     getUsersThunkCreator: (currentPage: number, pageSize: number) => void
-//     onPageChangedThunkCreator: (pageNumber: number, pageSize: number) => void
-//     unFollowThunkCreator: (id: number) => void
-//     followThunkCreator: (id: number) => void
-// }
 
 export class UsersComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
