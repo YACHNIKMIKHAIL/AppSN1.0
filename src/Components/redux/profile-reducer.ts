@@ -1,7 +1,7 @@
 import {ActionsTypes} from "./stote";
 import {profileApi} from "../../API/Api";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./reduxStore";
+import {AppStateType} from "./reduxStore";  
 
 type ContactsType = {
     facebook: string,

@@ -6,7 +6,7 @@ type MyPostsType = {
     text: string
     likecount: number
 }
-type InitialType = {
+export type InitialType = {
     myPosts: Array<MyPostsType>
 }
 let initialState: InitialType = {
@@ -45,6 +45,9 @@ const newPostReducer = (state = initialState, action: ActionsTypes): InitialType
                 }]
             }
         }
+        case DELETE_POST: {
+            return {...state, myPosts: state.myPosts.filter(f => f.id !== action.id)}
+        }
         default :
             return state
     }
@@ -61,12 +64,13 @@ export const addPostAC = (newPostText: string): addPostACType => {
 }
 
 const DELETE_POST = 'DELETE_POST';
-type deletePostACType = {
+export type deletePostACType = {
     type: typeof DELETE_POST
+    id: number
 }
-export const deletePostAC = (): deletePostACType => {
+export const deletePostAC = (id: number): deletePostACType => {
     return {
-        type: DELETE_POST
+        type: DELETE_POST, id
     } as const
 }
 
