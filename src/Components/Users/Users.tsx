@@ -4,6 +4,7 @@ import {UserType} from "../redux/user-reducer";
 import userPhoto from './../../assets/images/images.png'
 import {NavLink} from "react-router-dom";
 import {Paginator} from "../Common/Paginator/Paginator";
+import {User} from "./User";
 
 
 type UsersPropsType = {
@@ -29,48 +30,14 @@ export const Users = ({currentPage, onPageChanged, pageSize, totalCount, ...prop
     return (
         <div className={s.content}>
             <Paginator currentPage={currentPage}
-                             onPageChanged={onPageChanged}
-                             pageSize={pageSize}
-                             totalCount={totalCount}
+                       onPageChanged={onPageChanged}
+                       pageSize={pageSize}
+                       totalCount={totalCount}
             />
             <div className={s.users}>
                 {props.users?.map((m, i) => {
-                    return <div key={i} className={s.u}>
-                    <span>
-                        <div>
-                            <NavLink to={'/profile/' + m.id}>
-                            <img src={m.photos.small !== null ? m.photos.small : userPhoto}
-                                 alt={'fsgf'}/>
-                            </NavLink>
-                        </div>
-                        <div>
-                            <div style={m.followed ? {color: 'yellow'} : {color: 'red'}}>
-                                {m.followed ? 'FOLOWED' : "UNFOLOWED"}</div>
-
-                            {m.followed
-                                ? <button key={m.id}
-                                          disabled={props.followingId.some(id => id === m.id)}
-                                          onClick={() => {
-                                              props.unFollowThunkCreator(m.id)
-                                          }}>Unfollow</button>
-                                : <button key={m.id}
-                                          disabled={props.followingId.some(id => id === m.id)}
-                                          onClick={() => {
-                                              props.followThunkCreator(m.id)
-                                          }}>Follow</button>}
-                        </div>
-                    </span>
-                        <span>
-                        <span>
-                    <div>{m.name}</div>
-                    <div>{m.status}</div>
-                            </span>
-                        <span>
-                    <div>{'m.location.country'}</div>
-                             <div>{'m.location.city'}</div>
-                        </span>
-                    </span>
-                    </div>
+                    return <User user={m} key={i} followThunkCreator={props.followThunkCreator}
+                                 unFollowThunkCreator={props.unFollowThunkCreator} followingId={props.followingId}/>
                 })}
             </div>
         </div>

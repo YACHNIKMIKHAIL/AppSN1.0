@@ -70,11 +70,13 @@ type UsersPropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
 export class UsersComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+        const {currentPage, pageSize} = this.props
+        this.props.getUsersThunkCreator(currentPage, pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.onPageChangedThunkCreator(pageNumber, this.props.pageSize)
+        const {pageSize} = this.props
+        this.props.onPageChangedThunkCreator(pageNumber, pageSize)
     }
 
     render() {
@@ -100,17 +102,6 @@ export class UsersComponent extends React.Component<UsersPropsType> {
     }
 }
 
-// const mapStateToProps = (state: AppStateType) => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalCount: state.usersPage.totalCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress,
-//         followingId: state.usersPage.followingId,
-//     }
-// }
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsersSuperSelector(state),
