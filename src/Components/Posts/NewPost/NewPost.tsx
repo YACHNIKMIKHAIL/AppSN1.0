@@ -6,9 +6,9 @@ type NewPostPrposType = {
     myPosts: Array<MyPostsType>
 }
 export const NewPost = (props: NewPostPrposType) => {
-    let post = props.myPosts.map((pp) => {
+    let post = props.myPosts.map((pp,i) => {
         return (
-            <div className={s.post}>
+            <div className={s.post} key={i}>
                 <div className={s.postText}>
                     {pp.text}
                 </div>

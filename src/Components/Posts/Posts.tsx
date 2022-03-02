@@ -16,21 +16,27 @@ type PostsPropsType = {
 }
 
 
-export const Posts = (props: PostsPropsType) => {
+export class Posts extends React.Component<PostsPropsType> {
 
-    let onAddPost = (values: NewPostFormValuesType) => {
-        props.addPost(values.newPostText)
+    shouldComponentUpdate(nextProps: Readonly<PostsPropsType>, nextState: Readonly<{}>, nextContext: any): boolean {
+        return nextState !== this.props && nextState !== this.state
     }
 
-    // if (!props.isAuth) return <Navigate to={"/login"}/>
-    return (
-        <div className={s.content}>
-            <NewPost
-                myPosts={props.myPosts}
-            />
-            <AddPostFormRedux onSubmit={onAddPost}/>
-        </div>
-    )
+    render() {
+        let onAddPost = (values: NewPostFormValuesType) => {
+            this.props.addPost(values.newPostText)
+        }
+
+        // if (!props.isAuth) return <Navigate to={"/login"}/>
+        return (
+            <div className={s.content}>
+                <NewPost
+                    myPosts={this.props.myPosts}
+                />
+                <AddPostFormRedux onSubmit={onAddPost}/>
+            </div>
+        )
+    }
 }
 
 const maxLength10 = maxLengthCreator(10)
