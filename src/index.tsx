@@ -9,20 +9,24 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 
-export type RerenderEntireTreePropsType = {
-    State: AppStateType
-}
-// const rerenderEntireTree = (state: AppStateType) => {
-    ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={store} >
-                <App />
-            </Provider>
-        </BrowserRouter>
-        ,
-        document.getElementById('root')
+// export type RerenderEntireTreePropsType = {
+//     State: AppStateType
+// }
 
-    );
+let h1 = document.createElement("h1")
+h1.innerHTML = "NO WAR!"
+// @ts-ignore
+document.querySelector("body").appendChild(h1)
+// const rerenderEntireTree = (state: AppStateType) => {
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>
+    ,
+    document.getElementById('root')
+);
 
 
 // }
