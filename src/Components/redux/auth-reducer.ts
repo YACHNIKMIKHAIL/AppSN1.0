@@ -57,34 +57,26 @@ export const getCaptcoUrlSuccess = (captchaUrl: string): getCaptcoUrlSuccessActi
 }
 
 type AuthThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
-export const authMeThunkCreator = ():AuthThunkType => async (dispatch) => {
+export const authMeThunkCreator = (): AuthThunkType => async (dispatch) => {
     let res = await authApi.authMe()
     if (res.resultCode === ResultCode.Success) {
         let {id, email, login} = res.data
         dispatch(setAuthUserData(id, email, login, true))
     }
 }
-export const loginThunkCreator = (email: string, password: string, rememberMe?: boolean) => {
-    return (dispatch: any) => {
-        authApi.login(email, password, rememberMe)
-            .then(data => {
-                if (data.resultCode === ResultCode.Success) {
-                    dispatch(authMeThunkCreator())
-                } else {
-                    let message = data.messages.length > 0 ? data.messages[0] : ''
-                    dispatch(stopSubmit('login', {_error: message}))
-                }
-            })
+export const loginThunkCreator = (email: string, password: string, rememberMe?: boolean) => async (dispatch: any) => {
+    let data = await authApi.login(email, password, rememberMe)
+    if (data.resultCode === ResultCode.Success) {
+        dispatch(authMeThunkCreator())
+    } else {
+        let message = data.messages.length > 0 ? data.messages[0] : ''
+        dispatch(stopSubmit('login', {_error: message}))
     }
 }
-export const logoutThunkCreator = ():AuthThunkType => {
-    return (dispatch) => {
-        authApi.logout()
-            .then(data => {
-                if (data.resultCode === ResultCode.Success) {
-                    dispatch(setAuthUserData(null, null, null, false))
-                }
-            })
+export const logoutThunkCreator = (): AuthThunkType => async (dispatch) => {
+    let data = await authApi.logout()
+    if (data.resultCode === ResultCode.Success) {
+        dispatch(setAuthUserData(null, null, null, false))
     }
 }
 export default authReducer
