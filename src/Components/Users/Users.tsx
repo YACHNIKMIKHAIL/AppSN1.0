@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import {UserType} from "../redux/user-reducer";
 import userPhoto from './../../assets/images/images.png'
 import {NavLink} from "react-router-dom";
+import {Paginator} from "./Paginator";
 
 
 type UsersPropsType = {
@@ -18,8 +19,8 @@ type UsersPropsType = {
     unFollowThunkCreator: (id: number) => void
     followThunkCreator: (id: number) => void
 }
-export const Users = (props: UsersPropsType) => {
-    let pagesCount = Math.ceil(props.totalCount / props.pageSize)
+export const Users = ({currentPage, onPageChanged, pageSize, totalCount, ...props}: UsersPropsType) => {
+    let pagesCount = Math.ceil(totalCount / pageSize)
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
@@ -27,12 +28,11 @@ export const Users = (props: UsersPropsType) => {
 
     return (
         <div className={s.content}>
-            <div className={s.pages}>{pages.map((p, i) => {
-                return <span key={i} onClick={() => {
-                    props.onPageChanged(p)
-                }} className={props.currentPage === p ? s.selected : ''}>-{p}-</span>
-            })}
-            </div>
+            <Paginator currentPage={currentPage}
+                       onPageChanged={onPageChanged}
+                       pageSize={pageSize}
+                       totalCount={totalCount}
+            />
             <div className={s.users}>
                 {props.users?.map((m, i) => {
                     return <div key={i} className={s.u}>

@@ -24,11 +24,11 @@ export type LoginFormType = {
 type LoginFormValuseTypeKeys = Extract<keyof LoginFormType, string>
 
 
-const Login: React.FC<MapStateToProps & MapDispatchToProps> = (props) => {
+const Login: React.FC<MapStateToProps & MapDispatchToProps> = ({loginThunkCreator, isAuth, captchaUrl}) => {
     const onSubmit = (formData: LoginFormType) => {
-        props.loginThunkCreator(formData.email, formData.password, formData.rememberMe)
+        loginThunkCreator(formData.email, formData.password, formData.rememberMe)
     }
-    return props.isAuth
+    return isAuth
         ? <Navigate to={'/profile'}/>
         : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <div style={{
@@ -39,7 +39,7 @@ const Login: React.FC<MapStateToProps & MapDispatchToProps> = (props) => {
                 backgroundColor: '#D9393864'
             }}>
                 <h1>Login</h1>
-                <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
+                <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
             </div>
         </div>
 };
@@ -48,28 +48,17 @@ const Login: React.FC<MapStateToProps & MapDispatchToProps> = (props) => {
 type LoginFormTypeOwnType = {
     captchaUrl: string | null
 }
-const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginFormTypeOwnType> & LoginFormTypeOwnType> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginFormTypeOwnType> & LoginFormTypeOwnType> = ({
+                                                                                                                handleSubmit,
+                                                                                                                error
+                                                                                                            }) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            {/*<div>*/}
-            {/*    <Field placeholder={'email '} name={'email'} component={Input}*/}
-            {/*           validate={[required]}/>*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*    <Field placeholder={'password'} name={'password'} component={Input} type={'password'}*/}
-            {/*           validate={[required]}/>*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*    <Field type="checkbox" name={'rememberMe'} component={Input}/>Remember me*/}
-            {/*</div>*/}
-
+        <form onSubmit={handleSubmit}>
             {createField<LoginFormValuseTypeKeys>('Email', 'email', [required], Input)}
             {createField<LoginFormValuseTypeKeys>('Password', 'password', [required], Input, {type: 'password'})}
-            {createField<LoginFormValuseTypeKeys>(undefined, 'rememberMe', [], Input, {type: 'checkbox'})}
-
-
-            {props.error && <div className={s.formSummaryError}>
-                {props.error}
+            {createField<LoginFormValuseTypeKeys>(undefined, 'rememberMe', [], Input, {type: 'checkbox'}, "Remember me")}
+            {error && <div className={s.formSummaryError}>
+                {error}
             </div>}
             <div>
                 <button>

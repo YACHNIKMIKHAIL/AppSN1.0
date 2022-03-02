@@ -16,17 +16,17 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
     const addNewMessage = (values: NewMessageFormValuesType) => {
         props.sendNewMessage(values.newMessageBody)
     }
-    let myMess = props.messages.myMess.map((ff) => {
+    let myMess = props.messages.myMess.map((ff, i) => {
         return (
-            <div className={s.myMess}>
+            <div className={s.myMess} key={i}>
                 {ff.title}
             </div>
         )
     })
-    let friendMess = props.messages.friendMess.map((ff) => {
+    let friendMess = props.messages.friendMess.map((ff, i) => {
         return (
-            <div className={s.friendMess}>
-                <div key={ff.id}>{ff.title}</div>
+            <div className={s.friendMess} key={i}>
+                <div>{ff.title}</div>
             </div>
         )
     })
