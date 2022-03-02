@@ -128,7 +128,8 @@ export const onPageChangedThunkCreator = (pageNumber: number, pageSize: number):
     dispatch(setUsers(data.items))
 }
 
-export const unFollowThunkCreator = (id: number): ThunkUserType => async (dispatch) => {
+
+const followUnfollowFlow = (id: number): ThunkUserType => async (dispatch) => {
     dispatch(toggleFollowingInProgress(true, id))
     let data = await usersApi.unFollow(id)
     if (data.resultCode === 0) {
@@ -137,11 +138,26 @@ export const unFollowThunkCreator = (id: number): ThunkUserType => async (dispat
     dispatch(toggleFollowingInProgress(false, id))
 }
 
-export const followThunkCreator = (id: number): ThunkUserType => async (dispatch) => {
+export const unFollowThunkCreator = (id: number): ThunkUserType => async (dispatch) => {
+    let apiMethod = usersApi.unFollow.bind(usersApi)
+    let actionCreator = unFollowSuccess
+
     dispatch(toggleFollowingInProgress(true, id))
-    let data = await usersApi.follow(id)
+    let data = await apiMethod(id)
     if (data.resultCode === 0) {
-        dispatch(followSuccess(id))
+        dispatch(actionCreator(id))
+    }
+    dispatch(toggleFollowingInProgress(false, id))
+}
+
+export const followThunkCreator = (id: number): ThunkUserType => async (dispatch) => {
+    let apiMethod = usersApi.follow.bind(usersApi)
+    let actionCreator = followSuccess
+
+    dispatch(toggleFollowingInProgress(true, id))
+    let data = await apiMethod(id)
+    if (data.resultCode === 0) {
+        dispatch(actionCreator(id))
     }
     dispatch(toggleFollowingInProgress(false, id))
 }
