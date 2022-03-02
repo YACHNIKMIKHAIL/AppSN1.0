@@ -3,7 +3,7 @@ import s from './Users.module.css'
 import {UserType} from "../redux/user-reducer";
 import userPhoto from './../../assets/images/images.png'
 import {NavLink} from "react-router-dom";
-import {Paginator} from "./Paginator";
+import {Paginator} from "../Common/Paginator/Paginator";
 
 
 type UsersPropsType = {
@@ -29,9 +29,9 @@ export const Users = ({currentPage, onPageChanged, pageSize, totalCount, ...prop
     return (
         <div className={s.content}>
             <Paginator currentPage={currentPage}
-                       onPageChanged={onPageChanged}
-                       pageSize={pageSize}
-                       totalCount={totalCount}
+                             onPageChanged={onPageChanged}
+                             pageSize={pageSize}
+                             totalCount={totalCount}
             />
             <div className={s.users}>
                 {props.users?.map((m, i) => {
