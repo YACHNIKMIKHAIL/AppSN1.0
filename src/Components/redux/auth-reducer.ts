@@ -31,7 +31,7 @@ const authReducer = (state: initStateType = initState, action: ActionsTypes): in
     }
 }
 
-const SET_USER_DATA = 'SET_USER_DATA'
+const SET_USER_DATA = 'authReducer/SET_USER_DATA'
 type setAuthUserDataActionPayloadType = {
     id: number | null, email: string | null, login: string | null, isAuth: boolean
 }
@@ -44,7 +44,7 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
         type: SET_USER_DATA, payload: {id, email, login, isAuth}
     } as const
 }
-const GET_CAPTCHA_SUCCESS = 'GET_CAPTCHA_SUCCESS'
+const GET_CAPTCHA_SUCCESS = 'authReducer/GET_CAPTCHA_SUCCESS'
 type getCaptcoUrlSuccessActionType = {
     type: typeof GET_CAPTCHA_SUCCESS,
     payload: { captchaUrl: string }
