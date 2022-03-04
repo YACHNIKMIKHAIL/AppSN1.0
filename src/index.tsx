@@ -1,12 +1,8 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import store, {AppStateType} from "./Components/redux/reduxStore";
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import {BrowserRouter} from "react-router-dom";
-import {Provider} from "react-redux";
+import {SamuraiJSApp} from './App';
 
 
 // export type RerenderEntireTreePropsType = {
@@ -19,13 +15,7 @@ h1.innerHTML = "NO WAR!"
 document.querySelector("body").appendChild(h1)
 // const rerenderEntireTree = (state: AppStateType) => {
 ReactDOM.render(
-    <BrowserRouter>
-        <Provider store={store}>
-            <App/>
-        </Provider>
-    </BrowserRouter>
-    ,
-    document.getElementById('root')
+    <SamuraiJSApp/>, document.getElementById('root')
 );
 
 
