@@ -10,13 +10,14 @@ import {AppStateType} from "../redux/reduxStore";
 import {Navigate, useParams} from "react-router-dom";
 import {Profile} from "./Profile";
 
-export const ProfileContainer = () => {
+const ProfileContainer = () => {
+
     const {userId} = useParams()
     const profile = useSelector<AppStateType, ProfileType>(state => state.profile.profile)
     const status = useSelector<AppStateType, string>(state => state.profile.status)
-    const dispatch = useDispatch() 
+    const dispatch = useDispatch()
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
-
+    console.log(isAuth)
     const getProfile = useCallback((userId: number) => {
         dispatch(getProfileThunkCreator(userId))
     }, [dispatch])
@@ -33,10 +34,10 @@ export const ProfileContainer = () => {
         getStatus(userId ? +userId : 21487)
     }, [userId, getProfile, getStatus])
 
-
     return isAuth
         ? <Profile profile={profile} status={status} updateStatus={updateStatus}/>
         : <Navigate to={"/login"}/>
 }
 
+export default ProfileContainer;
 // const AuthRedirectComponent=WithAuthRedirect(<ProfileContainer/>)

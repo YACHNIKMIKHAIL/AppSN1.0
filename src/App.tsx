@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, Suspense} from 'react';
 import './App.css';
 import {Footer} from "./Components/Footer/Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Messages} from "./Components/Messages/Messages";
+// import {Messages} from "./Components/Messages/Messages";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
-import {ProfileContainer} from "./Components/Profile/ProfileContainer";
+// import {ProfileContainer} from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
 import {connect, Provider} from "react-redux";
@@ -14,23 +14,8 @@ import store, {AppStateType} from "./Components/redux/reduxStore";
 import Preloader from "./Components/Common/Preloader/Preloader";
 import {compose} from "redux";
 
-
-// function App() {
-//     return (
-//         <div className="AppWrapper">
-//             <HeaderContainer/>
-//             <Routes>
-//                 <Route path='/users' element={<UsersContainer/>}/>
-//                 <Route path='/messages' element={<Messages/>}/>
-//                 <Route path='/posts' element={<PostsContainer/>}/>
-//                 <Route path='/profile/:userId' element={<ProfileContainer/>}/>
-//                 <Route path='/profile' element={<ProfileContainer/>}/>
-//                 <Route path='/login' element={<Login/>}/>
-//             </Routes>
-//             <Footer/>
-//         </div>
-//     );
-// }
+const Messages = React.lazy(() => import('./Components/Messages/Messages'));
+const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
 
 class App extends Component<any, any> {
     componentDidMount() {
@@ -44,11 +29,21 @@ class App extends Component<any, any> {
         return (<div className="AppWrapper">
             <HeaderContainer/>
             <Routes>
-                <Route path='/users' element={<UsersContainer pageTitle={'Samurai hello! Denis RESPECT!!!'}/>}/>
-                <Route path='/messages' element={<Messages/>}/>
+                <Route path='/users' element={<Suspense fallback={<h1>Loading...</h1>}>
+                    <UsersContainer
+                        pageTitle={'Samurai hello! Denis RESPECT!!!'}/>
+                </Suspense>}/>
+                <Route path='/messages'
+                       element={<Suspense fallback={<h1>Loading...</h1>}>
+                           <Messages/>
+                       </Suspense>}/>
                 <Route path='/posts' element={<PostsContainer/>}/>
-                <Route path='/profile/:userId' element={<ProfileContainer/>}/>
-                <Route path='/profile' element={<ProfileContainer/>}/>
+                <Route path='/profile/:userId'
+                       element={<ProfileContainer/>}/>
+                <Route path='/profile'
+                       element={<Suspense fallback={<h1>Loading...</h1>}>
+                           <ProfileContainer/>
+                       </Suspense>}/>
                 <Route path='/login' element={<Login/>}/>
             </Routes>
             <Footer/>
