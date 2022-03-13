@@ -27,6 +27,9 @@ const ProfileContainer = () => {
         dispatch(updateStatusThunkCreator(status))
     }, [dispatch])
 
+    const savePhoto = (newPhoto: string) => {
+        dispatch(xxx(newPhoto))
+    }
 
     //21487
     useEffect(() => {
@@ -35,7 +38,8 @@ const ProfileContainer = () => {
     }, [userId, getProfile, getStatus])
 
     return isAuth
-        ? <Profile profile={profile} status={status} updateStatus={updateStatus} owner={userId === undefined}/>
+        ?
+        <Profile profile={profile} status={status} updateStatus={updateStatus} isOwner={!userId} savePhoto={savePhoto}/>
         : <Navigate to={"/login"}/>
 }
 

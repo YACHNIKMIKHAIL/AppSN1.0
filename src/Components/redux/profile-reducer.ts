@@ -49,6 +49,9 @@ const profileReducer = (state = initialProfileState, action: ActionsTypes): Init
         case updateStatus: {
             return {...state, status: action.status}
         }
+        case savePhotoSuccess: {
+            return {...state, profile: {...state.profile, photos: action.photos}}
+        }
         default :
             return state
     }
@@ -57,6 +60,7 @@ const setUserProfile = 'profileReducer/SET_USER_PROFILE';
 const getStatus = 'profileReducer/GET_STATUS';
 const setStatus = 'profileReducer/SET_STATUS';
 const updateStatus = 'profileReducer/UPDATE_STATUS';
+const savePhotoSuccess = 'profileReducer/savePhotoSuccessAC';
 
 type setUserProfileACType = {
     type: typeof setUserProfile,
@@ -95,6 +99,16 @@ export const updateStatusAC = (status: string): updateStatusACACType => {
     } as const
 }
 
+type savePhotoSuccessACType = {
+    type: typeof savePhotoSuccess,
+    photos: { large: string, small: string }
+}
+export const savePhotoSuccessAC = (photos: { large: string, small: string }): savePhotoSuccessACType => {
+    return {
+        type: savePhotoSuccess, photos
+    } as const
+}
+
 type ProfileThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
 export const getProfileThunkCreator = (userId: number): ProfileThunkType => async (dispatch) => {
     let response = await profileApi.getProfile(userId)
@@ -108,6 +122,13 @@ export const updateStatusThunkCreator = (status: string): ProfileThunkType => as
     let response = await profileApi.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatusAC(status))
+    }
+}
+
+export const savePhotoThunkCreator = (newPhoto: string): ProfileThunkType => async (dispatch) => {
+    let response = await profileApi.updatePhoto(newPhoto)
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccessAC(response.data.photos))
     }
 }
 
