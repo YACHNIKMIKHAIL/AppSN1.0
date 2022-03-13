@@ -2,10 +2,8 @@ import React, {Component, Suspense} from 'react';
 import './App.css';
 import {Footer} from "./Components/Footer/Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-// import {Messages} from "./Components/Messages/Messages";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
-// import {ProfileContainer} from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
 import {connect, Provider} from "react-redux";
@@ -40,7 +38,7 @@ class App extends Component<any, any> {
                 <Route path='/posts' element={<PostsContainer/>}/>
                 <Route path='/profile/:userId'
                        element={<ProfileContainer/>}/>
-                <Route path='/profile'
+                <Route path='/AppSN1.0'
                        element={<Suspense fallback={<h1>Loading...</h1>}>
                            <ProfileContainer/>
                        </Suspense>}/>

@@ -1,4 +1,4 @@
-.content{
+.content {
     grid-area: content;
     height: 82vh;
     align-items: center;
@@ -6,8 +6,11 @@
     margin: 5px;
     border-radius: 5px;
     color: white;
+    display: flex;
+    flex-direction: column;
 }
-.info{
+
+.info {
     background-color: white;
     margin: 10px;
     border-radius: 10px;
@@ -15,5 +18,10 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    color:blue;
+    color: blue;
+}
+
+.mainPhote {
+    height: 200px;
+    width: 200px;
 }

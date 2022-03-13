@@ -17,7 +17,6 @@ const ProfileContainer = () => {
     const status = useSelector<AppStateType, string>(state => state.profile.status)
     const dispatch = useDispatch()
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
-    console.log(isAuth)
     const getProfile = useCallback((userId: number) => {
         dispatch(getProfileThunkCreator(userId))
     }, [dispatch])
@@ -28,6 +27,7 @@ const ProfileContainer = () => {
         dispatch(updateStatusThunkCreator(status))
     }, [dispatch])
 
+
     //21487
     useEffect(() => {
         getProfile(userId ? +userId : 21487)
@@ -35,7 +35,7 @@ const ProfileContainer = () => {
     }, [userId, getProfile, getStatus])
 
     return isAuth
-        ? <Profile profile={profile} status={status} updateStatus={updateStatus}/>
+        ? <Profile profile={profile} status={status} updateStatus={updateStatus} owner={userId === undefined}/>
         : <Navigate to={"/login"}/>
 }
 

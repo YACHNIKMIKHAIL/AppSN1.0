@@ -19,7 +19,7 @@ export const Footer = () => {
                              className={({isActive}) => (isActive ? s.active : '')}>Messages</NavLink>
                 </div>
                 <div className={s.profile}>
-                    <NavLink to='/profile'
+                    <NavLink to='/AppSN1.0'
                              className={({isActive}) => (isActive ? s.active : '')}>Profile</NavLink>
                 </div>
                 <div className={s.settings}>
