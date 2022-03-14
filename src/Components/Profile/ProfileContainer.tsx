@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     getProfileThunkCreator,
     getStatusThunkCreator,
-    ProfileType,
+    ProfileType, savePhotoThunkCreator,
     updateStatusThunkCreator
 } from "../redux/profile-reducer";
 import {AppStateType} from "../redux/reduxStore";
@@ -27,8 +27,8 @@ const ProfileContainer = () => {
         dispatch(updateStatusThunkCreator(status))
     }, [dispatch])
 
-    const savePhoto = (newPhoto: string) => {
-        dispatch(xxx(newPhoto))
+    const savePhoto = (newPhoto: File) => {
+        dispatch(savePhotoThunkCreator(newPhoto))
     }
 
     //21487

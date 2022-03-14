@@ -81,5 +81,16 @@ export const profileApi = {
         return instance.put(`profile/status`, {status}).then(response => {
             return response
         })
+    },
+    updatePhoto(newPhoto: any) {
+        const formData = new FormData()
+        formData.append('image', newPhoto)
+        return instance.put(`/profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
+            return response
+        })
     }
 }
