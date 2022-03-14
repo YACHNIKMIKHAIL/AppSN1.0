@@ -36,7 +36,7 @@ const ProfileContainer = () => {
         getProfile(userId ? +userId : 21487)
         getStatus(userId ? +userId : 21487)
     }, [userId, getProfile, getStatus])
-
+//userId, getProfile, getStatus, savePhoto
     return isAuth
         ?
         <Profile profile={profile} status={status} updateStatus={updateStatus} isOwner={!userId} savePhoto={savePhoto}/>
