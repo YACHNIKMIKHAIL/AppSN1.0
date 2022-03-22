@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ProfileType} from "../Components/redux/profile-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -92,5 +93,11 @@ export const profileApi = {
         }).then(response => {
             return response
         })
-    }
+    },
+    updateProfile(profile: ProfileType) {
+    return instance.put(`/profile`, profile)
+        .then(response => {
+        return response
+    })
+}
 }

@@ -131,5 +131,11 @@ export const savePhotoThunkCreator = (newPhoto: File): ProfileThunkType => async
         dispatch(savePhotoSuccessAC(response.data.data.photos))
     }
 }
+export const saveProfileThunkCreator = (profile: ProfileType): ProfileThunkType => async (dispatch) => {
+    let response = await profileApi.updateProfile(profile)
+    if (response.data.resultCode === 0) {
+        dispatch(getProfileThunkCreator(profile.userId))
+    }
+}
 
 export default profileReducer
