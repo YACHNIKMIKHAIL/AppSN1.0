@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import s from './Profile.module.css'
 import Preloader from "../Common/Preloader/Preloader";
-import {ProfileType} from "../redux/profile-reducer";
+import {ProfileType,ContactsType} from "../redux/profile-reducer";
 import userPhoto from "./../../assets/images/images.png"
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import ProfileDataForm from "./ProfileDataForm";
 
 type ProfilePropsType = {
     profile: ProfileType
@@ -13,6 +14,7 @@ type ProfilePropsType = {
     savePhoto: (newPhoto: File) => void
 }
 export const Profile = (props: ProfilePropsType) => {
+    const [editMode, setEditMode] = useState<boolean>(false)
 
     if (!Object.keys(props.profile).length) {
         return <Preloader/>
@@ -35,24 +37,32 @@ export const Profile = (props: ProfilePropsType) => {
                  src={props.profile.photos?.small || props.profile.photos?.large || userPhoto}
                  alt=""/>
             {props.isOwner && <input type="file" onChange={(e) => onMainPhotoSelected(e)}/>}
-            <ProfileData profile={props.profile}/>
+            {editMode
+                // eslint-disable-next-line react/jsx-no-undef
+                ? <ProfileDataForm profile={props.profile}/>
+                : <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode={() => setEditMode(true)}/>}
         </div>
 
     )
 }
 
-type ContactsType = {
+type ContactComponentType = {
     contactTitle: string,
     contactValue: any
 }
-export const Contact = ({contactTitle, contactValue}: ContactsType) => {
+export const Contact = ({contactTitle, contactValue}: ContactComponentType) => {
     return <div className={s.contact}><b>{contactTitle}: </b>{contactValue}</div>
 }
 type ProfileDataType = {
     profile: ProfileType
+    isOwner: boolean
+    goToEditMode: () => void
 }
 const ProfileData = (props: ProfileDataType) => {
     return <div className={s.info}>
+        {props.isOwner && <div>
+            <button onClick={props.goToEditMode}>edit</button>
+        </div>}
         <div><b>fullName: </b>
             {props.profile.fullName}</div>
         <div>
@@ -72,7 +82,7 @@ const ProfileData = (props: ProfileDataType) => {
                 <b>contacts: </b>
                 {Object.keys(props.profile.contacts).map(key => {
                     return <Contact key={key} contactTitle={key}
-                                    contactValue={props.profile.contacts[key]}/>
+                                    contactValue={props.profile.contacts[key as keyof ContactsType]}/>
                 })}
             </div>
         </div>

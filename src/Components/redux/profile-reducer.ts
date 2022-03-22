@@ -3,15 +3,15 @@ import {profileApi} from "../../API/Api";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
 
-type ContactsType = {
-    facebook: string,
-    website: null,
-    vk: string,
-    twitter: string,
-    instagram: string,
-    youtube: null,
-    github: string,
-    mainLink: null
+export type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
 }
 export type ProfileType = {
     aboutMe: string,
