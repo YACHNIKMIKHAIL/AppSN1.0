@@ -35,13 +35,46 @@ export const Profile = (props: ProfilePropsType) => {
                  src={props.profile.photos?.small || props.profile.photos?.large || userPhoto}
                  alt=""/>
             {props.isOwner && <input type="file" onChange={(e) => onMainPhotoSelected(e)}/>}
-            <span>{props.profile.aboutMe}</span>
-            <div className={s.info}>
-                <div>{props.profile.fullName}</div>
-                <div>{props.profile.lookingForAJobDescription}</div>
-                <div style={props.profile.lookingForAJob ? {color: 'green'} : {color: 'red'}}>Looking for a JOB</div>
-            </div>
-
+            <ProfileData profile={props.profile}/>
         </div>
+
     )
+}
+
+type ContactsType = {
+    contactTitle: string,
+    contactValue: any
+}
+export const Contact = ({contactTitle, contactValue}: ContactsType) => {
+    return <div className={s.contact}><b>{contactTitle}: </b>{contactValue}</div>
+}
+type ProfileDataType = {
+    profile: ProfileType
+}
+const ProfileData = (props: ProfileDataType) => {
+    return <div className={s.info}>
+        <div><b>fullName: </b>
+            {props.profile.fullName}</div>
+        <div>
+            <div>
+                <b>lookingForAJob: </b>
+                {props.profile.lookingForAJob ? 'yes' : 'no'}
+            </div>
+            {props.profile.lookingForAJob &&
+            <div><b>my professional skills</b>{props.profile.lookingForAJobDescription}</div>}
+
+
+            <div>
+                <b>about me: </b>
+                {props.profile.aboutMe}
+            </div>
+            <div>
+                <b>contacts: </b>
+                {Object.keys(props.profile.contacts).map(key => {
+                    return <Contact key={key} contactTitle={key}
+                                    contactValue={props.profile.contacts[key]}/>
+                })}
+            </div>
+        </div>
+    </div>
 }
