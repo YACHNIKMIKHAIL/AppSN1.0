@@ -31,12 +31,11 @@ const ProfileContainer = () => {
         dispatch(savePhotoThunkCreator(newPhoto))
     }
 
-    //21487
     useEffect(() => {
         getProfile(userId ? +userId : 21487)
         getStatus(userId ? +userId : 21487)
     }, [userId, getProfile, getStatus])
-//userId, getProfile, getStatus, savePhoto
+
     return isAuth
         ?
         <Profile profile={profile} status={status} updateStatus={updateStatus} isOwner={!userId} savePhoto={savePhoto}/>

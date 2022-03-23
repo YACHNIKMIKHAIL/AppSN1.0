@@ -8,7 +8,6 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileType, ProfileDataFormPropsTyp
                                                                                                                       handleSubmit,
                                                                                                                       error
                                                                                                                   }) => {
-
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -47,7 +46,7 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileType, ProfileDataFormPropsTyp
     )
 }
 
-const ProfileDataFormReduxForm = reduxForm<ProfileType, ProfileDataFormPropsType>({form: 'edit-profile'})(ProfileDataForm)
+const ProfileDataFormReduxForm = reduxForm<ProfileType, ProfileDataFormPropsType>({form: 'editProfile'})(ProfileDataForm)
 
 export default ProfileDataFormReduxForm
 

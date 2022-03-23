@@ -57,6 +57,7 @@ export const getCaptcoUrlSuccess = (captchaUrl: string): getCaptcoUrlSuccessActi
 }
 
 type AuthThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
+
 export const authMeThunkCreator = (): AuthThunkType => async (dispatch) => {
     let res = await authApi.authMe()
     if (res.resultCode === ResultCode.Success) {

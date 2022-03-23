@@ -1,7 +1,8 @@
 import {ActionsTypes} from "./stote";
 import {profileApi} from "../../API/Api";
-import {ThunkAction} from "redux-thunk";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
+import {FormAction, stopSubmit} from "redux-form";
 
 export type ContactsType = {
     github: string
@@ -64,7 +65,7 @@ const savePhotoSuccess = 'profileReducer/savePhotoSuccessAC';
 
 type setUserProfileACType = {
     type: typeof setUserProfile,
-    profile: ProfileType
+    profile: ProfileType,
 }
 export const setUserProfileAC = (profile: ProfileType): setUserProfileACType => {
     return {
@@ -109,7 +110,8 @@ export const savePhotoSuccessAC = (photos: { large: string, small: string }): sa
     } as const
 }
 
-type ProfileThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
+type ProfileThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes  | FormAction>
+
 export const getProfileThunkCreator = (userId: number): ProfileThunkType => async (dispatch) => {
     let response = await profileApi.getProfile(userId)
     dispatch(setUserProfileAC(response.data))
@@ -131,10 +133,16 @@ export const savePhotoThunkCreator = (newPhoto: File): ProfileThunkType => async
         dispatch(savePhotoSuccessAC(response.data.data.photos))
     }
 }
-export const saveProfileThunkCreator = (profile: ProfileType): ProfileThunkType => async (dispatch) => {
+export const saveProfileThunkCreator = (profile: ProfileType) /*: ThunkResult<Promise<boolean>>*/  =>
+    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes  | FormAction>, getState: () => AppStateType) => {
+    const userId = getState().profile.profile.userId
     let response = await profileApi.updateProfile(profile)
     if (response.data.resultCode === 0) {
-        dispatch(getProfileThunkCreator(profile.userId))
+        dispatch(getProfileThunkCreator(userId))
+        return true
+    } else {
+        dispatch(stopSubmit("editProfile", {_error: response.data.messages[0]}))
+        return Promise.reject(response.data.messages[0])
     }
 }
 
