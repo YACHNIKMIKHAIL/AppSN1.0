@@ -1,8 +1,9 @@
 import {ActionsTypes} from "./stote";
-import {authApi, ResultCode} from "../../API/Api";
 import {stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
+import {authApi, ResultCode, securityApi} from "../../API/Api";
+import {Dispatch} from "redux";
 
 export type initStateType = {
     id: number | null
@@ -23,7 +24,8 @@ const initState: initStateType = {
 
 const authReducer = (state: initStateType = initState, action: ActionsTypes): initStateType => {
     switch (action.type) {
-        case SET_USER_DATA: {
+        case SET_USER_DATA:
+        case GET_CAPTCHA_SUCCESS: {
             return {...state, ...action.payload}
         }
         default :
@@ -65,11 +67,14 @@ export const authMeThunkCreator = (): AuthThunkType => async (dispatch) => {
         dispatch(setAuthUserData(id, email, login, true))
     }
 }
-export const loginThunkCreator = (email: string, password: string, rememberMe?: boolean) => async (dispatch: any) => {
-    let data = await authApi.login(email, password, rememberMe)
+export const loginThunkCreator = (email: string, password: string, rememberMe?: boolean, captcha?: string ) => async (dispatch: any) => {
+    let data = await authApi.login(email, password, rememberMe, captcha)
     if (data.resultCode === ResultCode.Success) {
         dispatch(authMeThunkCreator())
     } else {
+        if (data.resultCode === ResultCode.Trouble) {
+            dispatch(getCaptchaUrlTC())
+        }
         let message = data.messages.length > 0 ? data.messages[0] : ''
         dispatch(stopSubmit('login', {_error: message}))
     }
@@ -79,5 +84,11 @@ export const logoutThunkCreator = (): AuthThunkType => async (dispatch) => {
     if (data.resultCode === ResultCode.Success) {
         dispatch(setAuthUserData(null, null, null, false))
     }
+}
+
+export const getCaptchaUrlTC = () => async (dispatch: Dispatch) => {
+    let data = await securityApi.getCaptchUrl()
+    const captchaUrl = data.data.url
+    dispatch(getCaptcoUrlSuccess(captchaUrl))
 }
 export default authReducer

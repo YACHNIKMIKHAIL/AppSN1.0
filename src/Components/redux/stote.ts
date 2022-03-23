@@ -4,7 +4,7 @@ import {addPostAC, deletePostAC} from "./newPost-reducer";
 import {sendNewMessageAC} from "./newMessage-reducer";
 import {UserType} from "./user-reducer";
 import {getStatusAC, savePhotoSuccessAC, setStatusAC, setUserProfileAC, updateStatusAC} from "./profile-reducer";
-import {setAuthUserData} from "./auth-reducer";
+import {getCaptcoUrlSuccess, setAuthUserData} from "./auth-reducer";
 
 
 export type MyPostsType = {
@@ -80,7 +80,7 @@ export type ActionsTypes =
     | ReturnType<typeof updateStatusAC>
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof savePhotoSuccessAC>
-    // | ReturnType<typeof stopSubmit>
+    | ReturnType<typeof getCaptcoUrlSuccess>
 
 
 export let store: StoreType = {

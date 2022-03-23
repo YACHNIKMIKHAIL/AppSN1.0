@@ -10,23 +10,24 @@ import s from './../Common/FormsControls/FormControls.module.css'
 
 type MapStateToProps = {
     isAuth: boolean
-    captchaUrl: string
+    captchaUrl: string | null
 }
 type MapDispatchToProps = {
-    loginThunkCreator: (email: string, password: string, rememberMe: boolean) => void
+    loginThunkCreator: (email: string, password: string, rememberMe: boolean, captcha: any) => void
 }
 
 export type LoginFormType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string | null
 }
 type LoginFormValuseTypeKeys = Extract<keyof LoginFormType, string>
 
 
 const Login: React.FC<MapStateToProps & MapDispatchToProps> = ({loginThunkCreator, isAuth, captchaUrl}) => {
     const onSubmit = (formData: LoginFormType) => {
-        loginThunkCreator(formData.email, formData.password, formData.rememberMe)
+        loginThunkCreator(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     return isAuth
         ? <Navigate to={'/profile'}/>
@@ -50,7 +51,8 @@ type LoginFormTypeOwnType = {
 }
 const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginFormTypeOwnType> & LoginFormTypeOwnType> = ({
                                                                                                                 handleSubmit,
-                                                                                                                error
+                                                                                                                error,
+                                                                                                                captchaUrl
                                                                                                             }) => {
     return (
         <form onSubmit={handleSubmit}>
@@ -58,6 +60,9 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginFormTypeOwnType>
             {createField<LoginFormValuseTypeKeys>('Password', 'password', [required], Input, {type: 'password'})}
             {createField<LoginFormValuseTypeKeys>(undefined, 'rememberMe', [], Input, {type: 'checkbox'}, "Remember me")}
             {error && <div className={s.formSummaryError}>
+                {captchaUrl && <img src={captchaUrl} alt="captchaUrl"/>}
+                {captchaUrl && createField<LoginFormValuseTypeKeys>('Symbols from image', 'captcha', [required], Input, {type: "text"})}
+                 
                 {error}
             </div>}
             <div>
@@ -76,7 +81,7 @@ const LoginReduxForm = reduxForm<LoginFormType, LoginFormTypeOwnType>({
 const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {
         isAuth: state.auth.isAuth,
-        captchaUrl: 'ffff'
+        captchaUrl: state.auth.captchaUrl
     }
 }
 

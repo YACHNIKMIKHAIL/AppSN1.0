@@ -29,7 +29,8 @@ export const usersApi = {
 
 export enum ResultCode {
     Success = 0,
-    Error = 1
+    Error = 1,
+    Trouble = 10
 }
 
 export enum ResultCodeForCaptcha {
@@ -51,10 +52,10 @@ export const authApi = {
             return response.data
         })
     },
-    login(email: string, password: string, rememberMe: boolean = false) {
+    login(email: string, password: string, rememberMe: boolean = false, captcha?: string ) {
         return instance.post<AuthRespType<{
             userId: number
-        }>>(`auth/login`, {email, password, rememberMe})
+        }>>(`auth/login`, {email, password, rememberMe,captcha})
             .then(response => {
                 return response.data
             })
@@ -95,9 +96,17 @@ export const profileApi = {
         })
     },
     updateProfile(profile: ProfileType) {
-    return instance.put(`/profile`, profile)
-        .then(response => {
-        return response
-    })
+        return instance.put(`/profile`, profile)
+            .then(response => {
+                return response
+            })
+    }
 }
+
+export const securityApi = {
+    getCaptchUrl() {
+        return instance.get(`security/get-captcha-url`).then(response => {
+            return response
+        })
+    }
 }
