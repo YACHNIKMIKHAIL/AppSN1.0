@@ -110,7 +110,7 @@ export const savePhotoSuccessAC = (photos: { large: string, small: string }): sa
     } as const
 }
 
-type ProfileThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes  | FormAction>
+type ProfileThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes | FormAction>
 
 export const getProfileThunkCreator = (userId: number): ProfileThunkType => async (dispatch) => {
     let response = await profileApi.getProfile(userId)
@@ -121,9 +121,13 @@ export const getStatusThunkCreator = (userId: number): ProfileThunkType => async
     dispatch(getStatusAC(response.data))
 }
 export const updateStatusThunkCreator = (status: string): ProfileThunkType => async (dispatch) => {
-    let response = await profileApi.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(setStatusAC(status))
+    try {
+        let response = await profileApi.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatusAC(status))
+        }
+    } catch (e) {
+        alert(e)
     }
 }
 
@@ -133,17 +137,17 @@ export const savePhotoThunkCreator = (newPhoto: File): ProfileThunkType => async
         dispatch(savePhotoSuccessAC(response.data.data.photos))
     }
 }
-export const saveProfileThunkCreator = (profile: ProfileType) /*: ThunkResult<Promise<boolean>>*/  =>
-    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes  | FormAction>, getState: () => AppStateType) => {
-    const userId = getState().profile.profile.userId
-    let response = await profileApi.updateProfile(profile)
-    if (response.data.resultCode === 0) {
-        dispatch(getProfileThunkCreator(userId))
-        return true
-    } else {
-        dispatch(stopSubmit("editProfile", {_error: response.data.messages[0]}))
-        return Promise.reject(response.data.messages[0])
+export const saveProfileThunkCreator = (profile: ProfileType) /*: ThunkResult<Promise<boolean>>*/ =>
+    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes | FormAction>, getState: () => AppStateType) => {
+        const userId = getState().profile.profile.userId
+        let response = await profileApi.updateProfile(profile)
+        if (response.data.resultCode === 0) {
+            dispatch(getProfileThunkCreator(userId))
+            return true
+        } else {
+            dispatch(stopSubmit("editProfile", {_error: response.data.messages[0]}))
+            return Promise.reject(response.data.messages[0])
+        }
     }
-}
 
 export default profileReducer
