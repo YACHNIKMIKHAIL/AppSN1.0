@@ -16,8 +16,16 @@ const Messages = React.lazy(() => import('./Components/Messages/Messages'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
 
 class App extends Component<any, any> {
+    catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
+        alert(promiseRejectionEvent)
+    }
+
     componentDidMount() {
         this.props.initializAppThunkCreator()
+
+        window.addEventListener('unhandledrejection', function (promiseRejectionEvent) {
+
+        })
     }
 
     render() {
@@ -38,11 +46,12 @@ class App extends Component<any, any> {
                 <Route path='/posts' element={<PostsContainer/>}/>
                 <Route path='/profile/:userId'
                        element={<ProfileContainer/>}/>
-                <Route path='/'
+                <Route path='/AppSN1.0'
                        element={<Suspense fallback={<h1>Loading...</h1>}>
                            <ProfileContainer/>
                        </Suspense>}/>
                 <Route path='/login' element={<Login/>}/>
+                <Route path='*' element={<div>Page not found 404 </div>}/>
             </Routes>
             <Redirect/>
             <Footer/>
@@ -56,8 +65,8 @@ export const Redirect = () => {
     const {pathname} = useLocation()
     const isLoggedIn = useSelector<AppStateType, string | null>(state => state.auth.login)
 
-    if (isLoggedIn !== null && pathname !== '/') {
-        navigate('/')
+    if (isLoggedIn !== null && pathname !== '/AppSN1.0') {
+        navigate('/AppSN1.0')
     } else if (isLoggedIn === null && pathname !== '/login') {
         navigate('/login')
     }
