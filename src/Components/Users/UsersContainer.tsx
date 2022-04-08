@@ -1,14 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    followSuccess,
     followThunkCreator,
     getUsersThunkCreator,
     onPageChangedThunkCreator,
-    setCurrentPage,
-    toggleFollowingInProgress,
-    unFollowSuccess,
-    unFollowThunkCreator,
+    unFollowThunkCreator, usersActions,
     UserType
 } from "../redux/user-reducer";
 import {AppStateType} from "../redux/reduxStore";
@@ -98,10 +94,10 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 export default compose<React.ComponentType<OwnPropsType>>(
     connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
-        follow: followSuccess,
-        unFollow: unFollowSuccess,
-        setCurrentPage,
-        toggleFollowingInProgress,
+        follow: usersActions.followSuccess,
+        unFollow: usersActions.unFollowSuccess,
+        setCurrentPage: usersActions.setCurrentPage,
+        toggleFollowingInProgress: usersActions.toggleFollowingInProgress,
         getUsersThunkCreator,
         onPageChangedThunkCreator,
         unFollowThunkCreator,
