@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import s from './Profile.module.css'
 import Preloader from "../Common/Preloader/Preloader";
-import {ContactsType, ProfileType, saveProfileThunkCreator} from "../redux/profile-reducer";
+import {  saveProfileThunkCreator} from "../redux/profile-reducer";
 import userPhoto from "./../../assets/images/images.png"
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import ProfileDataForm from "./ProfileDataForm";
 import {useDispatch} from "react-redux";
+import {ContactsType, ProfileType} from "../../API/ProfileApi";
 
 type ProfilePropsType = {
     profile: ProfileType

@@ -3,12 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     getProfileThunkCreator,
     getStatusThunkCreator,
-    ProfileType, savePhotoThunkCreator,
+     savePhotoThunkCreator,
     updateStatusThunkCreator
 } from "../redux/profile-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {Navigate, useParams} from "react-router-dom";
 import {Profile} from "./Profile";
+import {ProfileType} from "../../API/ProfileApi";
 
 const ProfileContainer = () => {
 

@@ -2,30 +2,7 @@ import {ActionsTypes} from "./stote";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
 import {FormAction, stopSubmit} from "redux-form";
-import {profileApi} from "../../API/ProfileApi";
-
-export type ContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-}
-export type ProfileType = {
-    aboutMe: string,
-    contacts: ContactsType,
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
-    fullName: string,
-    userId: number,
-    photos: {
-        small: string,
-        large: string
-    }
-}
+import {profileApi, ProfileType} from "../../API/ProfileApi";
 
 export type InitialProfileType = {
     profile: ProfileType
@@ -114,11 +91,11 @@ type ProfileThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType,
 
 export const getProfileThunkCreator = (userId: number): ProfileThunkType => async (dispatch) => {
     let response = await profileApi.getProfile(userId)
-    dispatch(setUserProfileAC(response.data))
+    dispatch(setUserProfileAC(response))
 }
 export const getStatusThunkCreator = (userId: number): ProfileThunkType => async (dispatch) => {
     let response = await profileApi.getStatus(userId)
-    dispatch(getStatusAC(response.data))
+    dispatch(getStatusAC(response))
 }
 export const updateStatusThunkCreator = (status: string): ProfileThunkType => async (dispatch) => {
     try {

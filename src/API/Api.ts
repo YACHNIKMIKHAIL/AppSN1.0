@@ -24,3 +24,9 @@ export type getItemsType={
     items:UserType[]
     totalCount:number
 }
+
+export type RespType<D = {}, RC = ResultCode> = {
+    data: D
+    resultCode: RC
+    messages: string[]
+}

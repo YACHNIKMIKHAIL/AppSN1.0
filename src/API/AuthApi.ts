@@ -1,19 +1,21 @@
-import {instance, ResultCode, ResultCodeForCaptcha} from "./Api";
+import {instance, RespType, ResultCode, ResultCodeForCaptcha} from "./Api";
 
+type MeRespType = {
+    id: number
+    email: string
+    login: string
+}
+type LoginRespType = {
+    userId: number
+}
 export const authApi = {
     authMe() {
-        return instance.get<AuthRespType<{
-            id: number
-            email: string
-            login: string
-        }>>(`auth/me`).then(response => {
+        return instance.get<RespType<MeRespType>>(`auth/me`).then(response => {
             return response.data
         })
     },
-    login(email: string, password: string, rememberMe: boolean = false, captcha?: string ) {
-        return instance.post<AuthRespType<{
-            userId: number
-        }>>(`auth/login`, {email, password, rememberMe,captcha})
+    login(email: string, password: string, rememberMe: boolean = false, captcha?: string) {
+        return instance.post<RespType<LoginRespType>>(`auth/login`, {email, password, rememberMe, captcha})
             .then(response => {
                 return response.data
             })
@@ -24,10 +26,4 @@ export const authApi = {
                 return response.data
             })
     }
-}
-
-type AuthRespType<D> = {
-    data: D
-    resultCode: ResultCode | ResultCodeForCaptcha
-    messages: string[]
 }
