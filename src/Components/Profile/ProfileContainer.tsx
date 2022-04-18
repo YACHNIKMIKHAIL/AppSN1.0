@@ -40,6 +40,7 @@ const ProfileContainer = () => {
         ?
         <Profile profile={profile} status={status} updateStatus={updateStatus} isOwner={!userId} savePhoto={savePhoto}/>
         : <Navigate to={"/login"}/>
+
 }
 
 export default ProfileContainer;

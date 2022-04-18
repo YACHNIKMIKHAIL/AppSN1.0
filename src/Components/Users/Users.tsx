@@ -1,10 +1,8 @@
 import React from "react";
 import s from './Users.module.css'
-import {UserType} from "../redux/user-reducer";
-import userPhoto from './../../assets/images/images.png'
-import {NavLink} from "react-router-dom";
 import {Paginator} from "../Common/Paginator/Paginator";
 import {User} from "./User";
+import {UserType} from "../../API/UsersApi";
 
 
 type UsersPropsType = {

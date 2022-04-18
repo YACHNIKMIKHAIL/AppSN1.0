@@ -4,8 +4,7 @@ import {
     followThunkCreator,
     getUsersThunkCreator,
     onPageChangedThunkCreator,
-    unFollowThunkCreator, usersActions,
-    UserType
+    unFollowThunkCreator, usersActions
 } from "../redux/user-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {Users} from "./Users";
@@ -21,6 +20,7 @@ import {
     getTotalCount,
     getUsersSuperSelector
 } from "../redux/users-selectors";
+import {UserType} from "../../API/UsersApi";
 
 type MapStatePropsType = {
     users: Array<UserType>

@@ -1,16 +1,9 @@
-import {usersApi} from "../../API/Api";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, InferActionsTypes} from "./reduxStore";
 import {updateObjectInArray} from "../../Utils/Object-helpers/Obj-helpers";
+import {usersApi, UserType} from "../../API/UsersApi";
 
-export type UserType = {
-    id: number
-    photos: { small: string | null, large: string | null }
-    followed: boolean
-    name: string
-    status: string
-    location: { city: string, country: string }
-}
+
 type initialStateType = {
     users: Array<UserType>
     pageSize: number

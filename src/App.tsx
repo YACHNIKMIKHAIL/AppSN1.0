@@ -67,9 +67,12 @@ export const Redirect = () => {
     const {pathname} = useLocation()
     const isLoggedIn = useSelector<AppStateType, string | null>(state => state.auth.login)
 
-    if (isLoggedIn !== null && pathname !== '/AppSN1.0') {
-        navigate('/AppSN1.0')
-    } else if (isLoggedIn === null && pathname !== '/login') {
+    // if (isLoggedIn !== null && pathname !== '/AppSN1.0') {
+    //     navigate('/AppSN1.0')
+    // } else if (isLoggedIn === null && pathname !== '/login') {
+    //     navigate('/login')
+    // }
+   if (isLoggedIn === null && pathname !== '/login') {
         navigate('/login')
     }
 

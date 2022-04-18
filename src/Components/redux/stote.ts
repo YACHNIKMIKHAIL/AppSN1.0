@@ -2,9 +2,9 @@ import img1 from './../Images/avas/images (1).jpeg'
 import img2 from './../Images/avas/images.jpeg'
 import {addPostAC, deletePostAC} from "./newPost-reducer";
 import {sendNewMessageAC} from "./newMessage-reducer";
-import {UserType} from "./user-reducer";
 import {getStatusAC, savePhotoSuccessAC, setStatusAC, setUserProfileAC, updateStatusAC} from "./profile-reducer";
 import {getCaptcoUrlSuccess, setAuthUserData} from "./auth-reducer";
+import {UserType} from "../../API/UsersApi";
 
 
 export type MyPostsType = {

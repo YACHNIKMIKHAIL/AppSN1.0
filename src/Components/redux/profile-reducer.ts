@@ -1,8 +1,8 @@
 import {ActionsTypes} from "./stote";
-import {profileApi} from "../../API/Api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
 import {FormAction, stopSubmit} from "redux-form";
+import {profileApi} from "../../API/ProfileApi";
 
 export type ContactsType = {
     github: string

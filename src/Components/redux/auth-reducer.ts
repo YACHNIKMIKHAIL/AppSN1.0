@@ -2,8 +2,10 @@ import {ActionsTypes} from "./stote";
 import {stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
-import {authApi, ResultCode, securityApi} from "../../API/Api";
+import {ResultCode} from "../../API/Api";
 import {Dispatch} from "redux";
+import {authApi} from "../../API/AuthApi";
+import {securityApi} from "../../API/SecurityApi";
 
 export type initStateType = {
     id: number | null

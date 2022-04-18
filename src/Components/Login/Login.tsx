@@ -30,7 +30,7 @@ const Login: React.FC<MapStateToProps & MapDispatchToProps> = ({loginThunkCreato
         loginThunkCreator(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     return isAuth
-        ? <Navigate to={'/profile'}/>
+        ? <Navigate to={'/AppSN1.0'}/>
         : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <div style={{
                 color: 'black',
