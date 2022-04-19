@@ -113,7 +113,6 @@ export const savePhotoThunkCreator = (newPhoto: File): ProfileThunkType => async
 
     let response = await profileApi.updatePhoto(newPhoto)
     if (response.data.resultCode === 0) {
-        debugger
         dispatch(savePhotoSuccessAC(response.data.data))
         // dispatch(getProfileThunkCreator(myId))
     }

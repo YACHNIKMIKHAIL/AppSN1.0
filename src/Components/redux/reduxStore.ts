@@ -20,7 +20,7 @@ let reducer = combineReducers({
 
 export type AppStateType = ReturnType<typeof reducer>
 
-type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never
+export type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never
 export type InferActionsTypes<T extends { [key: string]: (...args: any[] ) => any }> = ReturnType<PropertiesType<T>>
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

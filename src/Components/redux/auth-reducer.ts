@@ -90,7 +90,7 @@ export const logoutThunkCreator = (): AuthThunkType => async (dispatch) => {
 
 export const getCaptchaUrlTC = () => async (dispatch: Dispatch) => {
     let data = await securityApi.getCaptchUrl()
-    const captchaUrl = data.data.url
+    const captchaUrl = data.url
     dispatch(getCaptcoUrlSuccess(captchaUrl))
 }
 export default authReducer

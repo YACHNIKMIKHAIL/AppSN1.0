@@ -35,7 +35,7 @@ const ProfileContainer = () => {
     useEffect(() => {
         getProfile(userId ? +userId : 21487)
         getStatus(userId ? +userId : 21487)
-    }, [userId, getProfile, getStatus,dispatch])
+    }, [userId, getProfile, getStatus])
 
     return isAuth
         ?
