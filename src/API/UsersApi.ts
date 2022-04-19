@@ -1,4 +1,4 @@
-import {getItemsType, instance, RespType} from "./Api";
+import {getItemsType, instance, ApiRespType} from "./Api";
 
 export const usersApi = {
     getUsersApi(currentPage: number = 1, pageSize: number = 10) {
@@ -8,12 +8,12 @@ export const usersApi = {
             })
     },
     unFollow(id: number) {
-        return instance.delete<RespType>(`follow/${id}`).then(response => {
+        return instance.delete<ApiRespType>(`follow/${id}`).then(response => {
             return response.data
         })
     },
     follow(id: number) {
-        return instance.post<RespType>(`follow/${id}`).then(response => {
+        return instance.post<ApiRespType>(`follow/${id}`).then(response => {
             return response.data
         })
     }

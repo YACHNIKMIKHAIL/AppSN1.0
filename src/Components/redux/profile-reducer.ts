@@ -108,10 +108,14 @@ export const updateStatusThunkCreator = (status: string): ProfileThunkType => as
     }
 }
 
-export const savePhotoThunkCreator = (newPhoto: File): ProfileThunkType => async (dispatch) => {
+export const savePhotoThunkCreator = (newPhoto: File): ProfileThunkType => async (dispatch, getState) => {
+    const myId = getState().profile.profile.userId
+
     let response = await profileApi.updatePhoto(newPhoto)
     if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccessAC(response.data.data.photos))
+        debugger
+        dispatch(savePhotoSuccessAC(response.data.data))
+        // dispatch(getProfileThunkCreator(myId))
     }
 }
 export const saveProfileThunkCreator = (profile: ProfileType) /*: ThunkResult<Promise<boolean>>*/ =>

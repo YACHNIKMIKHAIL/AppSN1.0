@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import s from './Profile.module.css'
 import Preloader from "../Common/Preloader/Preloader";
-import {  saveProfileThunkCreator} from "../redux/profile-reducer";
+import {saveProfileThunkCreator} from "../redux/profile-reducer";
 import userPhoto from "./../../assets/images/images.png"
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import ProfileDataForm from "./ProfileDataForm";
@@ -48,10 +48,15 @@ export const Profile = (props: ProfilePropsType) => {
         <div className={s.content}>
             <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
             {props.profile.fullName}
+
             <img className={s.mainPhote}
-                 src={props.profile.photos?.small || props.profile.photos?.large || userPhoto}
+                 src={props.profile.photos.small || props.profile.photos.large || userPhoto}
                  alt=""/>
-            {props.isOwner && <input type="file" onChange={(e) => onMainPhotoSelected(e)}/>}
+            <div>
+                {props.isOwner &&
+                <input type="file" onChange={(e) => onMainPhotoSelected(e)}/>
+                }
+            </div>
             {editMode
                 ? <ProfileDataForm initialValues={props.profile} profile={props.profile} onSubmit={onSubmit}/>
                 : <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode={() => setEditMode(true)}/>}

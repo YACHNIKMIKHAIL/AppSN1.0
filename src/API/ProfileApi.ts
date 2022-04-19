@@ -1,4 +1,4 @@
-import {instance} from "./Api";
+import {instance, ApiRespType} from "./Api";
 
 export const profileApi = {
     getProfile(userId: number) {
@@ -12,14 +12,14 @@ export const profileApi = {
         })
     },
     updateStatus(status: string) {
-        return instance.put(`profile/status`, {status}).then(response => {
+        return instance.put<ApiRespType>(`profile/status`, {status}).then(response => {
             return response
         })
     },
     updatePhoto(newPhoto: any) {
         const formData = new FormData()
         formData.append('image', newPhoto)
-        return instance.put(`/profile/photo`, formData, {
+        return instance.put<ApiRespType<PhotosType>>(`/profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -28,11 +28,15 @@ export const profileApi = {
         })
     },
     updateProfile(profile: ProfileType) {
-        return instance.put(`/profile`, profile)
+        return instance.put<ApiRespType>(`/profile`, profile)
             .then(response => {
                 return response
             })
     }
+}
+ type PhotosType={
+    small: string,
+    large: string
 }
 export type ProfileType = {
     aboutMe: string,
@@ -41,10 +45,7 @@ export type ProfileType = {
     lookingForAJobDescription: string,
     fullName: string,
     userId: number,
-    photos: {
-        small: string,
-        large: string
-    }
+    photos: PhotosType
 }
 export type ContactsType = {
     github: string

@@ -2,7 +2,7 @@ import {ActionsTypes} from "./stote";
 import {stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
-import {ResultCode} from "../../API/Api";
+import {ResultCodeEnum} from "../../API/Api";
 import {Dispatch} from "redux";
 import {authApi} from "../../API/AuthApi";
 import {securityApi} from "../../API/SecurityApi";
@@ -64,17 +64,17 @@ type AuthThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, un
 
 export const authMeThunkCreator = (): AuthThunkType => async (dispatch) => {
     let res = await authApi.authMe()
-    if (res.resultCode === ResultCode.Success) {
+    if (res.resultCode === ResultCodeEnum.Success) {
         let {id, email, login} = res.data
         dispatch(setAuthUserData(id, email, login, true))
     }
 }
 export const loginThunkCreator = (email: string, password: string, rememberMe?: boolean, captcha?: string ) => async (dispatch: any) => {
     let data = await authApi.login(email, password, rememberMe, captcha)
-    if (data.resultCode === ResultCode.Success) {
+    if (data.resultCode === ResultCodeEnum.Success) {
         dispatch(authMeThunkCreator())
     } else {
-        if (data.resultCode === ResultCode.Trouble) {
+        if (data.resultCode === ResultCodeEnum.Trouble) {
             dispatch(getCaptchaUrlTC())
         }
         let message = data.messages.length > 0 ? data.messages[0] : ''
@@ -83,7 +83,7 @@ export const loginThunkCreator = (email: string, password: string, rememberMe?: 
 }
 export const logoutThunkCreator = (): AuthThunkType => async (dispatch) => {
     let data = await authApi.logout()
-    if (data.resultCode === ResultCode.Success) {
+    if (data.resultCode === ResultCodeEnum.Success) {
         dispatch(setAuthUserData(null, null, null, false))
     }
 }

@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     getProfileThunkCreator,
     getStatusThunkCreator,
-     savePhotoThunkCreator,
+    savePhotoThunkCreator,
     updateStatusThunkCreator
 } from "../redux/profile-reducer";
 import {AppStateType} from "../redux/reduxStore";
@@ -35,7 +35,7 @@ const ProfileContainer = () => {
     useEffect(() => {
         getProfile(userId ? +userId : 21487)
         getStatus(userId ? +userId : 21487)
-    }, [userId, getProfile, getStatus])
+    }, [userId, getProfile, getStatus,dispatch])
 
     return isAuth
         ?
