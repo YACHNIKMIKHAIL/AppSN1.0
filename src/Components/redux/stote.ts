@@ -1,8 +1,6 @@
 import img1 from './../Images/avas/images (1).jpeg'
 import img2 from './../Images/avas/images.jpeg'
 import {addPostAC, deletePostAC} from "./newPost-reducer";
-import {sendNewMessageAC} from "./newMessage-reducer";
-import {getStatusAC, savePhotoSuccessAC, setStatusAC, setUserProfileAC, updateStatusAC} from "./profile-reducer";
 import {UserType} from "../../API/UsersApi";
 
 
@@ -71,13 +69,7 @@ export type StoreType = {
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
-    | ReturnType<typeof sendNewMessageAC>
-    | ReturnType<typeof setUserProfileAC>
-    | ReturnType<typeof getStatusAC>
-    | ReturnType<typeof setStatusAC>
-    | ReturnType<typeof updateStatusAC>
     | ReturnType<typeof deletePostAC>
-    | ReturnType<typeof savePhotoSuccessAC>
 
 
 export let store: StoreType = {
@@ -142,7 +134,7 @@ export let store: StoreType = {
             },
 
     },
-    _callSubsriber(state: StateType) {
+    _callSubsriber() {
         console.log('My name is PAIN!!!')
     },
     getState() {
@@ -152,7 +144,7 @@ export let store: StoreType = {
         this._callSubsriber = observer
     },
 
-    dispatch(action) {
+    dispatch() {
         this._callSubsriber(this._state)
     }
 }

@@ -3,7 +3,7 @@ import newPostReducer from "./newPost-reducer";
 import newMessageReducer from "./newMessage-reducer";
 import UsersReducer from "./user-reducer";
 import profileReducer from "./profile-reducer";
-import authReducer, {AuthActionstype} from "./auth-reducer";
+import authReducer from "./auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 import {appReducer} from "./app-reducer";
@@ -23,7 +23,7 @@ export type AppStateType = ReturnType<typeof reducer>
 export type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never
 export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesType<T>>
 
-export type ThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 let store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));

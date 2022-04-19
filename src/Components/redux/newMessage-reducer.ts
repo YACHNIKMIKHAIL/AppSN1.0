@@ -1,15 +1,6 @@
-import {ActionsTypes, MessagesType} from "./stote";
 import img2 from "../Images/avas/images.jpeg";
+import {InferActionsTypes} from "./reduxStore";
 
-type initStateType = {
-    myFriends: {
-        img: string
-        id: number
-        name: string
-        messages: MessagesType
-        newMessageBody: string
-    }
-}
 let init_state = {
     myFriends:
         {
@@ -27,10 +18,11 @@ let init_state = {
             newMessageBody: ''
         }
 }
-// type initStateType = typeof init_state
-const newMessageReducer = (_state = init_state, action: ActionsTypes): initStateType => {
+type initStateType = typeof init_state
+
+const newMessageReducer = (_state = init_state, action: newMessageActionstype): initStateType => {
     switch (action.type) {
-        case SEND_NEW_MESSAGE: {
+        case 'SEND_NEW_MESSAGE': {
             let boby = action.payload.newMessageBody
             return {
                 ..._state,
@@ -43,20 +35,19 @@ const newMessageReducer = (_state = init_state, action: ActionsTypes): initState
                 }
             }
         }
-
         default :
             return _state
     }
 }
-const SEND_NEW_MESSAGE = 'SEND_NEW_MESSAGE'
-type sendNewMessageACType = {
-    type: typeof SEND_NEW_MESSAGE,
-    payload: { newMessageBody: string }
-}
-export const sendNewMessageAC = (newMessageBody: string): sendNewMessageACType => {
-    return {
-        type: 'SEND_NEW_MESSAGE', payload: {newMessageBody}
-    } as const
+
+export const newMessageActions = {
+    sendNewMessageAC: (newMessageBody: string) => {
+        return {
+            type: 'SEND_NEW_MESSAGE', payload: {newMessageBody}
+        } as const
+    }
 }
 
 export default newMessageReducer
+
+export type newMessageActionstype = InferActionsTypes<typeof newMessageActions>

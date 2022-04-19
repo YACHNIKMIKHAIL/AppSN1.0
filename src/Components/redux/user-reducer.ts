@@ -1,28 +1,17 @@
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionsTypes} from "./reduxStore";
+import {BaseThunkType, InferActionsTypes} from "./reduxStore";
 import {updateObjectInArray} from "../../Utils/Object-helpers/Obj-helpers";
 import {usersApi, UserType} from "../../API/UsersApi";
 
-
-type initialStateType = {
-    users: Array<UserType>
-    pageSize: number
-    totalCount: number
-    currentPage: number
-    isFetching: boolean
-    followingInProgress: boolean
-    followingId: Array<number>
-}
-
-let initialState: initialStateType = {
+let initialState = {
     users: [] as Array<UserType>,
     pageSize: 90,
     totalCount: 0,
     currentPage: 2,
     isFetching: true,
     followingInProgress: false,
-    followingId: []
+    followingId: [] as number[]
 }
+type initialStateType = typeof initialState
 
 const UsersReducer = (state = initialState, action: ActionsUsersTypes): initialStateType => {
     switch (action.type) {
@@ -89,7 +78,7 @@ export const usersActions = {
 }
 
 
-type ThunkUserType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsUsersTypes>
+type ThunkUserType = BaseThunkType<ActionsUsersTypes>
 export const getUsersThunkCreator = (currentPage: number, pageSize: number): ThunkUserType => async (dispatch) => {
     dispatch(usersActions.toggleIsFetching(true))
     let data = await usersApi.getUsersApi(currentPage, pageSize)

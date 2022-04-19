@@ -1,4 +1,4 @@
-import {sendNewMessageAC,} from "../../../redux/newMessage-reducer";
+import {newMessageActions,} from "../../../redux/newMessage-reducer";
 import {DialogsMessages} from "./DialogsMessages";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
@@ -16,7 +16,7 @@ const mapStateToProps = (state: AppStateType) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         sendNewMessage: (newMessageBody: string) => {
-            dispatch(sendNewMessageAC(newMessageBody))
+            dispatch(newMessageActions.sendNewMessageAC(newMessageBody))
         }
     }
 }

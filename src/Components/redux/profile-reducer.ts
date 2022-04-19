@@ -1,120 +1,89 @@
 import {ActionsTypes} from "./stote";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AppStateType} from "./reduxStore";
+import {ThunkDispatch} from "redux-thunk";
+import {AppStateType, BaseThunkType, InferActionsTypes} from "./reduxStore";
 import {FormAction, stopSubmit} from "redux-form";
 import {profileApi, ProfileType} from "../../API/ProfileApi";
 
-export type InitialProfileType = {
-    profile: ProfileType
-    status: string
-}
-let initialProfileState: InitialProfileType = {
+let initialProfileState = {
     profile: {} as ProfileType,
     status: ''
 }
 
-const profileReducer = (state = initialProfileState, action: ActionsTypes): InitialProfileType => {
+const profileReducer = (state = initialProfileState, action: ProfileActionsType): InitialProfileType => {
     switch (action.type) {
-        case setUserProfile: {
+        case 'profileReducer/SET_USER_PROFILE': {
             return {...state, profile: action.profile}
         }
-        case getStatus: {
+        case 'profileReducer/GET_STATUS': {
             return {...state, status: action.status}
         }
-        case setStatus: {
+        case 'profileReducer/SET_STATUS': {
             return {...state, status: action.status}
         }
-        case updateStatus: {
+        case 'profileReducer/UPDATE_STATUS': {
             return {...state, status: action.status}
         }
-        case savePhotoSuccess: {
+        case 'profileReducer/savePhotoSuccessAC': {
             return {...state, profile: {...state.profile, photos: action.photos}}
         }
         default :
             return state
     }
 }
-const setUserProfile = 'profileReducer/SET_USER_PROFILE';
-const getStatus = 'profileReducer/GET_STATUS';
-const setStatus = 'profileReducer/SET_STATUS';
-const updateStatus = 'profileReducer/UPDATE_STATUS';
-const savePhotoSuccess = 'profileReducer/savePhotoSuccessAC';
 
-type setUserProfileACType = {
-    type: typeof setUserProfile,
-    profile: ProfileType,
-}
-export const setUserProfileAC = (profile: ProfileType): setUserProfileACType => {
-    return {
-        type: setUserProfile, profile
-    } as const
-}
-type getStatusACType = {
-    type: typeof getStatus,
-    status: string
-}
-export const getStatusAC = (status: string): getStatusACType => {
-    return {
-        type: getStatus, status
-    } as const
-}
-type setStatusACType = {
-    type: typeof setStatus,
-    status: string
-}
-export const setStatusAC = (status: string): setStatusACType => {
-    return {
-        type: setStatus, status
-    } as const
-}
-type updateStatusACACType = {
-    type: typeof updateStatus,
-    status: string
-}
-export const updateStatusAC = (status: string): updateStatusACACType => {
-    return {
-        type: updateStatus, status
-    } as const
+export const profileActions = {
+    setUserProfileAC: (profile: ProfileType) => {
+        return {
+            type: 'profileReducer/SET_USER_PROFILE', profile
+        } as const
+    },
+    getStatusAC: (status: string) => {
+        return {
+            type: 'profileReducer/GET_STATUS', status
+        } as const
+    },
+    setStatusAC: (status: string) => {
+        return {
+            type: 'profileReducer/SET_STATUS', status
+        } as const
+    },
+    updateStatusAC: (status: string) => {
+        return {
+            type: 'profileReducer/UPDATE_STATUS', status
+        } as const
+    },
+    savePhotoSuccessAC: (photos: { large: string, small: string }) => {
+        return {
+            type: 'profileReducer/savePhotoSuccessAC', photos
+        } as const
+    }
 }
 
-type savePhotoSuccessACType = {
-    type: typeof savePhotoSuccess,
-    photos: { large: string, small: string }
-}
-export const savePhotoSuccessAC = (photos: { large: string, small: string }): savePhotoSuccessACType => {
-    return {
-        type: savePhotoSuccess, photos
-    } as const
-}
-
-type ProfileThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes | FormAction>
 
 export const getProfileThunkCreator = (userId: number): ProfileThunkType => async (dispatch) => {
     let response = await profileApi.getProfile(userId)
-    dispatch(setUserProfileAC(response))
+    dispatch(profileActions.setUserProfileAC(response))
 }
 export const getStatusThunkCreator = (userId: number): ProfileThunkType => async (dispatch) => {
     let response = await profileApi.getStatus(userId)
-    dispatch(getStatusAC(response))
+    dispatch(profileActions.getStatusAC(response))
 }
 export const updateStatusThunkCreator = (status: string): ProfileThunkType => async (dispatch) => {
     try {
         let response = await profileApi.updateStatus(status)
         if (response.data.resultCode === 0) {
-            dispatch(setStatusAC(status))
+            dispatch(profileActions.setStatusAC(status))
         }
     } catch (e) {
         alert(e)
     }
 }
 
-export const savePhotoThunkCreator = (newPhoto: File): ProfileThunkType => async (dispatch, getState) => {
-    const myId = getState().profile.profile.userId
+export const savePhotoThunkCreator = (newPhoto: File): ProfileThunkType => async (dispatch) => {
 
     let response = await profileApi.updatePhoto(newPhoto)
     if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccessAC(response.data.data))
-        // dispatch(getProfileThunkCreator(myId))
+        dispatch(profileActions.savePhotoSuccessAC(response.data.data))
     }
 }
 export const saveProfileThunkCreator = (profile: ProfileType) /*: ThunkResult<Promise<boolean>>*/ =>
@@ -131,3 +100,7 @@ export const saveProfileThunkCreator = (profile: ProfileType) /*: ThunkResult<Pr
     }
 
 export default profileReducer
+
+export type InitialProfileType = typeof initialProfileState
+export type ProfileActionsType = InferActionsTypes<typeof profileActions>
+type ProfileThunkType = BaseThunkType<ProfileActionsType | FormAction>
