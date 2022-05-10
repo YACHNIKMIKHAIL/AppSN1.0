@@ -15,8 +15,13 @@ import {compose} from "redux";
 const Messages = React.lazy(() => import('./Components/Messages/Messages'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
 
-class App extends Component<any, any> {
-    catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
+type  AppMapPropsType = ReturnType<typeof mapStateToProps>
+type  AppDispatchPropsType = {
+    initializAppThunkCreator: () => void
+}
+
+class App extends Component<AppMapPropsType & AppDispatchPropsType> {
+    catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
         alert(`Some error occurred: ${promiseRejectionEvent}`)
     }
 
@@ -72,7 +77,7 @@ export const Redirect = () => {
     // } else if (isLoggedIn === null && pathname !== '/login') {
     //     navigate('/login')
     // }
-   if (isLoggedIn === null && pathname !== '/login') {
+    if (isLoggedIn === null && pathname !== '/login') {
         navigate('/login')
     }
 
@@ -82,9 +87,9 @@ export const Redirect = () => {
 }
 const mapStateToProps = (state: AppStateType) => ({initialized: state.app.initialized})
 // export default connect(mapStateToProps, {initializAppThunkCreator})(App);
-const AppContainer = compose(connect(mapStateToProps, {initializAppThunkCreator}))(App)
+const AppContainer = compose<React.ComponentType>(connect(mapStateToProps, {initializAppThunkCreator}))(App)
 
-export const SamuraiJSApp = () => {
+export const SamuraiJSApp: React.FC = () => {
     return <BrowserRouter>
         <Provider store={store}>
             <AppContainer/>
