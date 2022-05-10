@@ -1,9 +1,9 @@
-import React, {ComponentType, Suspense} from "react";
+import React, {Suspense} from "react";
 
-export function WithSuspense(Component: ComponentType) {
-    return (props: any) => {
+export function WithSuspense<WCP>(WrappedComponent: React.ComponentType<WCP>) {
+    return (props: WCP) => {
         return <Suspense fallback={<h1>Loading...</h1>}>
-            <Component {...props}/>
+            <WrappedComponent {...props}/>
         </Suspense>
     }
 }

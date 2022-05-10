@@ -11,7 +11,7 @@ type UsersPropsType = {
     unFollowThunkCreator: (id: number) => void
     followThunkCreator: (id: number) => void
 }
-export const User = ({user, followingId, followThunkCreator, unFollowThunkCreator}: UsersPropsType) => {
+export const User: React.FC<UsersPropsType>  = ({user, followingId, followThunkCreator, unFollowThunkCreator}) => {
 
     return (
         <div className={s.u}>

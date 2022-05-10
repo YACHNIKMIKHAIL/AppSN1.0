@@ -2,7 +2,7 @@ import React from "react";
 import s from './DialogsMessages.module.css'
 import {MessagesType} from "../../../redux/stote";
 import {InjectedFormProps, reduxForm} from "redux-form";
-import {createField, Textarea} from "../../../Common/FormsControls/FormsControls";
+import {createField, GetStringKeys, Textarea} from "../../../Common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../../../Utils/Validators/validators";
 
 type DialogsMessagesPropsType = {
@@ -13,6 +13,7 @@ type DialogsMessagesPropsType = {
     isAuth: boolean
 }
 export const DialogsMessages = (props: DialogsMessagesPropsType) => {
+
     const addNewMessage = (values: NewMessageFormValuesType) => {
         props.sendNewMessage(values.newMessageBody)
     }
@@ -47,14 +48,13 @@ export const DialogsMessages = (props: DialogsMessagesPropsType) => {
 
 
 const maxLength20 = maxLengthCreator(20)
+
 export type NewMessageFormValuesType = {
     newMessageBody: string
 }
-
 export type AddMessageFormType = {
     newMessageBody: string
 }
-type AddMessageFormValuseTypeKeys = Extract<keyof AddMessageFormType, string>
 
 export const AddMessageForm: React.FC<InjectedFormProps<NewMessageFormValuesType, {}> & {}>
     = (props) => {
@@ -63,7 +63,7 @@ export const AddMessageForm: React.FC<InjectedFormProps<NewMessageFormValuesType
             <div>
                 {/*<Field component={Textarea} validate={[required, maxLength20]}*/}
                 {/*       name='newMessageBody' placeholder='New Message'/>*/}
-                {createField<AddMessageFormValuseTypeKeys>('New Message', 'newMessageBody', [required, maxLength20], Textarea)}
+                {createField<GetStringKeys<AddMessageFormType>>('New Message', 'newMessageBody', [required, maxLength20], Textarea)}
             </div>
             <button>Send</button>
         </form>
