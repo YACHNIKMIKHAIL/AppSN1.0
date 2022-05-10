@@ -103,4 +103,4 @@ export default profileReducer
 
 export type InitialProfileType = typeof initialProfileState
 export type ProfileActionsType = InferActionsTypes<typeof profileActions>
-type ProfileThunkType = BaseThunkType<ProfileActionsType | FormAction>
+type ProfileThunkType = BaseThunkType<ProfileActionsType>

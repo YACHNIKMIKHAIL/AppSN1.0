@@ -41,7 +41,7 @@ const newMessageReducer = (_state = init_state, action: newMessageActionstype): 
 }
 
 export const newMessageActions = {
-    sendNewMessageAC: (newMessageBody: string) => {
+    sendNewMessage: (newMessageBody: string) => {
         return {
             type: 'SEND_NEW_MESSAGE', payload: {newMessageBody}
         } as const

@@ -16,7 +16,7 @@ export const profileApi = {
             return response
         })
     },
-    updatePhoto(newPhoto: any) {
+    updatePhoto(newPhoto: File) {
         const formData = new FormData()
         formData.append('image', newPhoto)
         return instance.put<ApiRespType<PhotosType>>(`/profile/photo`, formData, {
