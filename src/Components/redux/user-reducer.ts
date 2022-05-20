@@ -1,6 +1,7 @@
 import {BaseThunkType, InferActionsTypes} from "./reduxStore";
 import {updateObjectInArray} from "../../Utils/Object-helpers/Obj-helpers";
 import {usersApi, UserType} from "../../API/UsersApi";
+import {ApiRespType} from "../../API/Api";
 
 let initialState = {
     users: [] as Array<UserType>,
@@ -96,7 +97,7 @@ export const onPageChangedThunkCreator = (pageNumber: number, pageSize: number):
 }
 
 
-const followUnfollowFlow = async (dispatch: any, id: any, apiMethod: any, actionCreator: any) => {
+const followUnfollowFlow = async (dispatch: any, id: any, apiMethod: (userId: number) => Promise<ApiRespType>, actionCreator: any) => {
     dispatch(usersActions.toggleFollowingInProgress(true, id))
     let data = await apiMethod(id)
     if (data.resultCode === 0) {
@@ -108,13 +109,13 @@ const followUnfollowFlow = async (dispatch: any, id: any, apiMethod: any, action
 export const unFollowThunkCreator = (id: number): ThunkUserType => async (dispatch) => {
     let apiMethod = usersApi.unFollow.bind(usersApi)
     let actionCreator = usersActions.unFollowSuccess
-    followUnfollowFlow(dispatch, id, apiMethod, actionCreator)
+    await followUnfollowFlow(dispatch, id, apiMethod, actionCreator)
 }
 
 export const followThunkCreator = (id: number): ThunkUserType => async (dispatch) => {
     let apiMethod = usersApi.follow.bind(usersApi)
     let actionCreator = usersActions.followSuccess
-    followUnfollowFlow(dispatch, id, apiMethod, actionCreator)
+    await followUnfollowFlow(dispatch, id, apiMethod, actionCreator)
 }
 
 export default UsersReducer
