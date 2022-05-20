@@ -1,4 +1,4 @@
-import {initialStateType} from "./user-reducer";
+import UsersReducer, {initialStateType, usersActions} from "./user-reducer";
 
 test('', () => {
     const state: initialStateType = {
@@ -18,6 +18,11 @@ test('', () => {
                 photos: {small: null, large: null}, status: 'status3',
                 location: {city: 'Brest', country: 'Belarus'}
             },
+            {
+                id: 4, name: 'Papa', followed: false,
+                photos: {small: null, large: null}, status: 'status4',
+                location: {city: 'Brest', country: 'Belarus'}
+            }
         ],
         pageSize: 90,
         totalCount: 0,
@@ -27,5 +32,10 @@ test('', () => {
         followingId: []
     }
 
+    const newState = UsersReducer(state, usersActions.followSuccess(2))
 
+    expect(newState.users[0].followed).toBeFalsy()
+    expect(newState.users[1].followed).toBeTruthy()
+    expect(newState.users[1].id).toBe(2)
+    expect(newState.users[1].name).toBe('Nastya')
 })
