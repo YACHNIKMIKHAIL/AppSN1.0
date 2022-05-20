@@ -2,6 +2,7 @@ import {BaseThunkType, InferActionsTypes} from "./reduxStore";
 import {updateObjectInArray} from "../../Utils/Object-helpers/Obj-helpers";
 import {usersApi, UserType} from "../../API/UsersApi";
 import {ApiRespType} from "../../API/Api";
+import {Dispatch} from "redux";
 
 let initialState = {
     users: [] as Array<UserType>,
@@ -97,7 +98,10 @@ export const onPageChangedThunkCreator = (pageNumber: number, pageSize: number):
 }
 
 
-const followUnfollowFlow = async (dispatch: any, id: any, apiMethod: (userId: number) => Promise<ApiRespType>, actionCreator: any) => {
+const followUnfollowFlow = async (dispatch: Dispatch<ActionsUsersTypes>,
+                                  id: number,
+                                  apiMethod: (id: number) => Promise<ApiRespType>,
+                                  actionCreator: (id: number) => ActionsUsersTypes) => {
     dispatch(usersActions.toggleFollowingInProgress(true, id))
     let data = await apiMethod(id)
     if (data.resultCode === 0) {
