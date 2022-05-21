@@ -3,7 +3,7 @@ import s from './Users.module.css'
 import {Paginator} from "../Common/Paginator/Paginator";
 import {User} from "./User";
 import {UserType} from "../../API/UsersApi";
-import {ErrorMessage, Field, Form, Formik, FormikValues} from "formik";
+import {UserSearchForm} from "./UsersSearchForm";
 
 
 type UsersPropsType = {
@@ -42,42 +42,5 @@ export const Users = ({currentPage, onPageChanged, pageSize, totalCount, ...prop
             </div>
         </div>
 
-    )
-}
-
-const userSearchFormValidate = (values: FormikValues) => {
-    const errors = {};
-    return errors;
-}
-
-type userSearchFormType = {
-    tern: string
-}
-
-export const UserSearchForm = () => {
-    const submit = (values: userSearchFormType, {setSubmitting}: { setSubmitting: (isSubmiting: boolean) => void }) => {
-        setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-        }, 400);
-    }
-
-    return (
-        <div>
-            <Formik
-                initialValues={{term: ''}}
-                validate={userSearchFormValidate}
-                onSubmit={submit}
-            >
-                {({isSubmitting}) => (
-                    <Form>
-                        <Field type="text" name="term"/>
-                        <button type="submit" disabled={isSubmitting}>
-                            Find
-                        </button>
-                    </Form>
-                )}
-            </Formik>
-        </div>
     )
 }

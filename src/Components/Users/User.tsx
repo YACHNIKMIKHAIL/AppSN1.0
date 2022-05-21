@@ -11,7 +11,7 @@ type UsersPropsType = {
     unFollowThunkCreator: (id: number) => void
     followThunkCreator: (id: number) => void
 }
-export const User: React.FC<UsersPropsType>  = ({user, followingId, followThunkCreator, unFollowThunkCreator}) => {
+export const User: React.FC<UsersPropsType> = ({user, followingId, followThunkCreator, unFollowThunkCreator}) => {
 
     return (
         <div className={s.u}>
@@ -45,8 +45,10 @@ export const User: React.FC<UsersPropsType>  = ({user, followingId, followThunkC
                     <div>{user.status}</div>
                             </span>
                         <span>
-                    <div>{'m.location.country'}</div>
-                             <div>{'m.location.city'}</div>
+                   {user.location && <>
+                       <div>{user.location.country}</div>
+                       <div>{user.location.city}</div>
+                   </>}
                         </span>
                     </span>
         </div>

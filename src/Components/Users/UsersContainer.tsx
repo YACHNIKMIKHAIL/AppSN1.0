@@ -36,7 +36,7 @@ type MapDispatchPropsType = {
     unFollow: (id: number) => void
     setCurrentPage: (pageNumber: number) => void
     toggleFollowingInProgress: (followingInProgress: boolean, id: number) => void
-    getUsersThunkCreator: (currentPage: number, pageSize: number) => void
+    getUsersThunkCreator: (currentPage: number, pageSize: number, term: string) => void
     onPageChangedThunkCreator: (pageNumber: number, pageSize: number) => void
     unFollowThunkCreator: (id: number) => void
     followThunkCreator: (id: number) => void
@@ -49,12 +49,14 @@ type UsersPropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 export class UsersComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
         const {currentPage, pageSize} = this.props
-        this.props.getUsersThunkCreator(currentPage, pageSize)
+        this.props.getUsersThunkCreator(currentPage, pageSize, '')
     }
 
     onPageChanged = (pageNumber: number) => {
         const {pageSize} = this.props
         this.props.onPageChangedThunkCreator(pageNumber, pageSize)
+        // this.props.getUsersThunkCreator(pageNumber, pageSize, '')
+
     }
 
     render() {
