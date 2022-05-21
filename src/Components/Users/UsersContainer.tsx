@@ -118,7 +118,9 @@ export default compose<React.ComponentType<OwnPropsType>>(
 
 
 
-type UsersPagePropsType = {}
+type UsersPagePropsType = {
+    pageTitle?:string
+}
 export const UsersPage: React.FC<UsersPagePropsType> = (props) => {
     const dispatch = useDispatch()
     const pageSize=useSelector<AppStateType,number>(state=>state.usersPage.pageSize)
@@ -143,6 +145,7 @@ export const UsersPage: React.FC<UsersPagePropsType> = (props) => {
         dispatch(getUsersThunkCreator(currentPage, pageSize, filter))
     },[])
     return <div style={{display: 'flex', flexDirection: 'column'}}>
+        {props.pageTitle && <h2>{props.pageTitle}</h2>}
         {isFetching
             ? <Preloader/>
             : null
