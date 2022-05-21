@@ -71,15 +71,16 @@ export class UsersComponent extends React.Component<UsersPropsType> {
                 ? <Preloader/>
                 : null
             }
-            <Users totalCount={this.props.totalCount}
-                   pageSize={this.props.pageSize}
-                   currentPage={this.props.currentPage}
+            <Users
+                // totalCount={this.props.totalCount}
+                //    pageSize={this.props.pageSize}
+                //    currentPage={this.props.currentPage}
                    onPageChanged={this.onPageChanged}
-                   users={this.props.users}
+                   // users={this.props.users}
                    follow={this.props.follow}
                    unFollow={this.props.unFollow}
-                   followingInProgress={this.props.followingInProgress}
-                   followingId={this.props.followingId}
+                   // followingInProgress={this.props.followingInProgress}
+                   // followingId={this.props.followingId}
                    unFollowThunkCreator={this.props.unFollowThunkCreator}
                    followThunkCreator={this.props.followThunkCreator}
                    onFilterChanged={this.onFilterChanged}
