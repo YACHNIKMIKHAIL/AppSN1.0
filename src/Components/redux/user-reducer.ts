@@ -8,13 +8,13 @@ let initialState = {
     users: [] as Array<UserType>,
     pageSize: 90,
     totalCount: 0,
-    currentPage: 2,
+    currentPage: 1,
     isFetching: true,
     followingInProgress: false,
     followingId: [] as number[],
     filter: {
         term: '',
-        friends: null as null | boolean
+        friend: null as null | boolean
     }
 }
 export type initialStateType = typeof initialState

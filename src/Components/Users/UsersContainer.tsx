@@ -38,8 +38,8 @@ type MapDispatchPropsType = {
     unFollow: (id: number) => void
     setCurrentPage: (pageNumber: number) => void
     toggleFollowingInProgress: (followingInProgress: boolean, id: number) => void
-    getUsersThunkCreator: (currentPage: number, pageSize: number, term: string) => void
-    onPageChangedThunkCreator: (pageNumber: number, pageSize: number, term: string) => void
+    getUsersThunkCreator: (currentPage: number, pageSize: number, filter: FilterType) => void
+    onPageChangedThunkCreator: (pageNumber: number, pageSize: number, filter: FilterType) => void
     unFollowThunkCreator: (id: number) => void
     followThunkCreator: (id: number) => void
 }
@@ -50,18 +50,18 @@ type UsersPropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
 export class UsersComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
-        const {currentPage, pageSize} = this.props
-        this.props.getUsersThunkCreator(currentPage, pageSize, '')
+        const {currentPage, pageSize, filter} = this.props
+        this.props.getUsersThunkCreator(currentPage, pageSize, filter)
     }
 
     onPageChanged = (pageNumber: number) => {
         const {pageSize, filter} = this.props
-        this.props.onPageChangedThunkCreator(pageNumber, pageSize, filter.term)
+        this.props.onPageChangedThunkCreator(pageNumber, pageSize, filter)
         // this.props.getUsersThunkCreator(pageNumber, pageSize, filter.term)
     }
     onFilterChanged = (filter: FilterType) => {
-        const { pageSize} = this.props
-        this.props.getUsersThunkCreator(1, pageSize, filter.term)
+        const {pageSize} = this.props
+        this.props.getUsersThunkCreator(1, pageSize, filter)
     }
 
     render() {

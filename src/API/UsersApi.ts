@@ -4,7 +4,7 @@ import {FilterType} from "../Components/redux/user-reducer";
 export const usersApi = {
     getUsersApi(currentPage: number = 1, pageSize: number = 10, filter: FilterType) {
         return instance.get<getItemsType>(`users?page=${currentPage}&count=${pageSize}&term=${filter.term}`
-            + (filter.friends === null ? '' : `&friend${filter.friends}`))
+            + (filter.friend === null ? '' : `&friend=${filter.friend}`))
             .then(response => {
                 return response.data
             })

@@ -33,7 +33,8 @@ beforeEach(()=>{
         followingInProgress: false,
         followingId: [],
          filter: {
-             term: '' as string
+             term: '',
+             friend: null as null | boolean
          }
     }
 })

@@ -1,30 +1,43 @@
-import {Field, Form, Formik, FormikValues} from "formik";
+import {Field, Form, Formik} from "formik";
 import React from "react";
 import {FilterType} from "../redux/user-reducer";
 
-const userSearchFormValidate = (values: FormikValues) => {
+const userSearchFormValidate = () => {
     const errors = {};
     return errors;
 }
-
+type FormFilterType = {
+    term: string
+    friend: "null" | "true" | "false"
+}
 type UserSearchFormProps = {
     onFilterChanged: (filter: FilterType) => void
 }
 export const UserSearchForm: React.FC<UserSearchFormProps> = React.memo(({onFilterChanged}) => {
-    const submit = (values: FilterType, {setSubmitting}: { setSubmitting: (isSubmiting: boolean) => void }) => {
+    const submit = (values: FormFilterType, {setSubmitting}: { setSubmitting: (isSubmiting: boolean) => void }) => {
         // setTimeout(() => {
         //     alert(JSON.stringify(values, null, 2));
         //     setSubmitting(false);
         //
         // }, 400);
-        onFilterChanged(values )
+        let convertedValues = {
+            term: values.term,
+            friend: values.friend === 'null'
+                ? null
+                : values.friend === 'true'
+                    ? true
+                    : false
+        }
+
+
+        onFilterChanged(convertedValues)
         setSubmitting(false)
     }
 
     return (
         <div>
             <Formik
-                initialValues={{term: '', friend: null}}
+                initialValues={{term: '', friend: 'null'}}
                 validate={userSearchFormValidate}
                 onSubmit={submit}
             >
@@ -33,9 +46,9 @@ export const UserSearchForm: React.FC<UserSearchFormProps> = React.memo(({onFilt
                         <Field type="text" name="term"/>
 
                         <Field name="friend" as="select">
-                            <option value="all">All</option>
-                            <option value="friends">Friends</option>
-                            <option value="noFriends">No friends</option>
+                            <option value="null">All</option>
+                            <option value="true">Friends</option>
+                            <option value="false">No friends</option>
                         </Field>
 
                         <button type="submit" disabled={isSubmitting}>
