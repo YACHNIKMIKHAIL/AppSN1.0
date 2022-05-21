@@ -31,7 +31,10 @@ beforeEach(()=>{
         currentPage: 2,
         isFetching: true,
         followingInProgress: false,
-        followingId: []
+        followingId: [],
+         filter: {
+             term: '' as string
+         }
     }
 })
 

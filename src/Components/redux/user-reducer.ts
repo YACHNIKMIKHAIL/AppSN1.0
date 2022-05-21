@@ -13,7 +13,7 @@ let initialState = {
     followingInProgress: false,
     followingId: [] as number[],
     filter: {
-        term: null as string | null
+        term: ''
     }
 }
 export type initialStateType = typeof initialState
@@ -56,7 +56,7 @@ const UsersReducer = (state = initialState, action: ActionsUsersTypes): initialS
             }
         }
         case 'UsersReducer/SET_FILTER': {
-            return {...state, filter: {...state.filter, term: action.term}}
+            return {...state, filter: action.payload}
         }
         default :
             return state
@@ -69,7 +69,7 @@ export const usersActions = {
     unFollowSuccess: (id: number) => ({type: 'UsersReducer/UNFOLLOW', id} as const),
     setUsers: (users: Array<UserType>) => ({type: 'UsersReducer/SET_USERS', users} as const),
     setCurrentPage: (currentPage: number) => ({type: 'UsersReducer/SET_CURRENT_PAGE', currentPage} as const),
-    setFilter: (term: string) => ({type: 'UsersReducer/SET_FILTER', term} as const),
+    setFilter: (term: string) => ({type: 'UsersReducer/SET_FILTER', payload: {term}} as const),
     setTotalUsersCount: (usersCount: number) => ({
         type: 'UsersReducer/SET_TOTAL_USERS_COUNT',
         usersCount
@@ -91,17 +91,18 @@ type ThunkUserType = BaseThunkType<ActionsUsersTypes>
 
 export const getUsersThunkCreator = (currentPage: number, pageSize: number, term: string): ThunkUserType => async (dispatch) => {
     dispatch(usersActions.toggleIsFetching(true))
-    let data = await usersApi.getUsersApi(currentPage, pageSize)
+    dispatch(usersActions.setFilter(term))
+
+    let data = await usersApi.getUsersApi(currentPage, pageSize, term)
     dispatch(usersActions.toggleIsFetching(false))
     dispatch(usersActions.setUsers(data.items))
-    dispatch(usersActions.setFilter(term))
     dispatch(usersActions.setTotalUsersCount(data.totalCount))
 }
 
-export const onPageChangedThunkCreator = (pageNumber: number, pageSize: number): ThunkUserType => async (dispatch) => {
+export const onPageChangedThunkCreator = (pageNumber: number, pageSize: number, term: string): ThunkUserType => async (dispatch) => {
     dispatch(usersActions.setCurrentPage(pageNumber))
     dispatch(usersActions.toggleIsFetching(true))
-    let data = await usersApi.getUsersApi(pageNumber, pageSize)
+    let data = await usersApi.getUsersApi(pageNumber, pageSize,term)
     dispatch(usersActions.toggleIsFetching(false))
     dispatch(usersActions.setUsers(data.items))
 }
@@ -132,3 +133,5 @@ export const followThunkCreator = (id: number): ThunkUserType => async (dispatch
 }
 
 export default UsersReducer
+
+export type FilterType = typeof initialState.filter

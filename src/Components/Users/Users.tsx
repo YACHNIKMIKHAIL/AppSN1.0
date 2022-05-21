@@ -4,6 +4,7 @@ import {Paginator} from "../Common/Paginator/Paginator";
 import {User} from "./User";
 import {UserType} from "../../API/UsersApi";
 import {UserSearchForm} from "./UsersSearchForm";
+import {FilterType} from "../redux/user-reducer";
 
 
 type UsersPropsType = {
@@ -18,8 +19,9 @@ type UsersPropsType = {
     followingId: Array<number>
     unFollowThunkCreator: (id: number) => void
     followThunkCreator: (id: number) => void
+    onFilterChanged:(filter:FilterType)=>void
 }
-export const Users = ({currentPage, onPageChanged, pageSize, totalCount, ...props}: UsersPropsType) => {
+export const Users = ({currentPage, onPageChanged, pageSize, totalCount,onFilterChanged, ...props}: UsersPropsType) => {
     let pagesCount = Math.ceil(totalCount / pageSize)
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
@@ -28,7 +30,7 @@ export const Users = ({currentPage, onPageChanged, pageSize, totalCount, ...prop
 
     return (
         <div className={s.content}>
-            <UserSearchForm/>
+            <UserSearchForm onFilterChanged={onFilterChanged}/>
             <Paginator currentPage={currentPage}
                        onPageChanged={onPageChanged}
                        pageSize={pageSize}

@@ -1,21 +1,22 @@
 import {Field, Form, Formik, FormikValues} from "formik";
 import React from "react";
+import {FilterType} from "../redux/user-reducer";
 
 const userSearchFormValidate = (values: FormikValues) => {
     const errors = {};
     return errors;
 }
 
-type userSearchFormType = {
-    term: string
-}
 
-export const UserSearchForm = () => {
-    const submit = (values: userSearchFormType, {setSubmitting}: { setSubmitting: (isSubmiting: boolean) => void }) => {
-        setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-        }, 400);
+export const UserSearchForm = ({onFilterChanged}: { onFilterChanged: (filter: FilterType) => void }) => {
+    const submit = (values: FilterType, {setSubmitting}: { setSubmitting: (isSubmiting: boolean) => void }) => {
+        // setTimeout(() => {
+        //     alert(JSON.stringify(values, null, 2));
+        //     setSubmitting(false);
+        //
+        // }, 400);
+        onFilterChanged(values)
+        setSubmitting(false)
     }
 
     return (
