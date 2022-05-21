@@ -13,7 +13,8 @@ let initialState = {
     followingInProgress: false,
     followingId: [] as number[],
     filter: {
-        term: ''
+        term: '',
+        friends: null as null | boolean
     }
 }
 export type initialStateType = typeof initialState
@@ -69,7 +70,7 @@ export const usersActions = {
     unFollowSuccess: (id: number) => ({type: 'UsersReducer/UNFOLLOW', id} as const),
     setUsers: (users: Array<UserType>) => ({type: 'UsersReducer/SET_USERS', users} as const),
     setCurrentPage: (currentPage: number) => ({type: 'UsersReducer/SET_CURRENT_PAGE', currentPage} as const),
-    setFilter: (term: string) => ({type: 'UsersReducer/SET_FILTER', payload: {term}} as const),
+    setFilter: (filter: FilterType) => ({type: 'UsersReducer/SET_FILTER', payload: filter} as const),
     setTotalUsersCount: (usersCount: number) => ({
         type: 'UsersReducer/SET_TOTAL_USERS_COUNT',
         usersCount
@@ -89,20 +90,20 @@ export const usersActions = {
 
 type ThunkUserType = BaseThunkType<ActionsUsersTypes>
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number, term: string): ThunkUserType => async (dispatch) => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType): ThunkUserType => async (dispatch) => {
     dispatch(usersActions.toggleIsFetching(true))
-    dispatch(usersActions.setFilter(term))
+    dispatch(usersActions.setFilter(filter))
 
-    let data = await usersApi.getUsersApi(currentPage, pageSize, term)
+    let data = await usersApi.getUsersApi(currentPage, pageSize, filter)
     dispatch(usersActions.toggleIsFetching(false))
     dispatch(usersActions.setUsers(data.items))
     dispatch(usersActions.setTotalUsersCount(data.totalCount))
 }
 
-export const onPageChangedThunkCreator = (pageNumber: number, pageSize: number, term: string): ThunkUserType => async (dispatch) => {
+export const onPageChangedThunkCreator = (pageNumber: number, pageSize: number, filter: FilterType): ThunkUserType => async (dispatch) => {
     dispatch(usersActions.setCurrentPage(pageNumber))
     dispatch(usersActions.toggleIsFetching(true))
-    let data = await usersApi.getUsersApi(pageNumber, pageSize,term)
+    let data = await usersApi.getUsersApi(pageNumber, pageSize, filter)
     dispatch(usersActions.toggleIsFetching(false))
     dispatch(usersActions.setUsers(data.items))
 }

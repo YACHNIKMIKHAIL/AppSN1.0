@@ -60,8 +60,8 @@ export class UsersComponent extends React.Component<UsersPropsType> {
         // this.props.getUsersThunkCreator(pageNumber, pageSize, filter.term)
     }
     onFilterChanged = (filter: FilterType) => {
-        const {currentPage, pageSize} = this.props
-        this.props.getUsersThunkCreator(currentPage, pageSize, filter.term)
+        const { pageSize} = this.props
+        this.props.getUsersThunkCreator(1, pageSize, filter.term)
     }
 
     render() {
