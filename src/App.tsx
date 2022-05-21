@@ -3,7 +3,7 @@ import './App.css';
 import {Footer} from "./Components/Footer/Footer";
 import {BrowserRouter, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
-import UsersContainer from "./Components/Users/UsersContainer";
+import UsersContainer, {UsersPage} from "./Components/Users/UsersContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
 import {connect, Provider, useSelector} from "react-redux";
@@ -43,7 +43,7 @@ class App extends Component<AppMapPropsType & AppDispatchPropsType> {
             <HeaderContainer/>
             <Routes>
                 <Route path='/users' element={<Suspense fallback={<h1>Loading...</h1>}>
-                    <UsersContainer/>
+                    <UsersPage/>
                 </Suspense>}/>
                 <Route path='/messages'
                        element={<Suspense fallback={<h1>Loading...</h1>}>

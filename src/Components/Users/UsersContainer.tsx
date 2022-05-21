@@ -1,5 +1,5 @@
-import React from 'react';
-import {connect} from "react-redux";
+import React, {useEffect} from 'react';
+import {connect, useDispatch, useSelector} from "react-redux";
 import {
     FilterType,
     followThunkCreator,
@@ -75,15 +75,15 @@ export class UsersComponent extends React.Component<UsersPropsType> {
                 // totalCount={this.props.totalCount}
                 //    pageSize={this.props.pageSize}
                 //    currentPage={this.props.currentPage}
-                   onPageChanged={this.onPageChanged}
-                   // users={this.props.users}
-                   follow={this.props.follow}
-                   unFollow={this.props.unFollow}
-                   // followingInProgress={this.props.followingInProgress}
-                   // followingId={this.props.followingId}
-                   unFollowThunkCreator={this.props.unFollowThunkCreator}
-                   followThunkCreator={this.props.followThunkCreator}
-                   onFilterChanged={this.onFilterChanged}
+                onPageChanged={this.onPageChanged}
+                // users={this.props.users}
+                // follow={this.props.follow}
+                // unFollow={this.props.unFollow}
+                // followingInProgress={this.props.followingInProgress}
+                // followingId={this.props.followingId}
+                unFollowThunkCreator={this.props.unFollowThunkCreator}
+                followThunkCreator={this.props.followThunkCreator}
+                onFilterChanged={this.onFilterChanged}
             />
         </div>
     }
@@ -115,4 +115,44 @@ export default compose<React.ComponentType<OwnPropsType>>(
     }),
     WithAuthRedirect
 )(UsersComponent)
+
+
+
+type UsersPagePropsType = {}
+export const UsersPage: React.FC<UsersPagePropsType> = (props) => {
+    const dispatch = useDispatch()
+    const pageSize=useSelector<AppStateType,number>(state=>state.usersPage.pageSize)
+    const filter=useSelector<AppStateType,FilterType>(state=>state.usersPage.filter)
+    const isFetching=useSelector<AppStateType,boolean>(state=>state.usersPage.isFetching)
+    const currentPage=useSelector<AppStateType,number>(state=>state.usersPage.currentPage)
+
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(onPageChangedThunkCreator(pageNumber, pageSize, filter))
+    }
+    const unFollowFunc = (id: number) => {
+        dispatch(unFollowThunkCreator(id))
+    }
+    const followFunc = (id: number) => {
+        dispatch(followThunkCreator(id))
+    }
+    const onFilterChanged = (filter: FilterType) => {
+        dispatch(getUsersThunkCreator(1, pageSize, filter))
+    }
+
+    useEffect(()=>{
+        dispatch(getUsersThunkCreator(currentPage, pageSize, filter))
+    },[])
+    return <div style={{display: 'flex', flexDirection: 'column'}}>
+        {isFetching
+            ? <Preloader/>
+            : null
+        }
+        <Users
+            onPageChanged={onPageChanged}
+            unFollowThunkCreator={unFollowFunc}
+            followThunkCreator={followFunc}
+            onFilterChanged={onFilterChanged}
+        />
+    </div>
+}
 

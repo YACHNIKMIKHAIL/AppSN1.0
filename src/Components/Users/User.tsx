@@ -3,6 +3,7 @@ import userPhoto from "./../../assets/images/images.png"
 import {NavLink} from "react-router-dom";
 import s from "./Users.module.css"
 import {UserType} from "../../API/UsersApi";
+import {useDispatch} from "react-redux";
 
 
 type UsersPropsType = {
@@ -12,7 +13,6 @@ type UsersPropsType = {
     followThunkCreator: (id: number) => void
 }
 export const User: React.FC<UsersPropsType> = ({user, followingId, followThunkCreator, unFollowThunkCreator}) => {
-
     return (
         <div className={s.u}>
                     <span>
