@@ -43,8 +43,7 @@ class App extends Component<AppMapPropsType & AppDispatchPropsType> {
             <HeaderContainer/>
             <Routes>
                 <Route path='/users' element={<Suspense fallback={<h1>Loading...</h1>}>
-                    <UsersContainer
-                        pageTitle={'Samurai hello! Denis RESPECT!!!'}/>
+                    <UsersContainer/>
                 </Suspense>}/>
                 <Route path='/messages'
                        element={<Suspense fallback={<h1>Loading...</h1>}>

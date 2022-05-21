@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import {Paginator} from "../Common/Paginator/Paginator";
 import {User} from "./User";
 import {UserType} from "../../API/UsersApi";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 
 
 type UsersPropsType = {
@@ -27,6 +28,7 @@ export const Users = ({currentPage, onPageChanged, pageSize, totalCount, ...prop
 
     return (
         <div className={s.content}>
+            <UserSearchForm/>
             <Paginator currentPage={currentPage}
                        onPageChanged={onPageChanged}
                        pageSize={pageSize}
@@ -43,3 +45,42 @@ export const Users = ({currentPage, onPageChanged, pageSize, totalCount, ...prop
     )
 }
 
+
+export const UserSearchForm = () => {
+    return (
+        <div>
+            <Formik
+                initialValues={{email: '', password: ''}}
+                validate={values => {
+                    const errors = {};
+                    if (!values.email) {
+                        errors.email = 'Required';
+                    } else if (
+                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                    ) {
+                        errors.email = 'Invalid email address';
+                    }
+                    return errors;
+                }}
+                onSubmit={(values, {setSubmitting}) => {
+                    setTimeout(() => {
+                        alert(JSON.stringify(values, null, 2));
+                        setSubmitting(false);
+                    }, 400);
+                }}
+            >
+                {({isSubmitting}) => (
+                    <Form>
+                        <Field type="email" name="email"/>
+                        <ErrorMessage name="email" component="div"/>
+                        <Field type="password" name="password"/>
+                        <ErrorMessage name="password" component="div"/>
+                        <button type="submit" disabled={isSubmitting}>
+                            Submit
+                        </button>
+                    </Form>
+                )}
+            </Formik>
+        </div>
+    )
+}

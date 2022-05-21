@@ -42,7 +42,7 @@ type MapDispatchPropsType = {
     followThunkCreator: (id: number) => void
 }
 type OwnPropsType = {
-    pageTitle: string
+    pageTitle?: string
 }
 type UsersPropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
@@ -59,7 +59,7 @@ export class UsersComponent extends React.Component<UsersPropsType> {
 
     render() {
         return <div style={{display: 'flex', flexDirection: 'column'}}>
-            <h2>{this.props.pageTitle}</h2>
+            {this.props.pageTitle && <h2>{this.props.pageTitle}</h2>}
             {this.props.isFetching
                 ? <Preloader/>
                 : null
