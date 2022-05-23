@@ -12,7 +12,6 @@ import {Profile} from "./Profile";
 import {ProfileType} from "../../API/ProfileApi";
 
 const ProfileContainer = () => {
-
     const {userId} = useParams()
     const profile = useSelector<AppStateType, ProfileType>(state => state.profile.profile)
     const status = useSelector<AppStateType, string>(state => state.profile.status)

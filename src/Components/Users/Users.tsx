@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import s from './Users.module.css'
 import {Paginator} from "../Common/Paginator/Paginator";
 import {User} from "./User";
@@ -19,6 +19,7 @@ import {
     getUsersSuperSelector
 } from "../redux/users-selectors";
 import {AppStateType} from "../redux/reduxStore";
+import {createBrowserHistory} from "history"
 
 export const Users = () => {
 
@@ -29,6 +30,14 @@ export const Users = () => {
     const followingId = useSelector(getFollowingId)
     const dispatch = useDispatch()
     const filter = useSelector<AppStateType, FilterType>(state => state.usersPage.filter)
+    const history = createBrowserHistory()
+
+    useEffect(() => {
+        history.push({
+            pathname: '/users',
+            search: `?term=${filter.term}&friend=${filter.friend}`
+        })
+    }, [filter])
 
 
     const onPageChanged = (pageNumber: number) => {
@@ -50,6 +59,10 @@ export const Users = () => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+
+    useEffect(() => {
+        dispatch(getUsersThunkCreator(currentPage, pageSize, filter))
+    }, [])
 
     return (
         <div className={s.content}>
