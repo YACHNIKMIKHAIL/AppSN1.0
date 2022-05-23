@@ -20,6 +20,7 @@ import {
 } from "../redux/users-selectors";
 import {AppStateType} from "../redux/reduxStore";
 import {createBrowserHistory} from "history"
+import * as queryString from "querystring";
 
 export const Users = () => {
 
@@ -32,13 +33,21 @@ export const Users = () => {
     const filter = useSelector<AppStateType, FilterType>(state => state.usersPage.filter)
     const history = createBrowserHistory()
 
-    useEffect(() => {
-        history.push({
-            pathname: '/users',
-            search: `?term=${filter.term}&friend=${filter.friend}`
-        })
-    }, [filter])
+    // useEffect(() => {
+    //     history.push({
+    //         pathname: '/users',
+    //         search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+    //     })
+    // }, [filter, currentPage])
 
+    useEffect(() => {
+        debugger
+        const {search} = history.location
+        const parsed = queryString.parse(search)
+
+
+        dispatch(getUsersThunkCreator(currentPage, pageSize, filter))
+    }, [])
 
     const onPageChanged = (pageNumber: number) => {
         dispatch(onPageChangedThunkCreator(pageNumber, pageSize, filter))
@@ -60,9 +69,6 @@ export const Users = () => {
         pages.push(i)
     }
 
-    useEffect(() => {
-        dispatch(getUsersThunkCreator(currentPage, pageSize, filter))
-    }, [])
 
     return (
         <div className={s.content}>
