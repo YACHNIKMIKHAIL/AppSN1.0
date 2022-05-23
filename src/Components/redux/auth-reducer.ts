@@ -46,7 +46,7 @@ export const authMeThunkCreator = (): AuthThunkType => async (dispatch) => {
         dispatch(authActions.setAuthUserData(id, email, login, true))
     }
 }
-export const loginThunkCreator = (email: string, password: string, rememberMe?: boolean, captcha?: string): AuthThunkType => async (dispatch) => {
+export const loginThunkCreator = (email: string, password: string, rememberMe?: boolean, captcha?: string | null): AuthThunkType => async (dispatch) => {
     let data = await authApi.login(email, password, rememberMe, captcha)
     if (data.resultCode === ResultCodeEnum.Success) {
         dispatch(authMeThunkCreator())

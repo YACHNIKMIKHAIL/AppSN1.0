@@ -15,11 +15,6 @@ type UserSearchFormProps = {
 }
 export const UserSearchForm: React.FC<UserSearchFormProps> = React.memo(({onFilterChanged}) => {
     const submit = (values: FormFilterType, {setSubmitting}: { setSubmitting: (isSubmiting: boolean) => void }) => {
-        // setTimeout(() => {
-        //     alert(JSON.stringify(values, null, 2));
-        //     setSubmitting(false);
-        //
-        // }, 400);
         let convertedValues = {
             term: values.term,
             friend: values.friend === 'null'

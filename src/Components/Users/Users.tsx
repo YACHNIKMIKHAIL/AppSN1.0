@@ -3,39 +3,46 @@ import s from './Users.module.css'
 import {Paginator} from "../Common/Paginator/Paginator";
 import {User} from "./User";
 import {UserSearchForm} from "./UsersSearchForm";
-import {FilterType} from "../redux/user-reducer";
-import {useSelector} from "react-redux";
+import {
+    FilterType,
+    followThunkCreator,
+    getUsersThunkCreator,
+    onPageChangedThunkCreator,
+    unFollowThunkCreator
+} from "../redux/user-reducer";
+import {useDispatch, useSelector} from "react-redux";
 import {
     getCurrentPage,
     getFollowingId,
-    getFollowingInProgress,
     getPageSize,
     getTotalCount,
     getUsersSuperSelector
 } from "../redux/users-selectors";
+import {AppStateType} from "../redux/reduxStore";
 
+export const Users = () => {
 
-type UsersPropsType = {
-    // totalCount: number
-    // pageSize: number
-    // currentPage: number
-    onPageChanged: (pageNumber: number) => void
-    // users: Array<UserType>
-    // follow: (id: number) => void
-    // unFollow: (id: number) => void
-    // followingInProgress: boolean
-    // followingId: Array<number>
-    unFollowThunkCreator: (id: number) => void
-    followThunkCreator: (id: number) => void
-    onFilterChanged: (filter: FilterType) => void
-}
-export const Users = ({onPageChanged, onFilterChanged, ...props}: UsersPropsType) => {
     const totalCount = useSelector(getTotalCount)
     const pageSize = useSelector(getPageSize)
     const currentPage = useSelector(getCurrentPage)
     const users = useSelector(getUsersSuperSelector)
-    const followingInProgress = useSelector(getFollowingInProgress)
     const followingId = useSelector(getFollowingId)
+    const dispatch = useDispatch()
+    const filter = useSelector<AppStateType, FilterType>(state => state.usersPage.filter)
+
+
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(onPageChangedThunkCreator(pageNumber, pageSize, filter))
+    }
+    const unFollowFunc = (id: number) => {
+        dispatch(unFollowThunkCreator(id))
+    }
+    const followFunc = (id: number) => {
+        dispatch(followThunkCreator(id))
+    }
+    const onFilterChanged = (filter: FilterType) => {
+        dispatch(getUsersThunkCreator(1, pageSize, filter))
+    }
 
 
     let pagesCount = Math.ceil(totalCount / pageSize)
@@ -57,8 +64,8 @@ export const Users = ({onPageChanged, onFilterChanged, ...props}: UsersPropsType
                     return <User
                         user={m}
                         key={i}
-                        followThunkCreator={props.followThunkCreator}
-                        unFollowThunkCreator={props.unFollowThunkCreator}
+                        followThunkCreator={followFunc}
+                        unFollowThunkCreator={unFollowFunc}
                         followingId={followingId}/>
                 })}
             </div>

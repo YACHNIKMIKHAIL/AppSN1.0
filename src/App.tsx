@@ -3,14 +3,14 @@ import './App.css';
 import {Footer} from "./Components/Footer/Footer";
 import {BrowserRouter, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
-import UsersContainer, {UsersPage} from "./Components/Users/UsersContainer";
+import {UsersPage} from "./Components/Users/UsersContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import Login from "./Components/Login/Login";
 import {connect, Provider, useSelector} from "react-redux";
 import {initializAppThunkCreator} from "./Components/redux/app-reducer";
 import store, {AppStateType} from "./Components/redux/reduxStore";
 import Preloader from "./Components/Common/Preloader/Preloader";
 import {compose} from "redux";
+import {LoginPage} from "./Components/Login/LoginPage";
 
 const Messages = React.lazy(() => import('./Components/Messages/Messages'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
@@ -56,7 +56,7 @@ class App extends Component<AppMapPropsType & AppDispatchPropsType> {
                        element={<Suspense fallback={<h1>Loading...</h1>}>
                            <ProfileContainer/>
                        </Suspense>}/>
-                <Route path='/login' element={<Login/>}/>
+                <Route path='/login' element={<LoginPage/>}/>
                 <Route path='*' element={<div>Page not found 404 </div>}/>
             </Routes>
             <Redirect/>
@@ -71,11 +71,6 @@ export const Redirect = () => {
     const {pathname} = useLocation()
     const isLoggedIn = useSelector<AppStateType, string | null>(state => state.auth.login)
 
-    // if (isLoggedIn !== null && pathname !== '/AppSN1.0') {
-    //     navigate('/AppSN1.0')
-    // } else if (isLoggedIn === null && pathname !== '/login') {
-    //     navigate('/login')
-    // }
     if (isLoggedIn === null && pathname !== '/login') {
         navigate('/login')
     }
@@ -85,7 +80,6 @@ export const Redirect = () => {
     </div>
 }
 const mapStateToProps = (state: AppStateType) => ({initialized: state.app.initialized})
-// export default connect(mapStateToProps, {initializAppThunkCreator})(App);
 const AppContainer = compose<React.ComponentType>(connect(mapStateToProps, {initializAppThunkCreator}))(App)
 
 export const SamuraiJSApp: React.FC = () => {

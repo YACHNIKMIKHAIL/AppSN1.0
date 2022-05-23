@@ -14,7 +14,7 @@ export const authApi = {
             return response.data
         })
     },
-    login(email: string, password: string, rememberMe: boolean = false, captcha?: string) {
+    login(email: string, password: string, rememberMe: boolean = false, captcha?: string | null) {
         return instance.post<ApiRespType<LoginRespType, ResultCodeEnum | ResultCodeForCaptchaEnum>>(`auth/login`, {
             email,
             password,
