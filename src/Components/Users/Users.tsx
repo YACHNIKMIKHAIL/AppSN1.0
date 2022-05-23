@@ -1,8 +1,8 @@
-import React, {useEffect, useLayoutEffect} from "react";
+import React, {useEffect} from "react";
 import s from './Users.module.css'
 import {Paginator} from "../Common/Paginator/Paginator";
 import {User} from "./User";
-import {UserSearchForm} from "./UsersSearchForm";
+import {FriendFormType, UserSearchForm} from "./UsersSearchForm";
 import {
     FilterType,
     followThunkCreator,
@@ -22,6 +22,11 @@ import {AppStateType} from "../redux/reduxStore";
 import {createBrowserHistory} from "history"
 import * as queryString from "querystring";
 
+type QueryParamsType = {
+    term?: string
+    friend?: FriendFormType
+    page?: string
+}
 export const Users = () => {
 
     const totalCount = useSelector(getTotalCount)
@@ -33,20 +38,9 @@ export const Users = () => {
     const filter = useSelector<AppStateType, FilterType>(state => state.usersPage.filter)
     const history = createBrowserHistory()
 
-    // useEffect(() => {
-    //     history.push({
-    //         pathname: '/users',
-    //         search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
-    //     })
-    // }, [filter, currentPage])
-
     useEffect(() => {
         //srezaem ?
-        const parsed = queryString.parse(history.location.search.substr(1)) as {
-            term: string
-            friend: 'null' | 'true' | 'false '
-            page: string
-        }
+        const parsed = queryString.parse(history.location.search.substr(1)) as QueryParamsType
         let actualPage = currentPage
         let actualFilter = filter
 
@@ -61,8 +55,23 @@ export const Users = () => {
                     : false
         }
 
+
         dispatch(getUsersThunkCreator(actualPage, pageSize, actualFilter))
     }, [])
+
+    useEffect(() => {
+        const query: QueryParamsType = {}
+        if (!!filter.term) query.term = filter.term
+        if (filter.friend !== null) query.friend = String(filter.friend) as FriendFormType
+        if (currentPage !== 1) query.page = String(currentPage)
+
+
+        history.push({
+            pathname: '/users',
+            // search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+            search: queryString.stringify(query)
+        })
+    }, [filter, currentPage])
 
     const onPageChanged = (pageNumber: number) => {
         dispatch(onPageChangedThunkCreator(pageNumber, pageSize, filter))

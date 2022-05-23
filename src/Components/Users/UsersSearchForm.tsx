@@ -8,7 +8,7 @@ const userSearchFormValidate = () => {
     const errors = {};
     return errors;
 }
-type FriendFormType = "null" | "true" | "false"
+export type FriendFormType = "null" | "true" | "false"
 type FormFilterType = {
     term: string
     friend: FriendFormType
