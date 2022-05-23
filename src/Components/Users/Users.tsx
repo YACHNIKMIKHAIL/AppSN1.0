@@ -41,10 +41,9 @@ export const Users = () => {
     // }, [filter, currentPage])
 
     useEffect(() => {
-        debugger
         const {search} = history.location
         const parsed = queryString.parse(search)
-
+        console.log(parsed)
 
         dispatch(getUsersThunkCreator(currentPage, pageSize, filter))
     }, [])
