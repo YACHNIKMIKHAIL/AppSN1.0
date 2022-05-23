@@ -41,11 +41,27 @@ export const Users = () => {
     // }, [filter, currentPage])
 
     useEffect(() => {
-        const {search} = history.location
-        const parsed = queryString.parse(search)
-        console.log(parsed)
+        //srezaem ?
+        const parsed = queryString.parse(history.location.search.substr(1)) as {
+            term: string
+            friend: 'null' | 'true' | 'false '
+            page: string
+        }
+        let actualPage = currentPage
+        let actualFilter = filter
 
-        dispatch(getUsersThunkCreator(currentPage, pageSize, filter))
+        if (!!parsed.page) actualPage = Number(parsed.page)
+        if (!!parsed.term) actualFilter = {...actualFilter, term: parsed.term as string}
+        if (!!parsed.friend) actualFilter = {
+            ...actualFilter,
+            friend: parsed.friend === 'null'
+                ? null
+                : parsed.friend === 'true'
+                    ? true
+                    : false
+        }
+
+        dispatch(getUsersThunkCreator(actualPage, pageSize, actualFilter))
     }, [])
 
     const onPageChanged = (pageNumber: number) => {
