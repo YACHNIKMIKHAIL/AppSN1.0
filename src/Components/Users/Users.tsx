@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useLayoutEffect} from "react";
 import s from './Users.module.css'
 import {Paginator} from "../Common/Paginator/Paginator";
 import {User} from "./User";
