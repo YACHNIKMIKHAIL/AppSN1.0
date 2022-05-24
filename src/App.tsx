@@ -27,31 +27,32 @@ type  AppDispatchPropsType = {
     initializAppThunkCreator: () => void
 }
 
-const items1: MenuProps['items'] = ['Profile', 'Posts', 'Messages', 'Developers', 'Settings'].map(key => ({
+const items1: MenuProps['items'] = ['Profile', 'Developers', 'Settings'].map(key => ({
     key,
-    label: ` ${key}`,
+    label: key,
 }));
 
-const items3=['Profile', 'Posts', 'Messages']
-const items2: MenuProps['items'] = ['Profile', 'Developers'].map(
+
+const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
     (icon, index) => {
-        const key = icon;
-
+        const keyS = String(index + 1);
+        const key = ['Profile', 'Developers', 'Settings'];
         return {
-            key: `${key}`,
+            key: `sub${keyS}`,
             icon: React.createElement(icon),
-            label: ` ${key}`,
+            label: key[index],
 
-            children: items3.map((m, j) => {
-                const subKey = j;
+            children: new Array(3).fill(['dad', 'mam', 'son'], 0, 3).map((e, j) => {
+                const subKey = index * 4 + j + 1;
                 return {
                     key: subKey,
-                    label: `${m}`,
+                    label: `option${e[j]}`,
                 };
             }),
         };
     },
 );
+
 
 class App extends Component<AppMapPropsType & AppDispatchPropsType> {
     catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
@@ -128,27 +129,7 @@ class App extends Component<AppMapPropsType & AppDispatchPropsType> {
                                 minHeight: 280,
                             }}
                         >
-                            <Routes>
-                                <Route path='/users' element={<Suspense fallback={<h1>Loading...</h1>}>
-                                    <UsersPage/>
-                                </Suspense>}/>
-                                <Route path='/messages'
-                                       element={<Suspense fallback={<h1>Loading...</h1>}>
-                                           <Messages/>
-                                       </Suspense>}/>
-                                <Route path='/posts' element={<PostsContainer/>}/>
-                                <Route path='/profile/:userId'
-                                       element={<ProfileContainer/>}/>
-                                <Route path='/AppSN1.0'
-                                       element={<Suspense fallback={<h1>Loading...</h1>}>
-                                           <ProfileContainer/>
-                                       </Suspense>}/>
-                                <Route path='/login' element={<LoginPage/>}/>
-                                <Route path='*' element={<div>Page not found 404
-                                    <Button type={'primary'}>ok</Button>
-                                </div>}/>
-                            </Routes>
-                            <Redirect/>
+                            Content
                         </Content>
                     </Layout>
                 </Layout>
