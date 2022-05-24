@@ -12,7 +12,7 @@ import {SamuraiJSApp} from './App';
 let h1 = document.createElement("h1")
 h1.innerHTML = "NO WAR!"
 // @ts-ignore
-document.querySelector("body").appendChild(h1)
+// document.querySelector("body").appendChild(h1)
 // const rerenderEntireTree = (state: AppStateType) => {
 ReactDOM.render(
     <SamuraiJSApp/>, document.getElementById('root')
