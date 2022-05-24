@@ -11,6 +11,7 @@ import store, {AppStateType} from "./Components/redux/reduxStore";
 import Preloader from "./Components/Common/Preloader/Preloader";
 import {compose} from "redux";
 import {LoginPage} from "./Components/Login/LoginPage";
+import 'antd/dist/antd.css';
 
 const Messages = React.lazy(() => import('./Components/Messages/Messages'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
