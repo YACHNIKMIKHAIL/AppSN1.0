@@ -1,10 +1,9 @@
 import React, {Component, Suspense} from 'react';
 import './App.css';
-import {Footer} from "./Components/Footer/Footer";
-import {BrowserRouter, Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import s from './Components/Footer/Footer.module.css'
+import {BrowserRouter, NavLink, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import {UsersPage} from "./Components/Users/UsersContainer";
-import HeaderContainer from "./Components/Header/HeaderContainer";
 import {connect, Provider, useSelector} from "react-redux";
 import {initializAppThunkCreator} from "./Components/redux/app-reducer";
 import store, {AppStateType} from "./Components/redux/reduxStore";
@@ -12,10 +11,9 @@ import Preloader from "./Components/Common/Preloader/Preloader";
 import {compose} from "redux";
 import {LoginPage} from "./Components/Login/LoginPage";
 import 'antd/dist/antd.css';
-import {Button} from "antd";
-import {Layout, Menu, Breadcrumb} from 'antd';
-import {UserOutlined, LaptopOutlined, NotificationOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
+import {Breadcrumb, Button, Layout, Menu} from "antd";
+import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 
 const {Header, Content, Sider} = Layout;
 
@@ -43,7 +41,19 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
             label: key[index],
 
             children: new Array(3).fill([
-                'dad', 'mam', 'son', 'dad2', 'mam2', 'son2', '3dad', '3mam', '3son'
+                <NavLink to='/AppSN1.0'
+                         className={({isActive}) => (isActive ? s.active : '')}>Profile</NavLink>,
+                <NavLink to='/messages'
+                         className={({isActive}) => (isActive ? s.active : '')}>Messages</NavLink>,
+                <NavLink to='/posts'
+                         className={({isActive}) => ((isActive ? s.active : ''))}> Posts</NavLink>,
+                <NavLink to='/users'
+                         className={({isActive}) => ((isActive ? s.active : ''))}> Contacts</NavLink>,
+                'bla-bla 2',
+                'bla-bla 2',
+                '3 blaaa-blaaa',
+                '3 blaaa-blaaa',
+                '3 blaaa-blaaa'
             ], 0, 3).map((e, j) => {
                 const subKey = index * 3 + j;
                 return {
@@ -131,7 +141,29 @@ class App extends Component<AppMapPropsType & AppDispatchPropsType> {
                                 minHeight: 280,
                             }}
                         >
-                            Content
+
+                            <Routes>
+                                <Route path='/users' element={<Suspense fallback={<h1>Loading...</h1>}>
+                                    <UsersPage/>
+                                </Suspense>}/>
+                                <Route path='/messages'
+                                       element={<Suspense fallback={<h1>Loading...</h1>}>
+                                           <Messages/>
+                                       </Suspense>}/>
+                                <Route path='/posts' element={<PostsContainer/>}/>
+                                <Route path='/profile/:userId'
+                                       element={<ProfileContainer/>}/>
+                                <Route path='/AppSN1.0'
+                                       element={<Suspense fallback={<h1>Loading...</h1>}>
+                                           <ProfileContainer/>
+                                       </Suspense>}/>
+                                <Route path='/login' element={<LoginPage/>}/>
+                                <Route path='*' element={<div>Page not found 404
+                                    <Button type={'primary'}>ok</Button>
+                                </div>}/>
+                            </Routes>
+                            <Redirect/>
+
                         </Content>
                     </Layout>
                 </Layout>
