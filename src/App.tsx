@@ -12,6 +12,7 @@ import Preloader from "./Components/Common/Preloader/Preloader";
 import {compose} from "redux";
 import {LoginPage} from "./Components/Login/LoginPage";
 import 'antd/dist/antd.css';
+import {Button} from "antd";
 
 const Messages = React.lazy(() => import('./Components/Messages/Messages'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
@@ -58,7 +59,9 @@ class App extends Component<AppMapPropsType & AppDispatchPropsType> {
                            <ProfileContainer/>
                        </Suspense>}/>
                 <Route path='/login' element={<LoginPage/>}/>
-                <Route path='*' element={<div>Page not found 404 </div>}/>
+                <Route path='*' element={<div>Page not found 404
+                <Button type={'primary'}>ok</Button>
+                </div>}/>
             </Routes>
             <Redirect/>
             <Footer/>
