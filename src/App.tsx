@@ -42,11 +42,13 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
             icon: React.createElement(icon),
             label: key[index],
 
-            children: new Array(3).fill(['dad', 'mam', 'son'], 0, 3).map((e, j) => {
-                const subKey = index * 4 + j + 1;
+            children: new Array(3).fill([
+                'dad', 'mam', 'son', 'dad2', 'mam2', 'son2', '3dad', '3mam', '3son'
+            ], 0, 3).map((e, j) => {
+                const subKey = index * 3 + j;
                 return {
                     key: subKey,
-                    label: `option${e[j]}`,
+                    label: e[subKey],
                 };
             }),
         };
