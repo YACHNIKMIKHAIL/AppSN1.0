@@ -1,7 +1,7 @@
 import React, {Component, Suspense} from 'react';
 import './App.css';
 import s from './Components/Footer/Footer.module.css'
-import {BrowserRouter, NavLink, Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {BrowserRouter, Link, NavLink, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import {UsersPage} from "./Components/Users/UsersContainer";
 import {connect, Provider, useSelector} from "react-redux";
@@ -41,14 +41,10 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
             label: key[index],
 
             children: new Array(3).fill([
-                <NavLink to='/AppSN1.0'
-                         className={({isActive}) => (isActive ? s.active : '')}>Profile</NavLink>,
-                <NavLink to='/messages'
-                         className={({isActive}) => (isActive ? s.active : '')}>Messages</NavLink>,
-                <NavLink to='/posts'
-                         className={({isActive}) => ((isActive ? s.active : ''))}> Posts</NavLink>,
-                <NavLink to='/users'
-                         className={({isActive}) => ((isActive ? s.active : ''))}> Contacts</NavLink>,
+                <Link to='/AppSN1.0'>Profile</Link>,
+                <Link to='/messages'>Messages</Link>,
+                <Link to='/posts'> Posts</Link>,
+                <Link to='/users'> Contacts</Link>,
                 'bla-bla 2',
                 'bla-bla 2',
                 '3 blaaa-blaaa',
@@ -121,8 +117,8 @@ class App extends Component<AppMapPropsType & AppDispatchPropsType> {
                     <Sider width={200} className="site-layout-background">
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
+                            defaultSelectedKeys={['0']}
+                            // defaultOpenKeys={['sub1']}
                             style={{height: '100%', borderRight: 0}}
                             items={items2}
                         />
