@@ -1,6 +1,7 @@
 import React from "react";
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
+import {RoutesPath} from "../../RoutesPath";
 
 
 type HeaderPropsType = {
@@ -18,7 +19,7 @@ export const Header = (props: HeaderPropsType) => {
                 <div className={s.loginBlock}>
                     {
                         !props.isAuth
-                            ? <NavLink to={'/login'}>login</NavLink>
+                            ? <NavLink to={RoutesPath.login}>login</NavLink>
                             : <div style={{color: 'yellow', fontSize: '20px'}}>
                                 <button onClick={props.logout}>logOUT</button>
                                 {props.login}</div>

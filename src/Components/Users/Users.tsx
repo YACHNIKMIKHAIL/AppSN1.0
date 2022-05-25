@@ -21,6 +21,7 @@ import {
 import {AppStateType} from "../redux/reduxStore";
 import {createBrowserHistory} from "history"
 import * as queryString from "querystring";
+import {RoutesPath} from "../../RoutesPath";
 
 type QueryParamsType = {
     term?: string
@@ -67,7 +68,7 @@ export const Users = () => {
 
 
         history.push({
-            pathname: '/users',
+            pathname: RoutesPath.developers,
             // search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
             search: queryString.stringify(query)
         })

@@ -1,7 +1,6 @@
 import React, {Component, Suspense, useEffect, useState} from 'react';
 import './App.css';
-import s from './Components/Footer/Footer.module.css'
-import {BrowserRouter, Link, NavLink, Route, Routes, useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import {BrowserRouter, Link, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import {UsersPage} from "./Components/Users/UsersContainer";
 import {connect, Provider, useDispatch, useSelector} from "react-redux";
@@ -15,6 +14,7 @@ import type {MenuProps} from 'antd';
 import {Breadcrumb, Button, Layout, Menu} from "antd";
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import {createBrowserHistory} from "history"
+import {RoutesPath} from "./RoutesPath";
 
 const {Header, Content, Sider} = Layout;
 
@@ -42,10 +42,10 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
             label: key[index],
 
             children: new Array(3).fill([
-                <Link to='/AppSN1.0'>Profile</Link>,
-                <Link to='/messages'>Messages</Link>,
-                <Link to='/posts'> Posts</Link>,
-                <Link to='/users'> Contacts</Link>,
+                <Link to={RoutesPath.profile}>Profile</Link>,
+                <Link to={RoutesPath.messages} >Messages</Link>,
+                <Link to={RoutesPath.posts}> Posts</Link>,
+                <Link to={RoutesPath.developers}> Contacts</Link>,
                 'bla-bla 2',
                 'bla-bla 2',
                 '3 blaaa-blaaa',
@@ -144,12 +144,12 @@ class App extends Component<AppMapPropsType & AppDispatchPropsType> {
                                 <Route path='/users' element={<Suspense fallback={<h1>Loading...</h1>}>
                                     <UsersPage/>
                                 </Suspense>}/>
-                                <Route path='/messages'
+                                <Route path={RoutesPath.messages}
                                        element={<Suspense fallback={<h1>Loading...</h1>}>
                                            <Messages/>
                                        </Suspense>}/>
-                                <Route path='/posts' element={<PostsContainer/>}/>
-                                <Route path='/profile/:userId'
+                                <Route path={RoutesPath.posts} element={<PostsContainer/>}/>
+                                <Route path={RoutesPath.profileWithID}
                                        element={<ProfileContainer/>}/>
                                 <Route path='/AppSN1.0'
                                        element={<Suspense fallback={<h1>Loading...</h1>}>
@@ -197,13 +197,13 @@ export const AppG = () => {
     }
     useEffect(() => {
         const {pathname} = params.location
-        pathname === '/AppSN1.0'
+        pathname === RoutesPath.profile
             ? setOpenedKey(0)
-            : pathname === '/messages'
+            : pathname === RoutesPath.messages
                 ? setOpenedKey(1)
-                : pathname === '/posts'
+                : pathname === RoutesPath.posts
                     ? setOpenedKey(2)
-                    : pathname === '/users'
+                    : pathname === RoutesPath.developers
                         ? setOpenedKey(3)
                         : setOpenedKey(0)
     }, [])
@@ -224,7 +224,7 @@ export const AppG = () => {
         <Layout>
             <Header className="header">
                 <div className="logo"/>
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1}/>
+                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']} items={items1}/>
             </Header>
             <Layout>
                 <Sider width={200} className="site-layout-background">
@@ -252,21 +252,21 @@ export const AppG = () => {
                     >
 
                         <Routes>
-                            <Route path='/users' element={<Suspense fallback={<h1>Loading...</h1>}>
+                            <Route path={RoutesPath.developers} element={<Suspense fallback={<h1>Loading...</h1>}>
                                 <UsersPage/>
                             </Suspense>}/>
-                            <Route path='/messages'
+                            <Route path={RoutesPath.messages}
                                    element={<Suspense fallback={<h1>Loading...</h1>}>
                                        <Messages/>
                                    </Suspense>}/>
-                            <Route path='/posts' element={<PostsContainer/>}/>
-                            <Route path='/profile/:userId'
+                            <Route path={RoutesPath.posts} element={<PostsContainer/>}/>
+                            <Route path={RoutesPath.profileWithID}
                                    element={<ProfileContainer/>}/>
-                            <Route path='/AppSN1.0'
+                            <Route path={RoutesPath.profile}
                                    element={<Suspense fallback={<h1>Loading...</h1>}>
                                        <ProfileContainer/>
                                    </Suspense>}/>
-                            <Route path='/login' element={<LoginPage/>}/>
+                            <Route path={RoutesPath.login} element={<LoginPage/>}/>
                             <Route path='*' element={<div>Page not found 404
                                 <Button type={'primary'}>ok</Button>
                             </div>}/>
@@ -286,8 +286,8 @@ export const Redirect = () => {
     const {pathname} = useLocation()
     const isLoggedIn = useSelector<AppStateType, string | null>(state => state.auth.login)
 
-    if (isLoggedIn === null && pathname !== '/login') {
-        navigate('/login')
+    if (isLoggedIn === null && pathname !== RoutesPath.login) {
+        navigate(RoutesPath.login)
     }
 
     return <div>

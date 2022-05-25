@@ -7,6 +7,7 @@ import {loginThunkCreator} from "../redux/auth-reducer";
 import {AppStateType} from "../redux/reduxStore";
 import {Navigate} from "react-router-dom";
 import s from './../Common/FormsControls/FormControls.module.css'
+import {RoutesPath} from "../../RoutesPath";
 
 export type LoginFormType = {
     email: string
@@ -26,7 +27,7 @@ export const LoginPage: React.FC = () => {
         dispatch(loginThunkCreator(formData.email, formData.password, formData.rememberMe, formData.captcha))
     }
     return isAuth
-        ? <Navigate to={'/AppSN1.0'}/>
+        ? <Navigate to={RoutesPath.profile}/>
         : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <div style={{
                 color: 'black',

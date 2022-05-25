@@ -1,6 +1,7 @@
 import React from "react";
 import s from './Footer.module.css'
 import {NavLink} from "react-router-dom";
+import {RoutesPath} from "../../RoutesPath";
 
 export const Footer = () => {
     return (
@@ -15,11 +16,11 @@ export const Footer = () => {
                              className={({isActive}) => ((isActive ? s.active : ''))}> Posts</NavLink>
                 </div>
                 <div className={s.messages}>
-                    <NavLink to='/messages'
+                    <NavLink to={RoutesPath.messages}
                              className={({isActive}) => (isActive ? s.active : '')}>Messages</NavLink>
                 </div>
                 <div className={s.profile}>
-                    <NavLink to='/AppSN1.0'
+                    <NavLink to={RoutesPath.profile}
                              className={({isActive}) => (isActive ? s.active : '')}>Profile</NavLink>
                 </div>
                 <div className={s.settings}>

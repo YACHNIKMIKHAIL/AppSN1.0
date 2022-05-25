@@ -10,6 +10,7 @@ import {AppStateType} from "../redux/reduxStore";
 import {Navigate, useParams} from "react-router-dom";
 import {Profile} from "./Profile";
 import {ProfileType} from "../../API/ProfileApi";
+import {RoutesPath} from "../../RoutesPath";
 
 const ProfileContainer = () => {
     const {userId} = useParams()
@@ -39,7 +40,7 @@ const ProfileContainer = () => {
     return isAuth
         ?
         <Profile profile={profile} status={status} updateStatus={updateStatus} isOwner={!userId} savePhoto={savePhoto}/>
-        : <Navigate to={"/login"}/>
+        : <Navigate to={RoutesPath.login}/>
 
 }
 

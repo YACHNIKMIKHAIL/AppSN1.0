@@ -7,7 +7,6 @@ import {WithAuthRedirect} from "../../../Hoc/WithAuthRedirect";
 import React from "react";
 
 const mapStateToProps = (state: AppStateType) => {
-    console.log('state', state)
     return {
         messages: state.myFriends.myFriends.messages,
         newMessageBody: state.myFriends.myFriends.newMessageBody,
