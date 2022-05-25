@@ -1,5 +1,5 @@
 import React from "react";
-import {Header} from "./Header";
+// import {Header} from "./Header";
 import {connect} from "react-redux";
 import {authMeThunkCreator, logoutThunkCreator} from "../redux/auth-reducer";
 import {AppStateType} from "../redux/reduxStore";
@@ -9,11 +9,11 @@ class HeaderContainer extends React.Component<any, any> {
     //     this.props.authMeThunkCreator()
     // }
 
-    render() {
-        return <Header
-            isAuth={this.props.isAuth} login={this.props.login} logout={this.props.logoutThunkCreator}
-        />
-    }
+    // render() {
+    //     return <Header
+    //         isAuth={this.props.isAuth} login={this.props.login} logout={this.props.logoutThunkCreator}
+    //     />
+    // }
 }
 
 const mapStateToProps = (state: AppStateType) => {

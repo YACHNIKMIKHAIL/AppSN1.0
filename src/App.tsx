@@ -15,6 +15,7 @@ import {Breadcrumb, Button, Layout, Menu,Avatar, Col, MenuProps, Row} from "antd
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import {createBrowserHistory} from "history"
 import {RoutesPath} from "./RoutesPath";
+import {HeaderComponent} from "./Components/Header/Header";
 
 const {Header, Content, Sider} = Layout;
 
@@ -26,10 +27,10 @@ type  AppDispatchPropsType = {
     initializAppThunkCreator: () => void
 }
 
-const items1: MenuProps['items'] = ['Profile', 'Developers', 'Settings'].map(key => ({
-    key,
-    label: key,
-}));
+// const items1: MenuProps['items'] = ['Profile', 'Developers', 'Settings'].map(key => ({
+//     key,
+//     label: key,
+// }));
 
 
 const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
@@ -222,18 +223,7 @@ export const AppG = () => {
     }
     return (
         <Layout>
-            <Header className="header">
-                <div className="logo"/>
-                <Row>
-                    <Col span={20}>
-                        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']} items={items1}/>
-                    </Col>
-                    <Col span={4}>
-                        <Avatar style={{backgroundColor: '#ff0063'}} icon={<UserOutlined/>}/>
-
-                    </Col>
-                </Row>
-            </Header>
+            <HeaderComponent/>
             <Layout>
                 <Sider width={200} className="site-layout-background">
                     <Menu
