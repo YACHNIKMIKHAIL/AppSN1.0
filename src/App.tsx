@@ -1,10 +1,10 @@
-import React, {Component, Suspense} from 'react';
+import React, {Component, Suspense, useEffect} from 'react';
 import './App.css';
 import s from './Components/Footer/Footer.module.css'
 import {BrowserRouter, Link, NavLink, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import {UsersPage} from "./Components/Users/UsersContainer";
-import {connect, Provider, useSelector} from "react-redux";
+import {connect, Provider, useDispatch, useSelector} from "react-redux";
 import {initializAppThunkCreator} from "./Components/redux/app-reducer";
 import store, {AppStateType} from "./Components/redux/reduxStore";
 import Preloader from "./Components/Common/Preloader/Preloader";
@@ -63,6 +63,21 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
 
 
 class App extends Component<AppMapPropsType & AppDispatchPropsType> {
+    constructor(props: AppMapPropsType & AppDispatchPropsType) {
+        super(props);
+        this.state = {
+            opened: '0'
+        }
+
+    }
+
+    openedKey() {
+
+        this.setState({
+            opened: '1'
+        })
+    }
+
     catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
         alert(`Some error occurred: ${promiseRejectionEvent}`)
     }
@@ -168,6 +183,91 @@ class App extends Component<AppMapPropsType & AppDispatchPropsType> {
     }
 }
 
+
+const mapStateToProps = (state: AppStateType) => ({initialized: state.app.initialized})
+const AppContainer = compose<React.ComponentType>(connect(mapStateToProps, {initializAppThunkCreator}))(App)
+
+export const SamuraiJSApp: React.FC = () => {
+    return <BrowserRouter>
+        <Provider store={store}>
+            <AppG/>
+        </Provider>
+    </BrowserRouter>
+}
+
+
+export const AppG = () => {
+    const dispatch = useDispatch()
+    const initialized = useSelector<AppStateType,boolean>(state=>state.app.initialized)
+
+    useEffect(() => {
+        dispatch(initializAppThunkCreator())
+    }, [])
+
+    if (!initialized) {
+        return <Preloader/>
+    }
+    return (
+        <Layout>
+            <Header className="header">
+                <div className="logo"/>
+                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1}/>
+            </Header>
+            <Layout>
+                <Sider width={200} className="site-layout-background">
+                    <Menu
+                        mode="inline"
+                        defaultSelectedKeys={['0']}
+                        // defaultOpenKeys={['sub1']}
+                        style={{height: '100%', borderRight: 0}}
+                        items={items2}
+                    />
+                </Sider>
+                <Layout style={{padding: '0 24px 24px'}}>
+                    <Breadcrumb style={{margin: '16px 0'}}>
+                        <Breadcrumb.Item>Home</Breadcrumb.Item>
+                        <Breadcrumb.Item>List</Breadcrumb.Item>
+                        <Breadcrumb.Item>App</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <Content
+                        className="site-layout-background"
+                        style={{
+                            padding: 24,
+                            margin: 0,
+                            minHeight: 280,
+                        }}
+                    >
+
+                        <Routes>
+                            <Route path='/users' element={<Suspense fallback={<h1>Loading...</h1>}>
+                                <UsersPage/>
+                            </Suspense>}/>
+                            <Route path='/messages'
+                                   element={<Suspense fallback={<h1>Loading...</h1>}>
+                                       <Messages/>
+                                   </Suspense>}/>
+                            <Route path='/posts' element={<PostsContainer/>}/>
+                            <Route path='/profile/:userId'
+                                   element={<ProfileContainer/>}/>
+                            <Route path='/AppSN1.0'
+                                   element={<Suspense fallback={<h1>Loading...</h1>}>
+                                       <ProfileContainer/>
+                                   </Suspense>}/>
+                            <Route path='/login' element={<LoginPage/>}/>
+                            <Route path='*' element={<div>Page not found 404
+                                <Button type={'primary'}>ok</Button>
+                            </div>}/>
+                        </Routes>
+                        <Redirect/>
+
+                    </Content>
+                </Layout>
+            </Layout>
+        </Layout>
+    )
+}
+
+
 export const Redirect = () => {
     const navigate = useNavigate()
     const {pathname} = useLocation()
@@ -180,14 +280,4 @@ export const Redirect = () => {
     return <div>
 
     </div>
-}
-const mapStateToProps = (state: AppStateType) => ({initialized: state.app.initialized})
-const AppContainer = compose<React.ComponentType>(connect(mapStateToProps, {initializAppThunkCreator}))(App)
-
-export const SamuraiJSApp: React.FC = () => {
-    return <BrowserRouter>
-        <Provider store={store}>
-            <AppContainer/>
-        </Provider>
-    </BrowserRouter>
 }
