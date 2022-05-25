@@ -1,7 +1,7 @@
-import React, {Component, Suspense, useEffect} from 'react';
+import React, {Component, Suspense, useEffect, useState} from 'react';
 import './App.css';
 import s from './Components/Footer/Footer.module.css'
-import {BrowserRouter, Link, NavLink, Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {BrowserRouter, Link, NavLink, Route, Routes, useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import {UsersPage} from "./Components/Users/UsersContainer";
 import {connect, Provider, useDispatch, useSelector} from "react-redux";
@@ -14,6 +14,7 @@ import 'antd/dist/antd.css';
 import type {MenuProps} from 'antd';
 import {Breadcrumb, Button, Layout, Menu} from "antd";
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
+import {createBrowserHistory} from "history"
 
 const {Header, Content, Sider} = Layout;
 
@@ -63,20 +64,6 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
 
 
 class App extends Component<AppMapPropsType & AppDispatchPropsType> {
-    constructor(props: AppMapPropsType & AppDispatchPropsType) {
-        super(props);
-        this.state = {
-            opened: '0'
-        }
-
-    }
-
-    openedKey() {
-
-        this.setState({
-            opened: '1'
-        })
-    }
 
     catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
         alert(`Some error occurred: ${promiseRejectionEvent}`)
@@ -172,6 +159,9 @@ class App extends Component<AppMapPropsType & AppDispatchPropsType> {
                                 <Route path='*' element={<div>Page not found 404
                                     <Button type={'primary'}>ok</Button>
                                 </div>}/>
+                                <Route path='*' element={<div>Page not found 404
+                                    <Button type={'primary'}>ok</Button>
+                                </div>}/>
                             </Routes>
                             <Redirect/>
 
@@ -198,10 +188,33 @@ export const SamuraiJSApp: React.FC = () => {
 
 export const AppG = () => {
     const dispatch = useDispatch()
-    const initialized = useSelector<AppStateType,boolean>(state=>state.app.initialized)
+    const initialized = useSelector<AppStateType, boolean>(state => state.app.initialized)
+    const [openedKey, setOpenedKey] = useState<number>(0)
+    const params = createBrowserHistory()
+
+    const catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
+        alert(`Some error occurred: ${promiseRejectionEvent}`)
+    }
+    useEffect(() => {
+        const {pathname} = params.location
+        pathname === '/AppSN1.0'
+            ? setOpenedKey(0)
+            : pathname === '/messages'
+                ? setOpenedKey(1)
+                : pathname === '/posts'
+                    ? setOpenedKey(2)
+                    : pathname === '/users'
+                        ? setOpenedKey(3)
+                        : setOpenedKey(0)
+    }, [])
 
     useEffect(() => {
         dispatch(initializAppThunkCreator())
+        window.addEventListener('unhandledrejection', catchAllUnhandledErrors)
+
+        return () => {
+            window.removeEventListener('unhandledrejection', catchAllUnhandledErrors)
+        }
     }, [])
 
     if (!initialized) {
@@ -217,7 +230,7 @@ export const AppG = () => {
                 <Sider width={200} className="site-layout-background">
                     <Menu
                         mode="inline"
-                        defaultSelectedKeys={['0']}
+                        defaultSelectedKeys={[openedKey.toString()]}
                         // defaultOpenKeys={['sub1']}
                         style={{height: '100%', borderRight: 0}}
                         items={items2}
