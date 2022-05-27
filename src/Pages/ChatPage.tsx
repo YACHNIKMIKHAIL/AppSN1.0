@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+
+const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 const ChatPage = () => {
     return (
@@ -11,6 +13,11 @@ const ChatPage = () => {
 export default ChatPage;
 
 const Chat: React.FC = () => {
+    useEffect(() => {
+        ws.addEventListener('message', (e) => {
+            console.log(e)
+        })
+    }, [])
     return (
         <div>
             <ChatMessages/>
@@ -29,9 +36,9 @@ const ChatMessages: React.FC = () => {
     ]
 
     return (
-        <div>
+        <div style={{height: '400px', overflow: 'auto'}}>
             {messages.map((m) => {
-                return <ChatMessage message={m}/>
+                return <ChatMessage message={m} key={m.url}/>
             })}
             {messages.map((m) => {
                 return <ChatMessage message={m}/>
@@ -86,8 +93,9 @@ const ChatMessage: React.FC<MessageType> = (props) => {
             marginBottom: '10px',
             backgroundColor: 'rgba(194,193,193,0.51)'
         }}>
-            <div >
-                <img src={url} alt="hbcahsb" style={{height: '50px', width: '50px', borderRadius: '50%',marginRight:'20px'}}/>
+            <div>
+                <img src={url} alt="hbcahsb"
+                     style={{height: '50px', width: '50px', borderRadius: '50%', marginRight: '20px'}}/>
                 <b>{author}</b>
             </div>
             <div>
