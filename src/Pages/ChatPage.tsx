@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
@@ -13,76 +13,45 @@ const ChatPage = () => {
 export default ChatPage;
 
 const Chat: React.FC = () => {
+    const [chatMessages, setChatMessages] = useState<MessagesType | undefined>()
+
     useEffect(() => {
         ws.addEventListener('message', (e) => {
-            console.log(e)
+            console.log(e.data)
+            setChatMessages(JSON.parse(e.data))
         })
     }, [])
     return (
         <div>
-            <ChatMessages/>
+            <ChatMessages messages={chatMessages}/>
             <ChatAddMessageForm/>
         </div>
     )
 }
-type MessagesType = ChatMessageType[]
-const ChatMessages: React.FC = () => {
-    const messages: MessagesType = [
-        {
-            url: 'https://miro.medium.com/max/510/0*-1JzOPdsvY2jDuMu',
-            author: 'Sad Guy',
-            text: 'dhxvaius`dh digvcaosyuid`hgxc ayd`gfca`dhgf',
-        },
-    ]
-
-    return (
-        <div style={{height: '400px', overflow: 'auto'}}>
-            {messages.map((m) => {
-                return <ChatMessage message={m} key={m.url}/>
-            })}
-            {messages.map((m) => {
-                return <ChatMessage message={m}/>
-            })}
-            {messages.map((m) => {
-                return <ChatMessage message={m}/>
-            })}
-            {messages.map((m) => {
-                return <ChatMessage message={m}/>
-            })}
-            {messages.map((m) => {
-                return <ChatMessage message={m}/>
-            })}
-            {messages.map((m) => {
-                return <ChatMessage message={m}/>
-            })}
-            {messages.map((m) => {
-                return <ChatMessage message={m}/>
-            })}
-            {messages.map((m) => {
-                return <ChatMessage message={m}/>
-            })}
-            {messages.map((m) => {
-                return <ChatMessage message={m}/>
-            })}
-            {messages.map((m) => {
-                return <ChatMessage message={m}/>
-            })}
-            {messages.map((m) => {
-                return <ChatMessage message={m}/>
-            })}
-        </div>
-    )
-}
+type MessagesType = ChatMessageType[] | undefined
 type ChatMessageType = {
-    url: string
-    author: string
-    text: string
+    userId: number
+    userName: string
+    message: string
+    photo: string
 }
 type MessageType = {
     message: ChatMessageType
 }
+
+const ChatMessages: React.FC<{ messages: MessagesType }> = ({messages}) => {
+
+    return (
+        <div style={{height: '400px', overflow: 'auto'}}>
+            {messages && messages.map((m) => {
+                return <ChatMessage message={m} key={m.userId}/>
+            })}
+        </div>
+    )
+}
+
 const ChatMessage: React.FC<MessageType> = (props) => {
-    const {url, author, text} = props.message
+    const {userName, message, photo} = props.message
     return (
         <div style={{
             borderRadius: '10px',
@@ -94,12 +63,12 @@ const ChatMessage: React.FC<MessageType> = (props) => {
             backgroundColor: 'rgba(194,193,193,0.51)'
         }}>
             <div>
-                <img src={url} alt="hbcahsb"
+                <img src={photo} alt="hbcahsb"
                      style={{height: '50px', width: '50px', borderRadius: '50%', marginRight: '20px'}}/>
-                <b>{author}</b>
+                <b>{userName}</b>
             </div>
             <div>
-                {text}
+                {message}
             </div>
         </div>
     )
