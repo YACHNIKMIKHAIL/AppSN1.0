@@ -1,17 +1,16 @@
-import React, {Component, Suspense, useEffect, useState} from 'react';
+import React, {Suspense, useEffect, useState} from 'react';
 import './App.css';
 import {BrowserRouter, Link, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {PostsContainer} from "./Components/Posts/NewPost/PostsContainer";
 import {UsersPage} from "./Components/Users/UsersContainer";
-import {connect, Provider, useDispatch, useSelector} from "react-redux";
+import {Provider, useDispatch, useSelector} from "react-redux";
 import {initializAppThunkCreator} from "./Components/redux/app-reducer";
 import store, {AppStateType} from "./Components/redux/reduxStore";
 import Preloader from "./Components/Common/Preloader/Preloader";
-import {compose} from "redux";
 import {LoginPage} from "./Components/Login/LoginPage";
 import 'antd/dist/antd.css';
 // import {Avatar, Col, MenuProps, Row} from 'antd';
-import {Breadcrumb, Button, Layout, Menu,Avatar, Col, MenuProps, Row} from "antd";
+import {Breadcrumb, Button, Layout, Menu, MenuProps} from "antd";
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import {createBrowserHistory} from "history"
 import {RoutesPath} from "./RoutesPath";
@@ -21,6 +20,7 @@ const {Header, Content, Sider} = Layout;
 
 const Messages = React.lazy(() => import('./Components/Messages/Messages'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
+const ChatPage = React.lazy(() => import('./Pages/ChatPage'));
 
 type  AppMapPropsType = ReturnType<typeof mapStateToProps>
 type  AppDispatchPropsType = {
@@ -47,7 +47,7 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
                 <Link to={RoutesPath.messages}>Messages</Link>,
                 <Link to={RoutesPath.posts}> Posts</Link>,
                 <Link to={RoutesPath.developers}> Contacts</Link>,
-                'bla-bla 2',
+                <Link to={RoutesPath.chatPage}> C H A T</Link>,
                 'bla-bla 2',
                 '3 blaaa-blaaa',
                 '3 blaaa-blaaa',
@@ -265,6 +265,9 @@ export const AppG = () => {
                                        <ProfileContainer/>
                                    </Suspense>}/>
                             <Route path={RoutesPath.login} element={<LoginPage/>}/>
+                            <Route path={RoutesPath.chatPage} element={
+                                <Suspense fallback={<h1>Loading...</h1>}><ChatPage/>
+                                </Suspense>}/>
                             <Route path='*' element={<div>Page not found 404
                                 <Button type={'primary'}>ok</Button>
                             </div>}/>
