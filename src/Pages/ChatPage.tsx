@@ -32,16 +32,15 @@ const ChatMessages: React.FC = () => {
 
     useEffect(() => {
         ws.addEventListener('message', (e) => {
-            debugger
             console.log(e.data)
             let newMessages = JSON.parse(e.data)
-            setChatMessages([...messages, ...newMessages])
+            setChatMessages((prevMessages) => [...prevMessages, ...newMessages])
         })
     }, [])
     return (
         <div style={{height: '400px', overflow: 'auto'}}>
             {messages && messages.map((m) => {
-                return <ChatMessage message={m} key={m.userId}/>
+                return <ChatMessage message={m} key={`${m.userId}${m.message}`}/>
             })}
         </div>
     )
@@ -56,7 +55,7 @@ const ChatMessage: React.FC<{
             borderRadius: '10px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
             padding: '10px',
             marginBottom: '10px',
             backgroundColor: 'rgba(194,193,193,0.51)'
@@ -66,20 +65,27 @@ const ChatMessage: React.FC<{
                      style={{height: '50px', width: '50px', borderRadius: '50%', marginRight: '20px'}}/>
                 <b>{userName}</b>
             </div>
-            <div>
+            <div style={{display: 'flex', justifyContent: 'start', width: '95%', flexWrap: 'nowrap'}}>
                 {message}
             </div>
         </div>
     )
 }
 const ChatAddMessageForm: React.FC = () => {
+    const [newMessage, setNewMessage] = useState<string>('')
+    const sendMessage = () => {
+        debugger
+        if (!newMessage) return
+        ws.send(newMessage)
+        setNewMessage('')
+    }
     return (
         <div>
             <div>
-                <textarea name="" id=""/>
+                <textarea value={newMessage} onChange={(e) => setNewMessage(e.currentTarget.value)}/>
             </div>
             <div>
-                <button>Send</button>
+                <button onClick={sendMessage}>Send</button>
             </div>
         </div>
     )
