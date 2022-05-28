@@ -13,34 +13,31 @@ const ChatPage = () => {
 export default ChatPage;
 
 const Chat: React.FC = () => {
-    const [chatMessages, setChatMessages] = useState<MessagesType | undefined>()
 
-    useEffect(() => {
-        ws.addEventListener('message', (e) => {
-            console.log(e.data)
-            setChatMessages(JSON.parse(e.data))
-        })
-    }, [])
     return (
         <div>
-            <ChatMessages messages={chatMessages}/>
+            <ChatMessages/>
             <ChatAddMessageForm/>
         </div>
     )
 }
-type MessagesType = ChatMessageType[] | undefined
 type ChatMessageType = {
     userId: number
     userName: string
     message: string
     photo: string
 }
-type MessageType = {
-    message: ChatMessageType
-}
+const ChatMessages: React.FC = () => {
+    const [messages, setChatMessages] = useState<ChatMessageType[]>([] as ChatMessageType[])
 
-const ChatMessages: React.FC<{ messages: MessagesType }> = ({messages}) => {
-
+    useEffect(() => {
+        ws.addEventListener('message', (e) => {
+            debugger
+            console.log(e.data)
+            let newMessages = JSON.parse(e.data)
+            setChatMessages([...messages, ...newMessages])
+        })
+    }, [])
     return (
         <div style={{height: '400px', overflow: 'auto'}}>
             {messages && messages.map((m) => {
@@ -50,7 +47,9 @@ const ChatMessages: React.FC<{ messages: MessagesType }> = ({messages}) => {
     )
 }
 
-const ChatMessage: React.FC<MessageType> = (props) => {
+const ChatMessage: React.FC<{
+    message: ChatMessageType
+}> = (props) => {
     const {userName, message, photo} = props.message
     return (
         <div style={{
