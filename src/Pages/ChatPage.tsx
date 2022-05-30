@@ -1,8 +1,19 @@
 import React, {useEffect, useState} from 'react';
 
-const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+let wsCannel: WebSocket
+
+function createChannel() {
+    wsCannel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+}
+
 
 const ChatPage = () => {
+    useEffect(() => {
+        createChannel()
+        wsCannel.addEventListener('close', () => {
+            console.log('channel closed')
+        })
+    }, [])
     return (
         <div>
             <Chat/>
@@ -31,7 +42,7 @@ const ChatMessages: React.FC = () => {
     const [messages, setChatMessages] = useState<ChatMessageType[]>([] as ChatMessageType[])
 
     useEffect(() => {
-        ws.addEventListener('message', (e) => {
+        wsCannel.addEventListener('message', (e) => {
             console.log(e.data)
             let newMessages = JSON.parse(e.data)
             setChatMessages((prevMessages) => [...prevMessages, ...newMessages])
@@ -73,19 +84,31 @@ const ChatMessage: React.FC<{
 }
 const ChatAddMessageForm: React.FC = () => {
     const [newMessage, setNewMessage] = useState<string>('')
+    const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
     const sendMessage = () => {
         debugger
         if (!newMessage) return
-        ws.send(newMessage)
+        wsCannel.send(newMessage)
         setNewMessage('')
     }
+
+    useEffect(() => {
+        wsCannel.addEventListener('open', () => {
+            setReadyStatus('ready')
+        })
+    }, [])
     return (
         <div>
             <div>
                 <textarea value={newMessage} onChange={(e) => setNewMessage(e.currentTarget.value)}/>
             </div>
             <div>
-                <button onClick={sendMessage} disabled={ws.readyState !== WebSocket.OPEN}>Send</button>
+                <button onClick={sendMessage} disabled={readyStatus === 'pending'}>Send</button>
+                <div>{
+                    readyStatus === 'pending'
+                        ? 'disabled'
+                        : 'undisabled'
+                }</div>
             </div>
         </div>
     )
