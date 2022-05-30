@@ -85,7 +85,7 @@ const ChatAddMessageForm: React.FC = () => {
                 <textarea value={newMessage} onChange={(e) => setNewMessage(e.currentTarget.value)}/>
             </div>
             <div>
-                <button onClick={sendMessage}>Send</button>
+                <button onClick={sendMessage} disabled={ws.readyState !== WebSocket.OPEN}>Send</button>
             </div>
         </div>
     )
