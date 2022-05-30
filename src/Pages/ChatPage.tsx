@@ -4,19 +4,33 @@ import React, {useEffect, useState} from 'react';
 const ChatPage = () => {
     const [wsCannel, setWsCannel] = useState<WebSocket | null>(null)
 
+
     useEffect(() => {
+        let ws: WebSocket
+
+        const closeWsHandler = () => {
+            createChannel()
+        }
+
         function createChannel() {
-            setWsCannel(new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx'))
+            if (ws) {
+                ws.removeEventListener('close', closeWsHandler)
+                ws.close()
+            }
+
+            ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+            ws?.addEventListener('close', closeWsHandler)
+            setWsCannel(ws)
         }
 
         createChannel()
+
+        return () => {
+            ws.removeEventListener('close', closeWsHandler)
+            ws.close()
+        }
     }, [])
 
-    useEffect(() => {
-        wsCannel?.addEventListener('close', () => {
-            console.log('channel closed')
-        })
-    }, [wsCannel])
 
     return (
         <div>
@@ -54,8 +68,8 @@ const ChatMessages: React.FC<{ wsCannel: WebSocket | null }> = ({wsCannel}) => {
     }, [wsCannel])
     return (
         <div style={{height: '400px', overflow: 'auto'}}>
-            {messages && messages.map((m) => {
-                return <ChatMessage message={m} key={`${m.userId}${m.message}`}/>
+            {messages && messages.map((m, i) => {
+                return <ChatMessage message={m} key={`${m.userId}${m.message}${i}`}/>
             })}
         </div>
     )
@@ -91,16 +105,25 @@ const ChatAddMessageForm: React.FC<{ wsCannel: WebSocket | null }> = ({wsCannel}
     const [newMessage, setNewMessage] = useState<string>('')
     const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
     const sendMessage = () => {
-        debugger
         if (!newMessage) return
         wsCannel?.send(newMessage)
         setNewMessage('')
     }
 
     useEffect(() => {
-        wsCannel?.addEventListener('open', () => {
+        const openChannel = () => {
             setReadyStatus('ready')
+        }
+
+        wsCannel?.addEventListener('open', () => {
+            openChannel()
         })
+
+        return () => {
+            wsCannel?.removeEventListener('open', ()=> {
+                openChannel()
+            })
+        }
     }, [wsCannel])
     return (
         <div>
@@ -108,7 +131,7 @@ const ChatAddMessageForm: React.FC<{ wsCannel: WebSocket | null }> = ({wsCannel}
                 <textarea value={newMessage} onChange={(e) => setNewMessage(e.currentTarget.value)}/>
             </div>
             <div>
-                <button onClick={sendMessage} disabled={readyStatus === 'pending'}>Send</button>
+                <button onClick={sendMessage} disabled={wsCannel === null || readyStatus === 'pending'}>Send</button>
                 <div>{
                     readyStatus === 'pending'
                         ? 'disabled'
