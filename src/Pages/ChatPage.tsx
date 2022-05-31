@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {ChatMessageType, StatusType} from "../API/ChatApi";
 import {useDispatch, useSelector} from "react-redux";
 import {sendMessage, startMessagesListening, stopMessagesListening} from "../Components/redux/chat-reducer";
@@ -27,23 +27,29 @@ const Chat: React.FC = () => {
     }, [])
     return (
         <div>
-            {status === 'error'
-                ? <div>Some ERROR. Please refresh page</div>
-                : <>
-                    <ChatMessages/>
-                    <ChatAddMessageForm/>
-                </>}
+            {status === 'error' && <div>Some ERROR. Please refresh page</div>}
+            <>
+                <ChatMessages/>
+                <ChatAddMessageForm/>
+            </>
         </div>
     )
 }
 
 const ChatMessages: React.FC = () => {
     const messages = useSelector<AppStateType, ChatMessageType[]>(state => state.chat.messages)
+    const messageAnchorRef = useRef<HTMLDivElement | null>(null)
+
+    useEffect(() => {
+        messageAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
+    }, [messages])
+
     return (
         <div style={{height: '400px', overflow: 'auto'}}>
             {messages && messages.map((m, i) => {
                 return <ChatMessage message={m} key={`${m.userId}${m.message}${Math.random() * i}`}/>
             })}
+            <div ref={messageAnchorRef}/>
         </div>
     )
 }
@@ -79,14 +85,19 @@ const ChatAddMessageForm: React.FC = () => {
     const status = useSelector<AppStateType, StatusType>(state => state.chat.status)
     const dispatch = useDispatch()
 
+    const onKeyPressHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter') sendMessageX()
+    }
     const sendMessageX = () => {
         if (!newMessage) return
         dispatch(sendMessage(newMessage))
+        setNewMessage('')
     }
     return (
         <div>
             <div>
-                <textarea value={newMessage} onChange={(e) => setNewMessage(e.currentTarget.value)}/>
+                <textarea value={newMessage} onChange={(e) => setNewMessage(e.currentTarget.value)}
+                          onKeyPress={(e) => onKeyPressHandler(e)}/>
             </div>
             <div>
                 <button onClick={sendMessageX}
