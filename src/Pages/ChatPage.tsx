@@ -7,22 +7,20 @@ const ChatPage = () => {
 
 
     useEffect(() => {
-        let ws: WebSocket
+        // let ws: WebSocket
 
-        const closeWsHandler = () => {
-            createChannel()
-        }
+        // const closeWsHandler = () => {
+        //     createChannel()
+        // }
 
-        function createChannel() {
-            // if (ws) {
-            ws?.removeEventListener('close', closeWsHandler)
-            ws?.close()
-            // }
-
-            ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-            ws?.addEventListener('close', closeWsHandler)
-            setWsCannel(ws)
-        }
+        // function createChannel() {
+        //     ws?.removeEventListener('close', closeWsHandler)
+        //     ws?.close()
+        //
+        //     ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+        //     ws?.addEventListener('close', closeWsHandler)
+        //     setWsCannel(ws)
+        // }
 
         createChannel()
 
@@ -56,10 +54,10 @@ const ChatMessages: React.FC<{ wsCannel: WebSocket | null }> = ({wsCannel}) => {
     const [messages, setChatMessages] = useState<ChatMessageType[]>([] as ChatMessageType[])
 
     useEffect(() => {
-        const newMessageHandler = (e: MessageEvent) => {
-            let newMessages = JSON.parse(e.data)
-            setChatMessages((prevMessages) => [...prevMessages, ...newMessages])
-        }
+        // const newMessageHandler = (e: MessageEvent) => {
+        //     let newMessages = JSON.parse(e.data)
+        //     setChatMessages((prevMessages) => [...prevMessages, ...newMessages])
+        // }
 
         wsCannel?.addEventListener('message', newMessageHandler)
 
