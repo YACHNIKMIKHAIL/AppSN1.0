@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {ChatMessageType} from "../API/ChatApi";
 import {useDispatch, useSelector} from "react-redux";
-import {sendMessage, startMessagesListening, stopMessagesListening} from "../Components/redux/chat-reducer";
+import {sendMessage, startMessagesListening, StatusType, stopMessagesListening} from "../Components/redux/chat-reducer";
 import {AppStateType} from "../Components/redux/reduxStore";
 
 
@@ -36,7 +36,7 @@ const ChatMessages: React.FC = () => {
     return (
         <div style={{height: '400px', overflow: 'auto'}}>
             {messages && messages.map((m, i) => {
-                return <ChatMessage message={m} key={`${m.userId}${m.message}${i}`}/>
+                return <ChatMessage message={m} key={`${m.userId}${m.message}${Math.random() * i}`}/>
             })}
         </div>
     )
@@ -70,7 +70,7 @@ const ChatMessage: React.FC<{
 }
 const ChatAddMessageForm: React.FC = () => {
     const [newMessage, setNewMessage] = useState<string>('')
-    const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
+    const readyStatus = useSelector<AppStateType, StatusType>(state => state.chat.status)
     const dispatch = useDispatch()
 
     const sendMessageX = () => {
@@ -84,14 +84,14 @@ const ChatAddMessageForm: React.FC = () => {
             </div>
             <div>
                 <button onClick={sendMessageX}
-
+                        disabled={readyStatus === 'pending'}
                 >Send
                 </button>
-                {/*<div>{*/}
-                {/*    readyStatus === 'pending'*/}
-                {/*        ? 'disabled'*/}
-                {/*        : 'undisabled'*/}
-                {/*}</div>*/}
+                <div>{
+                    readyStatus === 'pending'
+                        ? 'disabled'
+                        : 'undisabled'
+                }</div>
             </div>
         </div>
     )
