@@ -35,10 +35,15 @@ const newMessageHandlerCreator = (dispatch: Dispatch) => {
     return _newMessageHandler
 }
 export const startMessagesListening = (): AuthThunkType => async (dispatch) => {
+    chatApi.start()
     chatApi.subscribe(newMessageHandlerCreator(dispatch))
 }
 export const stopMessagesListening = (): AuthThunkType => async (dispatch) => {
     chatApi.unsubscribe(newMessageHandlerCreator(dispatch))
+    chatApi.stop()
+}
+export const sendMessage = (message: string): AuthThunkType => async (dispatch) => {
+    chatApi.sendMessage(message)
 }
 
 
