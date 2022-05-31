@@ -40,17 +40,27 @@ const ChatMessages: React.FC = () => {
     const messages = useSelector<AppStateType, ChatMessageType[]>(state => state.chat.messages)
     const messageAnchorRef = useRef<HTMLDivElement | null>(null)
     const [autoScrollIsActive, setAutoScrollIsActive] = useState<boolean>(true)
-
+    const onScrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+        let element = e.currentTarget
+        if (Math.abs(element.scrollHeight - element.scrollTop) - element.clientHeight < 300) {
+            !autoScrollIsActive && setAutoScrollIsActive(true)
+        } else {
+            autoScrollIsActive && setAutoScrollIsActive(false)
+        }
+    }
     useEffect(() => {
         if (autoScrollIsActive) {
             messageAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
         }
     }, [messages])
-
     return (
-        <div style={{height: '400px', overflow: 'auto'}}>
+        <div style={{
+            height: '400px', overflow: 'auto',
+            borderRadius: '10px',
+        }} onScroll={onScrollHandler}>
             {messages && messages.map((m, i) => {
-                return <ChatMessage message={m} key={`${m.userId}${m.message}${Math.random() * i}`}/>
+                return <ChatMessage x={m} key={i}/>
+                //`${m.userId}${m.message}${Math.random() * i}`
             })}
             <div ref={messageAnchorRef}/>
         </div>
@@ -58,10 +68,12 @@ const ChatMessages: React.FC = () => {
 }
 
 const ChatMessage: React.FC<{
-    message: ChatMessageType
+    x: ChatMessageType
 
-}> = (props) => {
-    const {userName, message, photo} = props.message
+}> = React.memo(({x}) => {
+    const {userName, message, photo} = x
+    console.log('>>>>>>> ChatMessage!!!')
+
     return (
         <div style={{
             borderRadius: '10px',
@@ -82,7 +94,8 @@ const ChatMessage: React.FC<{
             </div>
         </div>
     )
-}
+})
+
 const ChatAddMessageForm: React.FC = () => {
     const [newMessage, setNewMessage] = useState<string>('')
     const status = useSelector<AppStateType, StatusType>(state => state.chat.status)
