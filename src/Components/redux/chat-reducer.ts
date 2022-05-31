@@ -1,8 +1,8 @@
-import {chatApi, ChatMessageType} from "../../API/ChatApi";
+import {chatApi, ChatMessageType, StatusType} from "../../API/ChatApi";
 import {BaseThunkType, InferActionsTypes} from "./reduxStore";
 import {Dispatch} from "redux";
 
-export type StatusType = 'pending' | 'ready'
+
 const initState = {
     messages: [] as ChatMessageType[],
     status: 'pending' as StatusType
@@ -45,7 +45,7 @@ const newMessageHandlerCreator = (dispatch: Dispatch) => {
 }
 export const startMessagesListening = (): AuthThunkType => async (dispatch) => {
     chatApi.start()
-    chatApi.subscribe(newMessageHandlerCreator(dispatch))
+    chatApi.subscribe('messages-received', newMessageHandlerCreator(dispatch))
 }
 export const stopMessagesListening = (): AuthThunkType => async (dispatch) => {
     chatApi.unsubscribe(newMessageHandlerCreator(dispatch))

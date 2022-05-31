@@ -1,6 +1,10 @@
-let subscribers = [] as SubscriberType[]
+let subscribers = {
+    'messages-received': [] as MessagesReceivedSubscriberType[],
+    'status-changed': [] as StatusChangedSubscriberType[]
+}
 let ws: WebSocket | null
 
+type EventNemesTypes = 'messages-received' | 'status-changed'
 const closeWsHandler = () => {
     console.log('CLOSE WS')
     setTimeout(createChannel, 3000)
@@ -21,7 +25,7 @@ function createChannel() {
 
 const newMessageHandler = (e: MessageEvent) => {
     let newMessages = JSON.parse(e.data)
-    subscribers.forEach(subsc => subsc(newMessages))
+    subscribers['messages-received'].forEach(subsc => subsc(newMessages))
 }
 
 export const chatApi = {
@@ -30,24 +34,34 @@ export const chatApi = {
     },
     stop() {
         cleanUp()
-        subscribers = []
+        subscribers['messages-received'] = []
+        subscribers['status-changed'] = []
     },
-    subscribe(callback: SubscriberType) {
-        subscribers.push(callback)
+    subscribe(eventName:EventNemesTypes, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType) {
+        // @ts-ignore
+        subscribers[eventName].push(callback)
 
         return () => {
-            subscribers.filter(scf => scf !== callback)
+            // @ts-ignore
+            subscribers[eventName] = subscribers[eventName].filter(scf => scf !== callback)
         }
     },
-    unsubscribe(callback: SubscriberType) {
-        subscribers.filter(scf => scf !== callback)
+    unsubscribe(eventName:EventNemesTypes, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType) {
+        // @ts-ignore
+        subscribers[eventName].filter(scf => scf !== callback)
     },
+
+
+
+
+
     sendMessage(message: string) {
         ws?.send(message)
     }
 }
 
-type SubscriberType = (messages: ChatMessageType[]) => void
+type MessagesReceivedSubscriberType = (messages: ChatMessageType[]) => void
+type StatusChangedSubscriberType = (status: StatusType) => void
 
 export type ChatMessageType = {
     userId: number
@@ -55,3 +69,4 @@ export type ChatMessageType = {
     message: string
     photo: string
 }
+export type StatusType = 'pending' | 'ready'
