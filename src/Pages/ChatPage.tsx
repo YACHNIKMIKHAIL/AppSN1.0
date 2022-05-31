@@ -39,9 +39,12 @@ const Chat: React.FC = () => {
 const ChatMessages: React.FC = () => {
     const messages = useSelector<AppStateType, ChatMessageType[]>(state => state.chat.messages)
     const messageAnchorRef = useRef<HTMLDivElement | null>(null)
+    const [autoScrollIsActive, setAutoScrollIsActive] = useState<boolean>(true)
 
     useEffect(() => {
-        messageAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
+        if (autoScrollIsActive) {
+            messageAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
+        }
     }, [messages])
 
     return (
