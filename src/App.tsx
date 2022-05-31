@@ -9,23 +9,22 @@ import store, {AppStateType} from "./Components/redux/reduxStore";
 import Preloader from "./Components/Common/Preloader/Preloader";
 import {LoginPage} from "./Components/Login/LoginPage";
 import 'antd/dist/antd.css';
-// import {Avatar, Col, MenuProps, Row} from 'antd';
 import {Breadcrumb, Button, Layout, Menu, MenuProps} from "antd";
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 import {createBrowserHistory} from "history"
 import {RoutesPath} from "./RoutesPath";
 import {HeaderComponent} from "./Components/Header/Header";
 
-const {Header, Content, Sider} = Layout;
+const { Content, Sider} = Layout;
 
 const Messages = React.lazy(() => import('./Components/Messages/Messages'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
 const ChatPage = React.lazy(() => import('./Pages/ChatPage'));
 
-type  AppMapPropsType = ReturnType<typeof mapStateToProps>
-type  AppDispatchPropsType = {
-    initializAppThunkCreator: () => void
-}
+// type  AppMapPropsType = ReturnType<typeof mapStateToProps>
+// type  AppDispatchPropsType = {
+//     initializAppThunkCreator: () => void
+// }
 
 // const items1: MenuProps['items'] = ['Profile', 'Developers', 'Settings'].map(key => ({
 //     key,
@@ -175,7 +174,7 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
 // }
 
 
-const mapStateToProps = (state: AppStateType) => ({initialized: state.app.initialized})
+// const mapStateToProps = (state: AppStateType) => ({initialized: state.app.initialized})
 // const AppContainer = compose<React.ComponentType>(connect(mapStateToProps, {initializAppThunkCreator}))(App)
 
 export const SamuraiJSApp: React.FC = () => {
@@ -205,8 +204,10 @@ export const AppG = () => {
                 : pathname === RoutesPath.posts
                     ? setOpenedKey(2)
                     : pathname === RoutesPath.developers
-                        ? setOpenedKey(3)
-                        : setOpenedKey(0)
+                        ? setOpenedKey(3) :
+                        pathname === RoutesPath.chatPage
+                            ? setOpenedKey(4)
+                            : setOpenedKey(0)
     }, [])
 
     useEffect(() => {
@@ -259,7 +260,9 @@ export const AppG = () => {
                                    </Suspense>}/>
                             <Route path={RoutesPath.posts} element={<PostsContainer/>}/>
                             <Route path={RoutesPath.profileWithID}
-                                   element={<ProfileContainer/>}/>
+                                   element={<Suspense fallback={<h1>Loading...</h1>}>
+                                       <ProfileContainer/>
+                                   </Suspense>}/>
                             <Route path={RoutesPath.profile}
                                    element={<Suspense fallback={<h1>Loading...</h1>}>
                                        <ProfileContainer/>
