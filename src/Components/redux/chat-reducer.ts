@@ -11,7 +11,10 @@ const initState = {
 const chatReducer = (state: initStateType = initState, action: ChatActionsType): initStateType => {
     switch (action.type) {
         case 'chatReducer/MESSAGES_RECEIVED ': {
-            return {...state, messages: [...state.messages, ...action.payload.messages]}
+            return {
+                ...state,
+                messages: [...state.messages, ...action.payload.messages].filter((f, i, array) => i >= array.length - 100)
+            }
         }
         case 'chatReducer/STATUS_CHANGED ': {
             return {...state, status: action.payload.status}
