@@ -46,6 +46,7 @@ export const Profile = (props: ProfilePropsType) => {
 
     return (
         <div className={s.content}>
+            {!props.isOwner && <button className={s.play}>Play with me</button>}
             <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
             {props.profile.fullName}
 
