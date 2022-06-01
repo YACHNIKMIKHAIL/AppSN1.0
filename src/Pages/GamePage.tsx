@@ -37,6 +37,7 @@ const GamePage = () => {
     }
     const resetOpponent = () => {
         dispatch(gameActions.addOpponent(null, null))
+        setOpponentName(null)
     }
     const addMeNow = async () => {
         if (myId)
@@ -60,11 +61,15 @@ const GamePage = () => {
                         </div>
                         <div>{myName}</div>
                     </div>
-                    {gamerOneCount >= 0
-                        ? <>{gamerTwoCount < 0
-                            ? <div className={style.winner}>WINNER!</div>
-                            : <div className={style.count}>{gamerOneCount}</div>}</>
-                        : <div className={style.looser}>LOOSER!</div>
+                    {gamerOneCount < 0 && gamerOneCount === gamerTwoCount
+                        ? <div>Over for ALL</div>
+                        : gamerOneCount >= 0
+                            ? <>{gamerTwoCount < 0
+                                ? <div className={style.winner}>WINNER!</div>
+                                : <div className={style.count}>{gamerOneCount}</div>}
+                            </>
+                            : <div className={style.looser}>LOOSER!</div>
+
                     }
 
                     <div>
@@ -81,12 +86,14 @@ const GamePage = () => {
                             <div>{opponentName}</div>
                         </div>
 
-                        {gamerTwoCount >= 0
-                            ? <>{gamerOneCount < 0
-                                ? <div className={style.winner}>WINNER!</div>
-                                : <div className={style.count}>{gamerTwoCount}</div>
-                            }</>
-                            : <div className={style.looser}>LOOSER!</div>
+                        {gamerOneCount < 0 && gamerOneCount === gamerTwoCount
+                            ? <div>Over for ALL</div>
+                            : gamerOneCount >= 0
+                                ? <>{gamerOneCount < 0
+                                    ? <div className={style.winner}>WINNER!</div>
+                                    : <div className={style.count}>{gamerTwoCount}</div>
+                                }</>
+                                : <div className={style.looser}>LOOSER!</div>
                         }
                         <div>
                             <button onClick={addToGamerTwo}>+</button>
