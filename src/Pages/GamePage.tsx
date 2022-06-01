@@ -20,6 +20,7 @@ const GamePage = () => {
     const myPhotos = useSelector<AppStateType, PhotosType>(state => state.profile.profile.photos)
     const [gamerOneCount, setGamerOneCount] = useState<number>(0)
     const [gamerTwoCount, setGamerTwoCount] = useState<number>(0)
+
     const addToGamerOne = () => {
         setGamerOneCount(gamerOneCount + 1)
     }
@@ -61,15 +62,14 @@ const GamePage = () => {
                         </div>
                         <div>{myName}</div>
                     </div>
-                    {gamerOneCount < 0 && gamerOneCount === gamerTwoCount
-                        ? <div>Over for ALL</div>
-                        : gamerOneCount >= 0
-                            ? <>{gamerTwoCount < 0
+                    {
+                        gamerOneCount === gamerTwoCount && gamerOneCount < 0
+                            ? <div>Over for ALL</div>
+                            : gamerTwoCount < 0 && gamerOneCount >= 0
                                 ? <div className={style.winner}>WINNER!</div>
-                                : <div className={style.count}>{gamerOneCount}</div>}
-                            </>
-                            : <div className={style.looser}>LOOSER!</div>
-
+                                : gamerOneCount >= 0
+                                    ? <div className={style.count}>{gamerOneCount}</div>
+                                    : <div className={style.looser}>LOOSER!</div>
                     }
 
                     <div>
@@ -85,15 +85,14 @@ const GamePage = () => {
                             </div>
                             <div>{opponentName}</div>
                         </div>
-
-                        {gamerOneCount < 0 && gamerOneCount === gamerTwoCount
-                            ? <div>Over for ALL</div>
-                            : gamerOneCount >= 0
-                                ? <>{gamerOneCount < 0
+                        {
+                            gamerTwoCount === gamerOneCount && gamerTwoCount < 0
+                                ? <div>Over for ALL</div>
+                                : gamerOneCount < 0 && gamerTwoCount >= 0
                                     ? <div className={style.winner}>WINNER!</div>
-                                    : <div className={style.count}>{gamerTwoCount}</div>
-                                }</>
-                                : <div className={style.looser}>LOOSER!</div>
+                                    : gamerTwoCount >= 0
+                                        ? <div className={style.count}>{gamerTwoCount}</div>
+                                        : <div className={style.looser}>LOOSER!</div>
                         }
                         <div>
                             <button onClick={addToGamerTwo}>+</button>
