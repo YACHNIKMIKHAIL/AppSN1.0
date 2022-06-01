@@ -34,5 +34,6 @@ let store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 // let store = createStore(reducer, applyMiddleware(thunk));
 export type StoreType = typeof store;
 //@ts-ignore
-window.__store__ = store
+window.store = store
+// window.__store__ = store
 export default store

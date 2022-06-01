@@ -1,7 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './GamePage.module.css';
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../Components/redux/reduxStore";
+import userPhoto from "./../assets/images/images.png"
+import {PhotosType} from "../API/ProfileApi";
+import {getProfileThunkCreator} from "../Components/redux/profile-reducer";
 
 const GamePage = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+    const dispatch = useDispatch()
+    const myId = useSelector<AppStateType, number | null>(state => state.auth.id)
+    const myName = useSelector<AppStateType, string>(state => state.profile.profile.fullName)
+    const myPhotos = useSelector<AppStateType, PhotosType>(state => state.profile.profile.photos)
     const [gamerOneCount, setGamerOneCount] = useState<number>(0)
     const [gamerTwoCount, setGamerTwoCount] = useState<number>(0)
     const addToGamerOne = () => {
@@ -19,13 +29,27 @@ const GamePage = () => {
         setGamerOneCount(0)
         setGamerTwoCount(0)
     }
-
-
+    const addMeNow = async () => {
+        if (myId)
+            await dispatch(getProfileThunkCreator(myId))
+        setIsLoading(false)
+    }
+    useEffect(() => {
+        addMeNow()
+    }, [])
+    if (isLoading) {
+        return <div>W A I T</div>
+    }
     return (
         <div className={style.main}>
             <div className={style.case}>
                 <div className={style.gamerCase}>
-                    <div>User - Gamer Name</div>
+                    <div>
+                        <div>
+                            <img src={myPhotos.small || myPhotos.large || userPhoto} alt="jscha"/>
+                        </div>
+                        <div>{myName}</div>
+                    </div>
                     {gamerOneCount >= 0
                         ? <>{gamerTwoCount < 0
                             ? <div className={style.winner}>WINNER!</div>
@@ -38,7 +62,12 @@ const GamePage = () => {
                     </div>
                 </div>
                 <div className={style.gamerCase}>
-                    <div>User - Gamer Name</div>
+                    <div>
+                        <div>
+                            <img src="" alt="jscha"/>
+                        </div>
+                        <div>User - Gamer Name</div>
+                    </div>
 
                     {gamerTwoCount >= 0
                         ? <>{gamerOneCount < 0
