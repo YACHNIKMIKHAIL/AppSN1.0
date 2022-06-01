@@ -8,6 +8,7 @@ import thunk, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 import {appReducer} from "./app-reducer";
 import chatReducer from "./chat-reducer";
+import {gameReducer} from "./game-reducer";
 
 let reducer = combineReducers({
     myPosts: newPostReducer,
@@ -18,6 +19,7 @@ let reducer = combineReducers({
     form: formReducer,
     app: appReducer,
     chat: chatReducer,
+    game: gameReducer,
 })
 
 export type AppStateType = ReturnType<typeof reducer>

@@ -7,10 +7,12 @@ import {PhotosType} from "../API/ProfileApi";
 import {getProfileThunkCreator} from "../Components/redux/profile-reducer";
 import {useNavigate} from "react-router-dom";
 import {RoutesPath} from "../RoutesPath";
+import {gameActions, initialOpponentType} from "../Components/redux/game-reducer";
 
 const GamePage = () => {
+    const opponent = useSelector<AppStateType, initialOpponentType>(state => state.game)
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [opponentName, setOpponentName] = useState<string | null>(null)
+    const [opponentName, setOpponentName] = useState<string | null>(opponent.name)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const myId = useSelector<AppStateType, number | null>(state => state.auth.id)
@@ -33,6 +35,9 @@ const GamePage = () => {
         setGamerOneCount(0)
         setGamerTwoCount(0)
     }
+    const resetOpponent = () => {
+        dispatch(gameActions.addOpponent(null, null))
+    }
     const addMeNow = async () => {
         if (myId)
             await dispatch(getProfileThunkCreator(myId))
@@ -46,6 +51,7 @@ const GamePage = () => {
     }
     return (
         <div className={style.main}>
+            {opponentName !== null && <button onClick={resetOpponent}>reset OPPONENT</button>}
             <div className={style.case}>
                 <div className={style.gamerCase}>
                     <div>
@@ -70,9 +76,9 @@ const GamePage = () => {
                     ? <div className={style.gamerCase}>
                         <div>
                             <div>
-                                <img src="" alt="jscha"/>
+                                <img src={opponent.photo?.large || opponent.photo?.small || userPhoto} alt="jscha"/>
                             </div>
-                            <div>User - Gamer Name</div>
+                            <div>{opponentName}</div>
                         </div>
 
                         {gamerTwoCount >= 0
@@ -94,7 +100,7 @@ const GamePage = () => {
 
             </div>
             <button onClick={removeCountFromAllGamers}>-</button>
-            {(gamerOneCount < 0 || gamerTwoCount < 0) && <button onClick={resetScoure}> reset </button>}
+            {(gamerOneCount < 0 || gamerTwoCount < 0) && <button onClick={resetScoure}> reset game</button>}
         </div>
     );
 };

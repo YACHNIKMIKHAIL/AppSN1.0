@@ -7,6 +7,9 @@ import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import ProfileDataForm from "./ProfileDataForm";
 import {useDispatch} from "react-redux";
 import {ContactsType, ProfileType} from "../../API/ProfileApi";
+import {gameActions} from "../redux/game-reducer";
+import {RoutesPath} from "../../RoutesPath";
+import {useNavigate} from "react-router-dom";
 
 type ProfilePropsType = {
     profile: ProfileType
@@ -18,6 +21,7 @@ type ProfilePropsType = {
 export const Profile = (props: ProfilePropsType) => {
     const [editMode, setEditMode] = useState<boolean>(false)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     if (!Object.keys(props.profile).length) {
         return <Preloader/>
@@ -30,6 +34,11 @@ export const Profile = (props: ProfilePropsType) => {
                 props.savePhoto(e.target.files[0])
             }
         }
+    }
+    const playWithMe = () => {
+        dispatch(gameActions.addOpponent(props.profile.fullName, props.profile.photos))
+        alert('GO!')
+        navigate(RoutesPath.gamePage)
     }
 
     const onSubmit = async (formData: ProfileType) => {
@@ -46,7 +55,7 @@ export const Profile = (props: ProfilePropsType) => {
 
     return (
         <div className={s.content}>
-            {!props.isOwner && <button className={s.play}>Play with me</button>}
+            {!props.isOwner && <button className={s.play} onClick={playWithMe}>Play with me</button>}
             <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
             {props.profile.fullName}
 
