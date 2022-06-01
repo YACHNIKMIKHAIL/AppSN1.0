@@ -1,7 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ChatMessageType, StatusType} from "../API/ChatApi";
+import {StatusType} from "../API/ChatApi";
 import {useDispatch, useSelector} from "react-redux";
-import {sendMessage, startMessagesListening, stopMessagesListening} from "../Components/redux/chat-reducer";
+import {
+    ChatMessageType,
+    sendMessage,
+    startMessagesListening,
+    stopMessagesListening
+} from "../Components/redux/chat-reducer";
 import {AppStateType} from "../Components/redux/reduxStore";
 
 
@@ -59,7 +64,7 @@ const ChatMessages: React.FC = () => {
             borderRadius: '10px',
         }} onScroll={onScrollHandler}>
             {messages && messages.map((m, i) => {
-                return <ChatMessage x={m} key={i}/>
+                return <ChatMessage x={m} key={m.messageId}/>
                 //`${m.userId}${m.message}${Math.random() * i}`
             })}
             <div ref={messageAnchorRef}/>

@@ -5,5 +5,6 @@ export enum RoutesPath{
     profile='/AppSN1.0',
     profileWithID='/profile/:userId',
     login='/login',
-    chatPage='/chat'
+    chatPage='/chat',
+    gamePage='/gamePage',
 }

@@ -14,8 +14,9 @@ import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/ic
 import {createBrowserHistory} from "history"
 import {RoutesPath} from "./RoutesPath";
 import {HeaderComponent} from "./Components/Header/Header";
+import GamePage from "./Pages/GamePage";
 
-const { Content, Sider} = Layout;
+const {Content, Sider} = Layout;
 
 const Messages = React.lazy(() => import('./Components/Messages/Messages'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
@@ -47,7 +48,7 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
                 <Link to={RoutesPath.posts}> Posts</Link>,
                 <Link to={RoutesPath.developers}> Contacts</Link>,
                 <Link to={RoutesPath.chatPage}> C H A T</Link>,
-                'bla-bla 2',
+                <Link to={RoutesPath.gamePage}> Game Page</Link>,
                 '3 blaaa-blaaa',
                 '3 blaaa-blaaa',
                 '3 blaaa-blaaa'
@@ -207,7 +208,9 @@ export const AppG = () => {
                         ? setOpenedKey(3) :
                         pathname === RoutesPath.chatPage
                             ? setOpenedKey(4)
-                            : setOpenedKey(0)
+                            : pathname === RoutesPath.gamePage
+                                ? setOpenedKey(6)
+                                : setOpenedKey(0)
     }, [])
 
     useEffect(() => {
@@ -270,6 +273,9 @@ export const AppG = () => {
                             <Route path={RoutesPath.login} element={<LoginPage/>}/>
                             <Route path={RoutesPath.chatPage} element={
                                 <Suspense fallback={<h1>Loading...</h1>}><ChatPage/>
+                                </Suspense>}/>
+                            <Route path={RoutesPath.gamePage} element={
+                                <Suspense fallback={<h1>Loading...</h1>}><GamePage/>
                                 </Suspense>}/>
                             <Route path='*' element={<div>Page not found 404
                                 <Button type={'primary'}>ok</Button>

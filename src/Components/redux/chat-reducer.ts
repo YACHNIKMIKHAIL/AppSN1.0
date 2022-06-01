@@ -1,8 +1,9 @@
-import {chatApi, ChatMessageType, StatusType} from "../../API/ChatApi";
+import {chatApi, ChatMessageAPIType, StatusType} from "../../API/ChatApi";
 import {BaseThunkType, InferActionsTypes} from "./reduxStore";
 import {Dispatch} from "redux";
+import {v1} from "uuid";
 
-
+export type ChatMessageType = ChatMessageAPIType & { messageId: string }
 const initState = {
     messages: [] as ChatMessageType[],
     status: 'pending' as StatusType
@@ -13,7 +14,12 @@ const chatReducer = (state: initStateType = initState, action: ChatActionsType):
         case 'chatReducer/MESSAGES_RECEIVED ': {
             return {
                 ...state,
-                messages: [...state.messages, ...action.payload.messages].filter((f, i, array) => i >= array.length - 100)
+                messages: [...state.messages, ...action.payload.messages
+                    .map(m => ({
+                        ...m,
+                        messageId: v1()
+                    }))]
+                    .filter((f, i, array) => i >= array.length - 20)
             }
         }
         case 'chatReducer/STATUS_CHANGED ': {
