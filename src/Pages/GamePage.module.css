@@ -1,0 +1,35 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.case {
+    display: flex;
+    justify-content: space-around
+}
+
+.gamerCase {
+    border: 2px black solid;
+    margin: 10px;
+    width: 200px;
+    height: 300px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center
+}
+
+.count {
+    font-size: 40px
+}
+
+.looser {
+    font-size: 30px;
+    color: #242de0
+}
+.winner {
+    font-size: 40px;
+    color: #be24e0
+}

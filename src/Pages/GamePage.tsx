@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import style from './GamePage.module.css';
 
 const GamePage = () => {
     const [gamerOneCount, setGamerOneCount] = useState<number>(0)
@@ -21,46 +22,30 @@ const GamePage = () => {
 
 
     return (
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                <div style={{
-                    border: '2px black solid',
-                    margin: '10px',
-                    width: '200px',
-                    height: '300px',
-                    borderRadius: '10px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                    alignItems: 'center'
-                }}>
+        <div className={style.main}>
+            <div className={style.case}>
+                <div className={style.gamerCase}>
                     <div>User - Gamer Name</div>
-                    {gamerTwoCount < 0 && <div>WINNER!</div>}
                     {gamerOneCount >= 0
-                        ? <div style={{fontSize: '50px'}}>{gamerOneCount}</div>
-                        : <div style={{fontSize: '40px', color: '#242de0'}}>LOOSER!</div>
+                        ? <>{gamerTwoCount < 0
+                            ? <div className={style.winner}>WINNER!</div>
+                            : <div className={style.count}>{gamerOneCount}</div>}</>
+                        : <div className={style.looser}>LOOSER!</div>
                     }
 
                     <div>
                         <button onClick={addToGamerOne}>+</button>
                     </div>
                 </div>
-                <div style={{
-                    border: '2px black solid',
-                    margin: '10px',
-                    width: '200px',
-                    height: '300px',
-                    borderRadius: '10px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                    alignItems: 'center'
-                }}>
+                <div className={style.gamerCase}>
                     <div>User - Gamer Name</div>
-                    {gamerOneCount < 0 && <div>WINNER!</div>}
+
                     {gamerTwoCount >= 0
-                        ? <div style={{fontSize: '50px'}}>{gamerTwoCount}</div>
-                        : <div style={{fontSize: '40px', color: '#242de0'}}>LOOSER!</div>
+                        ? <>{gamerOneCount < 0
+                            ? <div className={style.winner}>WINNER!</div>
+                            : <div className={style.count}>{gamerTwoCount}</div>
+                        }</>
+                        : <div className={style.looser}>LOOSER!</div>
                     }
                     <div>
                         <button onClick={addToGamerTwo}>+</button>
