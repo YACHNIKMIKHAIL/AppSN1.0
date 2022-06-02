@@ -12,8 +12,13 @@ const GitPage = () => {
     const [selectedU, setSelectedU] = useState<SearchUserType | null>(null)
     const [u, setU] = useState<SearchUserType[]>([] as SearchUserType[])
     const [tempSearch, setTempSearch] = useState<string>('')
-    const search = () => {
-        axios.get<SearchResult>(`https://api.github.com/search/users?q=${tempSearch}`)
+    const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            fetchData(tempSearch)
+        }
+    }
+    const fetchData = (term: string) => {
+        axios.get<SearchResult>(`https://api.github.com/search/users?q=${term}`)
             .then((res) => {
                 setU(res.data.items)
             })
@@ -25,10 +30,7 @@ const GitPage = () => {
     }, [selectedU])
 
     useEffect(() => {
-        axios.get<SearchResult>('https://api.github.com/search/users?q=it-kamasutra')
-            .then((res) => {
-                setU(res.data.items)
-            })
+        fetchData('it-kamasutra')
     }, [])
     return (
         <div style={{display: 'flex'}}>
@@ -36,8 +38,9 @@ const GitPage = () => {
                 <div>
                     <input type="text" placeholder={'saerch'}
                            value={tempSearch}
-                           onChange={(e) => setTempSearch(e.currentTarget.value)}/>
-                    <button onClick={search}>find</button>
+                           onChange={(e) => setTempSearch(e.currentTarget.value)}
+                           onKeyPress={(e) => onKeyPressHandler(e)}/>
+                    <button onClick={() => fetchData(tempSearch)}>find</button>
                 </div>
                 <ul>
                     {u.map((m) => {
