@@ -22,17 +22,6 @@ const Messages = React.lazy(() => import('./Components/Messages/Messages'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
 const ChatPage = React.lazy(() => import('./Pages/ChatPage'));
 
-// type  AppMapPropsType = ReturnType<typeof mapStateToProps>
-// type  AppDispatchPropsType = {
-//     initializAppThunkCreator: () => void
-// }
-
-// const items1: MenuProps['items'] = ['Profile', 'Developers', 'Settings'].map(key => ({
-//     key,
-//     label: key,
-// }));
-
-
 const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
     (icon, index) => {
         const keyS = String(index + 1);
@@ -62,122 +51,6 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
         };
     },
 );
-
-
-// class App extends Component<AppMapPropsType & AppDispatchPropsType> {
-//
-//     catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
-//         alert(`Some error occurred: ${promiseRejectionEvent}`)
-//     }
-//
-//     componentDidMount() {
-//         this.props.initializAppThunkCreator()
-//         window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
-//     }
-//
-//     componentWillUnmount() {
-//         window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
-//
-//     }
-//
-//     render() {
-//         if (!this.props.initialized) {
-//             return <Preloader/>
-//         }
-//         return (
-//             //     <div className="AppWrapper">
-//             //     <HeaderContainer/>
-//             //     <Routes>
-//             //         <Route path='/users' element={<Suspense fallback={<h1>Loading...</h1>}>
-//             //             <UsersPage/>
-//             //         </Suspense>}/>
-//             //         <Route path='/messages'
-//             //                element={<Suspense fallback={<h1>Loading...</h1>}>
-//             //                    <Messages/>
-//             //                </Suspense>}/>
-//             //         <Route path='/posts' element={<PostsContainer/>}/>
-//             //         <Route path='/profile/:userId'
-//             //                element={<ProfileContainer/>}/>
-//             //         <Route path='/AppSN1.0'
-//             //                element={<Suspense fallback={<h1>Loading...</h1>}>
-//             //                    <ProfileContainer/>
-//             //                </Suspense>}/>
-//             //         <Route path='/login' element={<LoginPage/>}/>
-//             //         <Route path='*' element={<div>Page not found 404
-//             //         <Button type={'primary'}>ok</Button>
-//             //         </div>}/>
-//             //     </Routes>
-//             //     <Redirect/>
-//             //     <Footer/>
-//             // </div>
-//
-//             <Layout>
-//                 <Header className="header">
-//                     <div className="logo"/>
-//                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1}/>
-//                 </Header>
-//                 <Layout>
-//                     <Sider width={200} className="site-layout-background">
-//                         <Menu
-//                             mode="inline"
-//                             defaultSelectedKeys={['0']}
-//                             // defaultOpenKeys={['sub1']}
-//                             style={{height: '100%', borderRight: 0}}
-//                             items={items2}
-//                         />
-//                     </Sider>
-//                     <Layout style={{padding: '0 24px 24px'}}>
-//                         <Breadcrumb style={{margin: '16px 0'}}>
-//                             <Breadcrumb.Item>Home</Breadcrumb.Item>
-//                             <Breadcrumb.Item>List</Breadcrumb.Item>
-//                             <Breadcrumb.Item>App</Breadcrumb.Item>
-//                         </Breadcrumb>
-//                         <Content
-//                             className="site-layout-background"
-//                             style={{
-//                                 padding: 24,
-//                                 margin: 0,
-//                                 minHeight: 280,
-//                             }}
-//                         >
-//
-//                             <Routes>
-//                                 <Route path='/users' element={<Suspense fallback={<h1>Loading...</h1>}>
-//                                     <UsersPage/>
-//                                 </Suspense>}/>
-//                                 <Route path={RoutesPath.messages}
-//                                        element={<Suspense fallback={<h1>Loading...</h1>}>
-//                                            <Messages/>
-//                                        </Suspense>}/>
-//                                 <Route path={RoutesPath.posts} element={<PostsContainer/>}/>
-//                                 <Route path={RoutesPath.profileWithID}
-//                                        element={<ProfileContainer/>}/>
-//                                 <Route path='/AppSN1.0'
-//                                        element={<Suspense fallback={<h1>Loading...</h1>}>
-//                                            <ProfileContainer/>
-//                                        </Suspense>}/>
-//                                 <Route path='/login' element={<LoginPage/>}/>
-//                                 <Route path='*' element={<div>Page not found 404
-//                                     <Button type={'primary'}>ok</Button>
-//                                 </div>}/>
-//                                 <Route path='*' element={<div>Page not found 404
-//                                     <Button type={'primary'}>ok</Button>
-//                                 </div>}/>
-//                             </Routes>
-//                             <Redirect/>
-//
-//                         </Content>
-//                     </Layout>
-//                 </Layout>
-//             </Layout>
-//         )
-//     }
-// }
-
-
-// const mapStateToProps = (state: AppStateType) => ({initialized: state.app.initialized})
-// const AppContainer = compose<React.ComponentType>(connect(mapStateToProps, {initializAppThunkCreator}))(App)
-
 export const SamuraiJSApp: React.FC = () => {
     return <BrowserRouter>
         <Provider store={store}>
@@ -186,6 +59,7 @@ export const SamuraiJSApp: React.FC = () => {
     </BrowserRouter>
 }
 
+export type PairArrayType = Array<[number, number]>
 
 export const AppG = () => {
     const dispatch = useDispatch()
@@ -196,6 +70,17 @@ export const AppG = () => {
     const catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
         alert(`Some error occurred: ${promiseRejectionEvent}`)
     }
+
+    const pairArray: PairArrayType = [
+        [12, 66],
+        [3, 66],
+        [57, 424],
+        [657, 66],
+        [423, 66],
+        [765, 423],
+        [4, 545],
+    ]
+
     useEffect(() => {
         const {pathname} = params.location
         pathname === RoutesPath.profile
@@ -275,7 +160,7 @@ export const AppG = () => {
                                 <Suspense fallback={<h1>Loading...</h1>}><ChatPage/>
                                 </Suspense>}/>
                             <Route path={RoutesPath.gamePage} element={
-                                <Suspense fallback={<h1>Loading...</h1>}><GamePage/>
+                                <Suspense fallback={<h1>Loading...</h1>}><GamePage pairArray={pairArray}/>
                                 </Suspense>}/>
                             <Route path='*' element={<div>Page not found 404
                                 <Button type={'primary'}>ok</Button>

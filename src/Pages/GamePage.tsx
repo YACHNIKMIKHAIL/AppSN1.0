@@ -8,8 +8,21 @@ import {getProfileThunkCreator} from "../Components/redux/profile-reducer";
 import {useNavigate} from "react-router-dom";
 import {RoutesPath} from "../RoutesPath";
 import {gameActions, initialOpponentType} from "../Components/redux/game-reducer";
+import {PairArrayType} from "../App";
 
-const GamePage = () => {
+const GamePage = ({pairArray}: { pairArray: PairArrayType }) => {
+    const findMaxPair = (pairArray: PairArrayType) => {
+        let maxPair: [number, number] | null = null
+        for (let i = 0; i < pairArray.length; i++) {
+            if (maxPair === null) {
+                maxPair = pairArray[i]
+            } else if (Math.max(pairArray[i][0], pairArray[i][1]) > Math.max(maxPair[0], maxPair[1])) {
+                maxPair = pairArray[i]
+            }
+        }
+        return maxPair
+    }
+
     const opponent = useSelector<AppStateType, initialOpponentType>(state => state.game)
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [opponentName, setOpponentName] = useState<string | null>(opponent.name)
@@ -18,19 +31,24 @@ const GamePage = () => {
     const myId = useSelector<AppStateType, number | null>(state => state.auth.id)
     const myName = useSelector<AppStateType, string>(state => state.profile.profile.fullName)
     const myPhotos = useSelector<AppStateType, PhotosType>(state => state.profile.profile.photos)
-    const [gamerOneCount, setGamerOneCount] = useState<number>(0)
-    const [gamerTwoCount, setGamerTwoCount] = useState<number>(0)
 
+    let nPair = findMaxPair(pairArray)
+    if (nPair === null) {
+        nPair = [0, 0]
+    }
+
+    const [gamerOneCount, setGamerOneCount] = useState<number>(nPair[0])
+    const [gamerTwoCount, setGamerTwoCount] = useState<number>(nPair[1])
     const addToGamerOne = () => {
-        setGamerOneCount(gamerOneCount + 1)
+        setGamerOneCount((actual) => actual + 1)
     }
     const addToGamerTwo = () => {
-        setGamerTwoCount(gamerTwoCount + 1)
+        setGamerTwoCount((actual) => actual + 1)
     }
     const removeCountFromAllGamers = () => {
         if (gamerOneCount < 0 || gamerTwoCount < 0) return
-        setGamerOneCount(gamerOneCount - 1)
-        setGamerTwoCount(gamerTwoCount - 1)
+        setGamerOneCount((actual) => actual - 1)
+        setGamerTwoCount((actual) => actual - 1)
     }
     const resetScoure = () => {
         setGamerOneCount(0)
@@ -105,7 +123,7 @@ const GamePage = () => {
 
 
             </div>
-            <button onClick={removeCountFromAllGamers}>-</button>
+            {opponentName !== null && <button onClick={removeCountFromAllGamers}>-</button>}
             {(gamerOneCount < 0 || gamerTwoCount < 0) && <button onClick={resetScoure}> reset game</button>}
         </div>
     );
