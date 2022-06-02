@@ -7,4 +7,5 @@ export enum RoutesPath{
     login='/login',
     chatPage='/chat',
     gamePage='/gamePage',
+    gitPage='/gitPage',
 }

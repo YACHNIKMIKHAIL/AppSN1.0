@@ -15,6 +15,7 @@ import {createBrowserHistory} from "history"
 import {RoutesPath} from "./RoutesPath";
 import {HeaderComponent} from "./Components/Header/Header";
 import GamePage from "./Pages/GamePage";
+import GitPage from "./Pages/GitPage";
 
 const {Content, Sider} = Layout;
 
@@ -38,7 +39,7 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
                 <Link to={RoutesPath.developers}> Contacts</Link>,
                 <Link to={RoutesPath.chatPage}> C H A T</Link>,
                 <Link to={RoutesPath.gamePage}> Game Page</Link>,
-                '3 blaaa-blaaa',
+                <Link to={RoutesPath.gitPage}> Git Page</Link>,
                 '3 blaaa-blaaa',
                 '3 blaaa-blaaa'
             ], 0, 3).map((e, j) => {
@@ -95,7 +96,9 @@ export const AppG = () => {
                             ? setOpenedKey(4)
                             : pathname === RoutesPath.gamePage
                                 ? setOpenedKey(6)
-                                : setOpenedKey(0)
+                                : pathname === RoutesPath.gitPage
+                                    ? setOpenedKey(7)
+                                    : setOpenedKey(0)
     }, [])
 
     useEffect(() => {
@@ -161,6 +164,9 @@ export const AppG = () => {
                                 </Suspense>}/>
                             <Route path={RoutesPath.gamePage} element={
                                 <Suspense fallback={<h1>Loading...</h1>}><GamePage pairArray={pairArray}/>
+                                </Suspense>}/>
+                            <Route path={RoutesPath.gitPage} element={
+                                <Suspense fallback={<h1>Loading...</h1>}><GitPage/>
                                 </Suspense>}/>
                             <Route path='*' element={<div>Page not found 404
                                 <Button type={'primary'}>ok</Button>
