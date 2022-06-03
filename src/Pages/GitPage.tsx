@@ -74,6 +74,7 @@ const GitPage = () => {
             <div>
                 <h2>login: {uDetails?.login}</h2>
                 <img src={uDetails?.avatar_url} alt={'cdjshg'}/>
+                folowers: {uDetails?.folowers}
             </div>
         </div>
     );
