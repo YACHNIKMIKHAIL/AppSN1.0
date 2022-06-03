@@ -69,7 +69,7 @@ export const AppG = () => {
     const params = createBrowserHistory()
 
     const catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
-        alert(`Some error occurred: ${promiseRejectionEvent}`)
+        //alert(`Some error occurred: ${promiseRejectionEvent}`)
     }
 
     const pairArray: PairArrayType = [
