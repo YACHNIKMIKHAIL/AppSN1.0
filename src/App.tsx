@@ -15,7 +15,7 @@ import {createBrowserHistory} from "history"
 import {RoutesPath} from "./RoutesPath";
 import {HeaderComponent} from "./Components/Header/Header";
 import GamePage from "./Pages/GamePage";
-import GitPage from "./Pages/GitPage";
+import GitPage from "./Pages/GitPage/GitPage";
 
 const {Content, Sider} = Layout;
 
