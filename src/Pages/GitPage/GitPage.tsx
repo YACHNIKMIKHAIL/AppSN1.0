@@ -20,8 +20,7 @@ const GitPage = () => {
     const initialSearchState: string = 'it-kamasutra'
     const [selectedU, setSelectedU] = useState<SearchUserType | null>(null)
     const [searchTerm, setSearchTerm] = useState<string>(initialSearchState)
-    console.log(selectedU)
-    console.log(searchTerm)
+
     return (
         <div style={{display: 'flex'}}>
             <div>

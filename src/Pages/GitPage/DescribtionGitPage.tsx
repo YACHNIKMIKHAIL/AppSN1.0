@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {SearchUserType, UserType} from "./GitPage";
 import axios from "axios";
+import GitTimer from "./GitTimer";
 
 const DescribtionGitPage: React.FC<{ selectedU: SearchUserType | null }> = ({selectedU}) => {
     const [uDetails, setUDetails] = useState<UserType | null>(null)
@@ -17,6 +18,7 @@ const DescribtionGitPage: React.FC<{ selectedU: SearchUserType | null }> = ({sel
 
     return (
         <div>
+            <GitTimer />
             {uDetails?.avatar_url && <img src={uDetails.avatar_url} alt={'cdjshg'}
                                           style={{height: '300px', width: '300px'}}/>}
 
@@ -24,8 +26,6 @@ const DescribtionGitPage: React.FC<{ selectedU: SearchUserType | null }> = ({sel
                 <h2>{uDetails?.login}</h2>
                 {uDetails?.followers && <h4> folowers: {uDetails.followers}</h4>}
             </div>
-
-
         </div>
     );
 };
