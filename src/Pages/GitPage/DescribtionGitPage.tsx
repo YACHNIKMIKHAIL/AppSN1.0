@@ -1,12 +1,23 @@
-import React from 'react';
-import {UserType} from "./GitPage";
+import React, {useEffect, useState} from 'react';
+import {SearchUserType, UserType} from "./GitPage";
+import axios from "axios";
 
-const DescribtionGitPage: React.FC<{ uDetails: UserType | null }> = ({uDetails}) => {
-    // const [uDetails, setUDetails] = useState<UserType | null>(null)
+const DescribtionGitPage: React.FC<{ selectedU: SearchUserType | null }> = ({selectedU}) => {
+    const [uDetails, setUDetails] = useState<UserType | null>(null)
+
+    useEffect(() => {
+        if (!!selectedU) {
+            axios.get<UserType>(`https://api.github.com/users/${selectedU.login}`)
+                .then((res) => {
+                    setUDetails(res.data)
+                })
+        }
+    }, [selectedU])
+
     return (
         <div>
-            <img src={uDetails?.avatar_url} alt={'cdjshg'}
-                 style={{height: '300px', width: '300px'}}/>
+            {uDetails?.avatar_url && <img src={uDetails.avatar_url} alt={'cdjshg'}
+                                         style={{height: '300px', width: '300px'}}/>}
 
             <div>
                 <h2>{uDetails?.login}</h2>

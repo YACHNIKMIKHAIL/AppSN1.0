@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {SearchResult, SearchUserType, UserType} from "./GitPage";
+import {SearchResult, SearchUserType} from "./GitPage";
 import axios from "axios";
 
 
