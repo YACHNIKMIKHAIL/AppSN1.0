@@ -12,7 +12,7 @@ type UserType = {
     login: string
     id: number
     avatar_url: string
-    folowers: number
+    followers: number
 }
 const GitPage = () => {
     const [selectedU, setSelectedU] = useState<SearchUserType | null>(null)
@@ -48,6 +48,7 @@ const GitPage = () => {
                 })
         }
     }, [selectedU])
+
     return (
         <div style={{display: 'flex'}}>
             <div>
@@ -72,9 +73,14 @@ const GitPage = () => {
                 </ul>
             </div>
             <div>
-                <h2>login: {uDetails?.login}</h2>
                 <img src={uDetails?.avatar_url} alt={'cdjshg'}/>
-                folowers: {uDetails?.folowers}
+
+                <div>
+                    <h2>{uDetails?.login}</h2>
+                    {uDetails?.followers && <h4> folowers: {uDetails.followers}</h4>}
+                </div>
+
+
             </div>
         </div>
     );
