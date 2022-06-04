@@ -21,6 +21,14 @@ const ItemGitPage: React.FC<{
             })
     }, [term])
 
+    useEffect(() => {
+        if (selectedU !== null) {
+            document.title = selectedU.login
+        } else {
+            document.title = 'no selected U'
+        }
+    }, [selectedU])
+
 
     return <ul>{
         users.map(m => {
