@@ -17,11 +17,12 @@ export type UserType = {
     followers: number
 }
 const GitPage = () => {
-    // const [selectedU, setSelectedU] = useState<SearchUserType | null>(null)
+    const initialSearchState: string = 'it-kamasutra'
+    const [selectedU, setSelectedU] = useState<SearchUserType | null>(null)
     const [uDetails, setUDetails] = useState<UserType | null>(null)
     const [u, setU] = useState<SearchUserType[]>([] as SearchUserType[])
     // const [tempSearch, setTempSearch] = useState<string>('it-kamasutra')
-    // const [searchTerm, setSearchTerm] = useState<string>('it-kamasutra')
+    const [searchTerm, setSearchTerm] = useState<string>(initialSearchState)
 
     // const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     //     if (e.key === 'Enter') {
@@ -54,7 +55,11 @@ const GitPage = () => {
     return (
         <div style={{display: 'flex'}}>
             <div>
-                <HeaderGitPage setU={setU}/>
+                <HeaderGitPage value={searchTerm} setFixedValue={setSearchTerm}/>
+                <button onClick={() => {
+                    setSearchTerm(initialSearchState)
+                }}>reset
+                </button>
                 {/*<div>*/}
                 {/*    <input type="text" placeholder={'saerch'}*/}
                 {/*           value={tempSearch}*/}
@@ -63,17 +68,18 @@ const GitPage = () => {
                 {/*    <button onClick={() => setSearchTerm(tempSearch)}>find</button>*/}
                 {/*</div>*/}
                 <div>
-                    {u.map((m) => {
-                            // return <li key={m.id}
-                            //            onClick={() => {
-                            //                setSelectedU(m)
-                            //
-                            //            }}
-                            //            style={selectedU === m ? {color: 'red'} : {}}>
-                            //     {m.login}</li>
-                            return <ItemGitPage key={m.id} m={m} setUDetails={setUDetails}/>
-                        }
-                    )}
+                    <ItemGitPage onUserSelect={setSelectedU} selectedU={selectedU} term={searchTerm}/>
+                    {/*{u.map((m) => {*/}
+                    {/*        // return <li key={m.id}*/}
+                    {/*        //            onClick={() => {*/}
+                    {/*        //                setSelectedU(m)*/}
+                    {/*        //*/}
+                    {/*        //            }}*/}
+                    {/*        //            style={selectedU === m ? {color: 'red'} : {}}>*/}
+                    {/*        //     {m.login}</li>*/}
+                    {/*        return <ItemGitPage key={m.id} m={m} setUDetails={setUDetails}/>*/}
+                    {/*    }*/}
+                    {/*)}*/}
                 </div>
             </div>
             <DescribtionGitPage uDetails={uDetails}/>

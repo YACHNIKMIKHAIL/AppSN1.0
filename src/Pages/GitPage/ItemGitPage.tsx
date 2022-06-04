@@ -1,31 +1,40 @@
 import React, {useEffect, useState} from 'react';
-import {SearchUserType, UserType} from "./GitPage";
+import {SearchResult, SearchUserType, UserType} from "./GitPage";
 import axios from "axios";
 
 
-const ItemGitPage: React.FC<{ m: SearchUserType, setUDetails: (data: UserType) => void }> = ({m, setUDetails}) => {
-    const [selectedU, setSelectedU] = useState<SearchUserType | null>(null)
+const ItemGitPage: React.FC<{
+    term: string, selectedU: SearchUserType | null, onUserSelect: (u: SearchUserType) => void
+}> = ({
+          term,
+          selectedU,
+          onUserSelect
+      }) => {
+
+    const [users, setUsers] = useState<SearchUserType[]>([] as SearchUserType[])
+
     useEffect(() => {
-        if (selectedU) {
-            document.title = selectedU.login
-        }
-    }, [selectedU])
-    useEffect(() => {
-        if (!!selectedU) {
-            axios.get<UserType>(`https://api.github.com/users/${selectedU.login}`)
-                .then((res) => {
-                    setUDetails(res.data)
-                })
-        }
-    }, [selectedU])
+        axios
+            .get<SearchResult>(`https://api.github.com/search/users?q=${term}`)
+            .then((res) => {
+                setUsers(res.data.items)
+            })
+    }, [term])
 
 
-    return <div onClick={() => {
-        setSelectedU(m)
-    }}
-                style={selectedU === m ? {color: 'red'} : {}}>
-        {m.login}
-    </div>
+    return <ul>{
+        users.map(m => {
+            return <li onClick={() => {
+                onUserSelect(m)
+            }}
+                       style={selectedU === m ? {color: 'red'} : {}}
+                       key={m.id}>
+                {m.login}
+            </li>
+        })
+    }</ul>
+
+
 };
 
 export default ItemGitPage;
