@@ -14,11 +14,12 @@ const DescribtionGitPage: React.FC<{ selectedU: SearchUserType | null }> = ({sel
                 })
         }
     }, [selectedU])
+
     if (selectedU === null) return <></>
 
     return (
         <div>
-            <GitTimer />
+            <GitTimer selectedU={selectedU}/>
             {uDetails?.avatar_url && <img src={uDetails.avatar_url} alt={'cdjshg'}
                                           style={{height: '300px', width: '300px'}}/>}
 
