@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {SearchUserType} from "./GitPage";
 
 const GitTimer: React.FC<{
     seconds: number,
     setSeconds: (s: number) => void,
-    selectedU: SearchUserType | null
+    timerKey: string
 }> = ({
           seconds,
           setSeconds,
-          selectedU
+          timerKey
       }) => {
     const [time, setTime] = useState<number>(seconds)
 
@@ -19,7 +18,7 @@ const GitTimer: React.FC<{
         return () => {
             clearInterval(intervalID)
         }
-    }, [selectedU])
+    }, [timerKey])
 
     useEffect(() => {
         setSeconds(time)

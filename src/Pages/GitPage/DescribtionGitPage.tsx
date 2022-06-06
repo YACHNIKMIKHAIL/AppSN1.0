@@ -27,7 +27,7 @@ const DescribtionGitPage: React.FC<{ selectedU: SearchUserType | null }> = ({sel
 
     return (
         <div>
-            {uDetails && <><GitTimer seconds={seconds} setSeconds={setSeconds} selectedU={selectedU}/>
+            {uDetails && <><GitTimer seconds={seconds} setSeconds={setSeconds} timerKey={String(selectedU.id)}/>
                 {uDetails?.avatar_url && <img src={uDetails.avatar_url} alt={'cdjshg'}
                                               style={{height: '300px', width: '300px'}}/>}
 
