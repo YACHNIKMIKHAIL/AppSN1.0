@@ -10,15 +10,15 @@ const DescribtionGitPage: React.FC<{ selectedU: SearchUserType | null }> = ({sel
     console.log(seconds)
 
     useEffect(() => {
-        if ( seconds < 0) setUDetails(null)
+        if (seconds < 0) setUDetails(null)
     }, [seconds])
 
     useEffect(() => {
         if (!!selectedU) {
             axios.get<UserType>(`https://api.github.com/users/${selectedU.login}`)
                 .then((res) => {
-                    setUDetails(res.data)
                     setSeconds(startTimerSeconds)
+                    setUDetails(res.data)
                 })
         }
     }, [selectedU])
@@ -27,7 +27,7 @@ const DescribtionGitPage: React.FC<{ selectedU: SearchUserType | null }> = ({sel
 
     return (
         <div>
-            {uDetails && <><GitTimer seconds={seconds} setSeconds={setSeconds}/>
+            {uDetails && <><GitTimer seconds={seconds} setSeconds={setSeconds} selectedU={selectedU}/>
                 {uDetails?.avatar_url && <img src={uDetails.avatar_url} alt={'cdjshg'}
                                               style={{height: '300px', width: '300px'}}/>}
 
