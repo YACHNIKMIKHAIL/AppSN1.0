@@ -1,7 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {SearchUserType} from "./GitPage";
+import {UserType} from "./GitPage";
 
-const GitTimer: React.FC<{ selectedU: SearchUserType | null }> = ({selectedU}) => {
+const GitTimer: React.FC<{ seconds: number, setSeconds: (s: number) => void, uDetails: UserType | null }> = ({
+                                                                                                                 seconds,
+                                                                                                                 setSeconds,
+                                                                                                                 uDetails
+                                                                                                             }) => {
     const [time, setTime] = useState<number>(10)
 
     useEffect(() => {
@@ -11,10 +15,13 @@ const GitTimer: React.FC<{ selectedU: SearchUserType | null }> = ({selectedU}) =
     }, [])
 
     useEffect(() => {
-        setTime(10)
-    }, [selectedU])
+        setSeconds(time)
+    }, [time])
 
-    if (selectedU === null) <></>
+    useEffect(() => {
+        setTime(seconds)
+    }, [seconds])
+
     return (
         <div>
             {time}
