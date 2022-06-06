@@ -4,16 +4,21 @@ import axios from "axios";
 import GitTimer from "./GitTimer";
 
 const DescribtionGitPage: React.FC<{ selectedU: SearchUserType | null }> = ({selectedU}) => {
+    const startTimerSeconds = 5
     const [uDetails, setUDetails] = useState<UserType | null>(null)
-    const [seconds, setSeconds] = useState<number>(10)
+    const [seconds, setSeconds] = useState<number>(startTimerSeconds)
+    console.log(seconds)
 
+    useEffect(() => {
+        if ( seconds < 0) setUDetails(null)
+    }, [seconds])
 
     useEffect(() => {
         if (!!selectedU) {
             axios.get<UserType>(`https://api.github.com/users/${selectedU.login}`)
                 .then((res) => {
                     setUDetails(res.data)
-                    setSeconds(10)
+                    setSeconds(startTimerSeconds)
                 })
         }
     }, [selectedU])
@@ -22,14 +27,15 @@ const DescribtionGitPage: React.FC<{ selectedU: SearchUserType | null }> = ({sel
 
     return (
         <div>
-            <GitTimer seconds={seconds} setSeconds={setSeconds} uDetails={uDetails}/>
-            {uDetails?.avatar_url && <img src={uDetails.avatar_url} alt={'cdjshg'}
-                                          style={{height: '300px', width: '300px'}}/>}
+            {uDetails && <><GitTimer seconds={seconds} setSeconds={setSeconds}/>
+                {uDetails?.avatar_url && <img src={uDetails.avatar_url} alt={'cdjshg'}
+                                              style={{height: '300px', width: '300px'}}/>}
 
-            <div>
-                <h2>{uDetails?.login}</h2>
-                {uDetails?.followers && <h4> folowers: {uDetails.followers}</h4>}
-            </div>
+                <div>
+                    <h2>{uDetails?.login}</h2>
+                    {uDetails?.followers && <h4> folowers: {uDetails.followers}</h4>}
+                </div>
+            </>}
         </div>
     );
 };
